@@ -30,6 +30,17 @@ header img{height:86px;margin-bottom:10px}
 .card em{display:inline-block;margin-top:18px;align-self:center;font-style:normal;font-size:10px;letter-spacing:.14em;
   text-transform:uppercase;color:#000;border-bottom:1px solid #000;padding-bottom:2px}
 .soon{opacity:.55;pointer-events:none}
+
+.trust{margin-top:60px}
+.trust .cap{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--grey)}
+.marq{overflow:hidden;position:relative;margin-top:20px;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:74px;align-items:center;width:max-content;animation:logoscroll 32s linear infinite}
+.marq:hover .track{animation-play-state:paused}
+.track img{height:44px;width:auto;opacity:.9}
+@keyframes logoscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.track{animation:none}}
 footer{margin-top:70px;font-size:11px;color:var(--grey);letter-spacing:.12em;text-transform:uppercase}
 footer a{color:#000}
 [data-l]{display:none}
@@ -72,6 +83,8 @@ consistent characters, staged products, campaigns delivered finished. Photograph
   <a class="card" href="devis-en.html"><b>Quote simulator</b><span>Build your project in pounds, get a live estimate, send the request.</span><em>Estimate my project</em></a>
   <a class="card" href="AI_Video_Brief_LouDenim.pdf" download><b>Video brief</b><span>The form to fill in so your video project starts on solid ground.</span><em>Download PDF</em></a>
 </div>
+
+<div class="trust"><p class="cap" data-l="fr">Ils m'ont fait confiance</p><p class="cap" data-l="en">Trusted by</p><div class="marq"><div class="track"><img src="img/logos/banga.png" alt="banga" loading="lazy"><img src="img/logos/kfc.png" alt="kfc" loading="lazy"><img src="img/logos/mcdonalds.png" alt="mcdonalds" loading="lazy"><img src="img/logos/pampryl.png" alt="pampryl" loading="lazy"><img src="img/logos/sosh.png" alt="sosh" loading="lazy"><img src="img/logos/banga.png" alt="banga" loading="lazy"><img src="img/logos/kfc.png" alt="kfc" loading="lazy"><img src="img/logos/mcdonalds.png" alt="mcdonalds" loading="lazy"><img src="img/logos/pampryl.png" alt="pampryl" loading="lazy"><img src="img/logos/sosh.png" alt="sosh" loading="lazy"></div></div></div>
 
 <footer>
   <p data-l="fr">© Lou Denim — Guadeloupe · <a href="https://www.loudenim.com" target="_blank" rel="noopener">Photographie&nbsp;: loudenim.com</a></p>
