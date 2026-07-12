@@ -28,7 +28,7 @@ header img{height:86px;margin-bottom:10px}
 .card b{display:block;font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:500}
 .card span{display:block;margin-top:7px;font-size:12px;font-weight:300;color:#555;line-height:1.5;flex:1}
 .card em{display:inline-block;margin-top:18px;align-self:center;font-style:normal;font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;color:#000;border-bottom:1px solid var(--blush3);padding-bottom:2px}
+  text-transform:uppercase;color:#000;border-bottom:1px solid #000;padding-bottom:2px}
 .soon{opacity:.55;pointer-events:none}
 footer{margin-top:70px;font-size:11px;color:var(--grey);letter-spacing:.12em;text-transform:uppercase}
 footer a{color:#000}
@@ -62,7 +62,7 @@ consistent characters, staged products, campaigns delivered finished. Photograph
 <div class="cards" data-l="fr">
   <a class="card" href="modeles.html"><b>Les modèles</b><span>32 visages créés par IA, cohérents image après image, prêts pour vos campagnes.</span><em>Voir le catalogue</em></a>
   <a class="card" href="grille.html"><b>Grille tarifaire</b><span>Tous les prix, clairs et sans surprise — consultable en ligne ou en PDF.</span><em>Voir les tarifs</em></a>
-  <a class="card" href="https://loudenim-devis-ia.tiiny.site" target="_blank" rel="noopener"><b>Simulateur de devis</b><span>Composez votre projet, le montant se calcule en direct, envoyez la demande.</span><em>Estimer mon projet</em></a>
+  <a class="card" href="devis.html"><b>Simulateur de devis</b><span>Composez votre projet, le montant se calcule en direct, envoyez la demande.</span><em>Estimer mon projet</em></a>
   <a class="card" href="Brief_Video_IA_LouDenim.pdf" download><b>Brief vidéo</b><span>Le formulaire à remplir pour lancer votre projet vidéo dans de bonnes conditions.</span><em>Télécharger le PDF</em></a>
 </div>
 
@@ -110,7 +110,7 @@ function newPath(){
   const P0=spots[i],P3=spots[j];
   const P1=[rnd(w*0.15,w*0.85),rnd(HH*0.05,HH*0.95)];
   const P2=[rnd(w*0.15,w*0.85),rnd(HH*0.05,HH*0.95)];
-  return {P:[P0,P1,P2,P3],dur:rnd(6.5,9)};
+  return {P:[P0,P1,P2,P3],dur:rnd(5,7)};
 }
 let path=newPath(),start=performance.now();
 function bez(P,u){const a=1-u;return[
@@ -118,7 +118,7 @@ function bez(P,u){const a=1-u;return[
  a*a*a*P[0][1]+3*a*a*u*P[1][1]+3*a*u*u*P[2][1]+u*u*u*P[3][1]];}
 function draw(now){
   let tt=(now-start)/1000/path.dur;
-  if(tt>1.35){path=newPath();start=now;tt=0;}
+  if(tt>1.08){path=newPath();start=now;tt=0;}
   ctx.clearRect(0,0,cv.width,cv.height);
   const trail=[];
   for(let s=0;s<=Math.min(tt,1);s+=0.02){
@@ -131,11 +131,12 @@ function draw(now){
       for(const q of trail){
         if(q.decay<=0)continue;
         const d=Math.hypot(x-q.p[0],y-q.p[1]);
-        if(d<150){const v=(1-d/150)*q.decay;if(v>lit)lit=v;}
+        if(d<210){const v=(1-d/210)*q.decay;if(v>lit)lit=v;}
       }
-      const o=(0.14+lit*0.8)*m;
-      ctx.beginPath();ctx.arc(x,y,1.1+lit*1.5,0,6.283);
-      ctx.fillStyle='rgba(126,133,137,'+o.toFixed(3)+')';
+      const o=(0.14+lit*0.86)*m;
+      const sh=Math.round(133-133*lit);
+      ctx.beginPath();ctx.arc(x,y,1.1+lit*1.7,0,6.283);
+      ctx.fillStyle='rgba('+sh+','+sh+','+Math.round(sh*1.03)+','+o.toFixed(3)+')';
       ctx.fill();
     }
   }
