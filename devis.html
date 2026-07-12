@@ -65,7 +65,7 @@
   .crosslinks a{color:#000;}
   footer{text-align:center;font-size:11px;color:var(--mute);letter-spacing:.1em;margin-top:40px;text-transform:uppercase;}
   footer a{color:#000;}
-#dotfx{position:absolute;top:0;left:0;width:100%;height:520px;z-index:-1;pointer-events:none}
+#dotfx{position:absolute;top:0;left:0;width:100%;height:430px;z-index:-1;pointer-events:none}
 @media (prefers-reduced-motion: reduce){#dotfx{display:none}}
 .socials{display:flex;gap:20px;justify-content:center;margin-top:16px}.socials a{color:#8a8f93;transition:color .15s}.socials a:hover{color:#E7549F}.socials svg{height:18px;width:18px;fill:currentColor;display:block}
 </style>
@@ -320,7 +320,7 @@ async function send(){
 calc();
 (function(){
 const cv=document.getElementById('dotfx');if(!cv)return;
-const ctx=cv.getContext('2d');const HH=520;
+const ctx=cv.getContext('2d');const HH=430;
 function sz(){cv.width=document.documentElement.clientWidth;cv.height=HH;}
 sz();addEventListener('resize',sz);
 const SP=34;

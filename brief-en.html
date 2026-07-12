@@ -8,7 +8,7 @@
 :root{--blush:#FBF1EF;--blush2:#F5E3DF;--blue:#E7EDF9;--blue2:#D9E3F5;--ink:#000;--grey:#666}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Jost',sans-serif;background:#fff;color:var(--ink);position:relative;line-height:1.55}
-#dotfx{position:absolute;top:0;left:0;width:100%;height:520px;z-index:-1;pointer-events:none}
+#dotfx{position:absolute;top:0;left:0;width:100%;height:440px;z-index:-1;pointer-events:none}
 @media (prefers-reduced-motion: reduce){#dotfx{display:none}}
 .wrap{max-width:860px;margin:0 auto;padding:0 20px 90px}
 header{padding:64px 0 8px;text-align:center}
@@ -184,7 +184,7 @@ async function sendBrief(){
 }
 (function(){
 const cv=document.getElementById('dotfx');if(!cv)return;
-const ctx=cv.getContext('2d');const HH=520;
+const ctx=cv.getContext('2d');const HH=440;
 function sz(){cv.width=document.documentElement.clientWidth;cv.height=HH;}
 sz();addEventListener('resize',sz);
 const SP=34;
