@@ -63,14 +63,14 @@ consistent characters, staged products, campaigns delivered finished. Photograph
   <a class="card" href="modeles.html"><b>Les modèles</b><span>32 visages créés par IA, cohérents image après image, prêts pour vos campagnes.</span><em>Voir le catalogue</em></a>
   <a class="card" href="grille.html"><b>Grille tarifaire</b><span>Tous les prix, clairs et sans surprise — consultable en ligne ou en PDF.</span><em>Voir les tarifs</em></a>
   <a class="card" href="devis.html"><b>Simulateur de devis</b><span>Composez votre projet, le montant se calcule en direct, envoyez la demande.</span><em>Estimer mon projet</em></a>
-  <a class="card" href="Brief_Video_IA_LouDenim.pdf" download><b>Brief vidéo</b><span>Le formulaire à remplir pour lancer votre projet vidéo dans de bonnes conditions.</span><em>Télécharger le PDF</em></a>
+  <a class="card" href="brief.html"><b>Brief vidéo</b><span>Le formulaire à remplir en ligne pour lancer votre projet vidéo dans de bonnes conditions.</span><em>Remplir le brief</em></a>
 </div>
 
 <div class="cards" data-l="en">
   <a class="card" href="models-en.html"><b>The models</b><span>32 AI-created faces, consistent frame after frame, ready for your campaigns.</span><em>View the catalogue</em></a>
   <a class="card" href="Rate_Card_LouDenim.pdf" download><b>Rate card</b><span>All prices, clear and upfront — download the PDF.</span><em>Download PDF</em></a>
   <a class="card soon" href="#"><b>Quote simulator</b><span>Build your project and get a live estimate — English version coming soon.</span><em>Coming soon</em></a>
-  <a class="card" href="AI_Video_Brief_LouDenim.pdf" download><b>Video brief</b><span>The form to fill in so your video project starts on solid ground.</span><em>Download PDF</em></a>
+  <a class="card" href="brief-en.html"><b>Video brief</b><span>The online form to fill in so your video project starts on solid ground.</span><em>Fill in the brief</em></a>
 </div>
 
 <footer>
@@ -95,44 +95,34 @@ const ctx=cv.getContext('2d');const HH=640;
 function sz(){cv.width=document.documentElement.clientWidth;cv.height=HH;}
 sz();addEventListener('resize',sz);
 const SP=34;
-function mask(x,y){
-  const cx=cv.width/2;
-  const dx=Math.max(0,Math.abs(x-cx)-150);
-  const dy=Math.max(0,y-(HH-40));
-  return Math.min(1,Math.hypot(dx,dy*2.2)/140);
-}
+function mask(x,y){const cx=cv.width/2;const dx=Math.max(0,Math.abs(x-cx)-150);const dy=Math.max(0,y-(HH-40));return Math.min(1,Math.hypot(dx,dy*2.2)/140);}
 function rnd(a,b){return a+Math.random()*(b-a);}
-function newPath(){
+function newPath(side){
   const w=cv.width;
-  const spots=[[w*0.03,HH*0.92],[w*0.97,HH*0.92],[w*0.03,HH*0.08],[w*0.97,HH*0.08],[w*0.03,HH*0.5],[w*0.97,HH*0.5]];
+  const x0=side==='L'?0.03:0.56, x1=side==='L'?0.44:0.97;
+  const spots=[[w*x0,HH*0.9],[w*x1,HH*0.9],[w*x0,HH*0.1],[w*x1,HH*0.1],[w*(x0+x1)/2,HH*0.5]];
   const i=Math.floor(Math.random()*spots.length);
-  let j;do{j=Math.floor(Math.random()*spots.length);}while(j===i||Math.abs(j-i)===1&&i<2&&j<2);
-  const P0=spots[i],P3=spots[j];
-  const P1=[rnd(w*0.15,w*0.85),rnd(HH*0.05,HH*0.95)];
-  const P2=[rnd(w*0.15,w*0.85),rnd(HH*0.05,HH*0.95)];
-  return {P:[P0,P1,P2,P3],dur:rnd(5,7)};
+  let j;do{j=Math.floor(Math.random()*spots.length);}while(j===i);
+  const P1=[rnd(w*x0,w*x1),rnd(HH*0.05,HH*0.95)];
+  const P2=[rnd(w*x0,w*x1),rnd(HH*0.05,HH*0.95)];
+  return {P:[spots[i],P1,P2,spots[j]],dur:rnd(5,7),start:performance.now()};
 }
-let path=newPath(),start=performance.now();
-function bez(P,u){const a=1-u;return[
- a*a*a*P[0][0]+3*a*a*u*P[1][0]+3*a*u*u*P[2][0]+u*u*u*P[3][0],
- a*a*a*P[0][1]+3*a*a*u*P[1][1]+3*a*u*u*P[2][1]+u*u*u*P[3][1]];}
+let comets=[newPath('L'),newPath('R')];
+comets[1].start=performance.now()-comets[1].dur*500;
+function bez(P,u){const a=1-u;return[a*a*a*P[0][0]+3*a*a*u*P[1][0]+3*a*u*u*P[2][0]+u*u*u*P[3][0],a*a*a*P[0][1]+3*a*a*u*P[1][1]+3*a*u*u*P[2][1]+u*u*u*P[3][1]];}
 function draw(now){
-  let tt=(now-start)/1000/path.dur;
-  if(tt>1.08){path=newPath();start=now;tt=0;}
   ctx.clearRect(0,0,cv.width,cv.height);
   const trail=[];
-  for(let s=0;s<=Math.min(tt,1);s+=0.02){
-    trail.push({p:bez(path.P,s),decay:Math.max(0,1-(tt-s)*2.2)});
-  }
+  comets.forEach((c,idx)=>{
+    let tt=(now-c.start)/1000/c.dur;
+    if(tt>1.08){comets[idx]=newPath(idx===0?'L':'R');c=comets[idx];tt=0;}
+    for(let s=0;s<=Math.min(tt,1);s+=0.02){trail.push({p:bez(c.P,s),decay:Math.max(0,1-(tt-s)*2.2)});}
+  });
   for(let x=SP/2;x<cv.width;x+=SP){
     for(let y=SP/2;y<HH-4;y+=SP){
       const m=mask(x,y);if(m<=0.02)continue;
       let lit=0;
-      for(const q of trail){
-        if(q.decay<=0)continue;
-        const d=Math.hypot(x-q.p[0],y-q.p[1]);
-        if(d<210){const v=(1-d/210)*q.decay;if(v>lit)lit=v;}
-      }
+      for(const q of trail){if(q.decay<=0)continue;const d=Math.hypot(x-q.p[0],y-q.p[1]);if(d<210){const v=(1-d/210)*q.decay;if(v>lit)lit=v;}}
       const o=(0.14+lit*0.86)*m;
       const sh=Math.round(133-133*lit);
       ctx.beginPath();ctx.arc(x,y,1.1+lit*1.7,0,6.283);
