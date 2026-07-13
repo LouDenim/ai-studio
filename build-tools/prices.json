@@ -1,0 +1,218 @@
+{
+ "_comment": "SOURCE UNIQUE des tarifs Lou Denim. Toute modification part d'ici : simulateur, grille en ligne, PDF FR/EN sont générés/synchronisés depuis ce fichier. Validé par Lou le 2026-07-12.",
+ "devise": "€",
+ "video": {
+  "scenes": {
+   "studio": {
+    "label": "Produit seul — studio",
+    "en": "Product only — studio",
+    "prix": [
+     350,
+     450,
+     550
+    ]
+   },
+   "environnement": {
+    "label": "Produit en environnement",
+    "en": "Product in an environment",
+    "prix": [
+     400,
+     500,
+     650
+    ]
+   },
+   "perso1": {
+    "label": "Produit + 1 personnage",
+    "en": "Product + 1 character",
+    "prix": [
+     550,
+     750,
+     1000
+    ]
+   },
+   "perso2": {
+    "label": "Produit + 2 personnages",
+    "en": "Product + 2 characters",
+    "prix": [
+     750,
+     950,
+     1200
+    ]
+   }
+  },
+  "durees": [
+   "≤ 15s",
+   "≤ 20s",
+   "30–40s"
+  ],
+  "durees_en": [
+   "≤ 15s",
+   "≤ 20s",
+   "30–40s"
+  ],
+  "resolutions": {
+   "720": 1.0,
+   "1080": 1.2,
+   "4k": 1.5
+  },
+  "styles": {
+   "note": "Photoréaliste / Animation 3D / Dessin animé 2D — même tarif",
+   "note_en": "Photorealistic / 3D animation / 2D cartoon — same rate"
+  }
+ },
+ "images": {
+  "produit_seul": 250,
+  "perso1_produit": 380,
+  "perso23_produit": 600,
+  "lot10": 900,
+  "note": "Lot de 5 minimum"
+ },
+ "effets": {
+  "morphing": {
+   "label": "Morphing / transformation — le produit se transforme, apparaît, se reconstruit",
+   "en": "Morphing / transformation",
+   "prix": 150
+  },
+  "decor": {
+   "label": "Changement de décor ou de saison — même scène, autre lieu, autre ambiance",
+   "en": "Set or season change",
+   "prix": 150
+  },
+  "lumiere": {
+   "label": "Changement de lumière — jour ↔ nuit, néon, golden hour",
+   "en": "Relighting — day ↔ night, neon, golden hour",
+   "prix": 150
+  },
+  "swap": {
+   "label": "Remplacement d'objet ou de couleur produit",
+   "en": "Object / product-colour swap",
+   "prix": 150
+  },
+  "motion": {
+   "label": "Motion design — titres animés, typographie, habillage graphique",
+   "en": "Motion design — animated titles, typography",
+   "prix": 150
+  }
+ },
+ "son_finitions": {
+  "voix": {
+   "label": "Voix off IA (FR / EN / ES)",
+   "en": "AI voice-over (FR / EN / ES)",
+   "prix": 100,
+   "des": true
+  },
+  "musique": {
+   "label": "Musique originale & sound design sur mesure",
+   "en": "Custom music & sound design",
+   "prix": 100,
+   "des": true
+  },
+  "endcard": {
+   "label": "Carte de fin — logo animé + signature sonore",
+   "en": "End card — animated logo + audio signature",
+   "prix": 150,
+   "des": false
+  },
+  "soustitres": {
+   "label": "Sous-titres",
+   "en": "Captions / subtitles",
+   "prix": 75,
+   "des": false
+  }
+ },
+ "personnages": {
+  "parlant": {
+   "label": "Personnage qui parle face caméra — voix + synchro labiale",
+   "en": "Character speaking to camera — voice + lip-sync",
+   "prix": 100,
+   "des": true
+  },
+  "dialogue": {
+   "label": "Dialogue entre 2 personnages",
+   "en": "2-character dialogue",
+   "prix": 200,
+   "des": true
+  },
+  "exclusivite": {
+   "label": "Droit d'exclusivité sur un personnage sur mesure — réservé à votre marque",
+   "en": "Exclusivity rights on a custom character",
+   "prix": 300,
+   "des": false
+  },
+  "note_inclus": "Personnage : casting, habillement, accessoires et mise en scène inclus.",
+  "note_inclus_en": "Character: casting, wardrobe, props and staging included."
+ },
+ "immobilier": {
+  "visite": {
+   "label": "Visite animée du bien — à partir de vos photos : mouvements de caméra, transitions, montage sur musique",
+   "en": "Animated property tour from your photos",
+   "prix": [
+    300,
+    400,
+    500
+   ],
+   "affichage_grille": "dès 300 €"
+  },
+  "personnage": {
+   "label": "Personnage ajouté — mise en vie du lieu",
+   "en": "Character added — bringing the place to life",
+   "prix": 150
+  },
+  "embellissement": {
+   "label": "Embellissement photo — ciel, lumière, pelouse, désencombrement",
+   "en": "Photo enhancement — sky, light, decluttering",
+   "prix": 25,
+   "des": true,
+   "unite": "photo"
+  },
+  "staging": {
+   "label": "Home staging virtuel — meubler une pièce vide ou relooker la déco",
+   "en": "Virtual home staging",
+   "prix": 75,
+   "des": true,
+   "unite": "photo"
+  },
+  "note_shoot": "Photos du bien à réaliser ? Prise de vue sur place possible.",
+  "note_shoot_en": "Need photos of the property? On-location shoot available."
+ },
+ "autres_options": {
+  "storyboard": {
+   "label": "Storyboard — validation avant production",
+   "prix": 150,
+   "des": true
+  },
+  "script": {
+   "label": "Script / concept",
+   "prix": 200,
+   "des": true
+  },
+  "revision": {
+   "label": "Tour de révision supplémentaire (au-delà des 2 inclus)",
+   "prix": "75–150",
+   "des": false
+  },
+  "urgence": {
+   "label": "Supplément urgence (livraison sous 48 h)",
+   "prix": "+30–50 %",
+   "des": false
+  }
+ },
+ "packs": {
+  "campagne": {
+   "label": "Pack campagne complète — 3 vidéos sur le même concept (Reel / Story / Feed)",
+   "prix": "1500–2000"
+  }
+ },
+ "socle": "Chaque vidéo est livrée finie : étalonnée, montée, sonorisée (musique d'illustration et effets sonores inclus) et exportée au format final de votre plateforme.",
+ "socle_en": "Every video is delivered finished: colour-graded, edited, sound-designed (library music and sound effects included) and exported in your platform's final format.",
+ "liens": {
+  "simulateur": "https://loudenim.github.io/ai-studio/devis.html",
+  "web3forms_key": "fbddfe3a-fa8b-49d4-bbe3-5b329a81dd67",
+  "email": "lou@loudenim.com",
+  "site": "https://loudenim.github.io/ai-studio/",
+  "catalogue": "https://loudenim.github.io/ai-studio/modeles.html",
+  "grille_web": "https://loudenim.github.io/ai-studio/grille.html",
+  "simulateur_legacy_tiiny": "https://loudenim-devis-ia.tiiny.site (ancienne adresse — redirige les clients vers le site)"
+ },
+ "devise_en": "£ (mêmes chiffres que l'EUR — décision Lou 12/07/2026 : tarif export UK, pas de conversion)"
+}

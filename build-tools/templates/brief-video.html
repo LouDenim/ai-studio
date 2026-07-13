@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="lou-denim.css">
+<title>LOU DENIM — Brief Vidéo IA</title>
+
+
+<style>
+  .form-head img { width: 40mm !important; margin-bottom: 6mm !important; }
+
+  .steps { display: flex; gap: 6mm; margin: 4mm 0 3mm 0; }
+  .steps > div { flex: 1; font-size: 7.5pt; line-height: 1.32; display: flex; align-items: flex-start; }
+  .steps b { flex: none; min-width: 5.5mm; background: #000; color: #fff; text-align: center; margin-right: 2mm; font-weight: 500; align-self: stretch; display: flex; align-items: center; justify-content: center; }
+
+  /* blush fill-zones — the original brief's blue boxes, in blush:
+     a thin blush rectangle above the stripe for one-line fields,
+     a full blush box for big write areas */
+  input.line { background: #FBF1EF !important; border-bottom: 0.5pt solid #000 !important; }
+  .field .line { background: #FBF1EF; }
+  textarea.area, .field .area { background: #FBF1EF !important; border: none !important; }
+  .checks input[type="checkbox"] { background: #fff !important; }
+
+  /* 3-column label alignment fix: equal label height keeps lines level */
+  .row .col > label { min-height: 7.5mm; }
+</style>
+<style>
+  .check-block { background: #FBF1EF; padding: 3.5mm 4mm 0.5mm 4mm; margin: 0 0 4.5mm 0; }
+  .check-block .field:last-child { margin-bottom: 2.5mm; }
+</style>
+</head>
+<body>
+
+<div class="form-head">
+  <img src="../assets/lou-denim-logo.svg" alt="Lou Denim">
+  <div class="head-rule"></div>
+  <p class="head-sub">Directeur artistique IA</p>
+  <div class="title-band">
+    <p class="doc-type">Brief Vidéo IA</p>
+    <p class="sub">Vous souhaitez faire une vidéo en intelligence artificielle&nbsp;?</p>
+  </div>
+</div>
+
+<div class="intro-box"><p>Ce formulaire me permet de comprendre précisément votre besoin avant de commencer.
+Remplissez-le autant que possible&nbsp;: chaque réponse évite un aller-retour,
+précise le devis et accélère la production. Un champ que vous ne connaissez pas encore&nbsp;?
+Écrivez simplement «&nbsp;à définir&nbsp;».</p>
+
+<div class="steps keep">
+  <div><b>1</b>Vous remplissez et renvoyez ce document.</div>
+  <div><b>2</b>Je vous propose un devis et un planning réalistes.</div>
+  <div><b>3</b>La production démarre au feu vert&nbsp;: devis signé + acompte.</div>
+</div>
+
+<p class="note" style="margin-bottom:0">Renvoyez ce formulaire complété à&nbsp;: lou@loudenim.com</p></div>
+
+<h2 class="band"><span class="sec-num">1</span>Vos coordonnées <span class="tag">Vous</span></h2>
+<div class="row">
+  <div class="col field"><label>Société / marque</label><input type="text" class="line"></div>
+  <div class="col field"><label>Personne à contacter</label><input type="text" class="line"></div>
+</div>
+<div class="row">
+  <div class="col field"><label>Fonction / rôle</label><input type="text" class="line"></div>
+  <div class="col field"><label>Date</label><input type="text" class="line"></div>
+</div>
+<div class="row">
+  <div class="col field"><label>Email</label><input type="text" class="line"></div>
+  <div class="col field"><label>Téléphone</label><input type="text" class="line"></div>
+</div>
+<div class="field"><label>Nom du projet</label><input type="text" class="line"></div>
+<div class="field"><label>Secteur d'activité <span class="hint">restauration, immobilier, mode, automobile…</span></label><input type="text" class="line"></div>
+<div class="field"><label>Site web <span class="hint">site du produit ou de l'entreprise</span></label><input type="text" class="line"></div>
+
+<h2 class="band"><span class="sec-num">2</span>Le projet <span class="tag">Le projet</span></h2>
+<div class="field"><label>Objectif de la vidéo <span class="hint">à quoi doit-elle servir&nbsp;? lancement, notoriété, promo, événement, recrutement…</span></label><textarea class="area"></textarea></div>
+<div class="field"><label>Message principal <span class="hint">si le spectateur ne retient qu'une seule chose, c'est quoi&nbsp;?</span></label><textarea class="area"></textarea></div>
+<div class="field"><label>Public cible <span class="hint">à qui s'adresse la vidéo&nbsp;? âge, profil, localisation, langue</span></label><input type="text" class="line"></div>
+<div class="field"><label>Action attendue <span class="hint">que doit faire le spectateur après&nbsp;? acheter, visiter, s'abonner, appeler…</span></label><input type="text" class="line"></div>
+
+<h2 class="band"><span class="sec-num">3</span>Le produit — si applicable <span class="tag">Le projet</span></h2>
+<div class="field"><label>Nom exact du produit <span class="hint">orthographe exacte + gamme / déclinaison</span></label><input type="text" class="line"></div>
+<div class="field"><label>Description du produit <span class="hint">ce que c'est, catégorie, à quoi ça sert</span></label><textarea class="area"></textarea></div>
+<div class="field"><label>Références visuelles du produit <span class="hint">photos HD, plusieurs angles, packshot fond blanc — lien Drive / WeTransfer</span></label><textarea class="area"></textarea></div>
+<p class="note keep">■&nbsp;&nbsp;Pas de référence produit = pas de garantie de fidélité.</p>
+<div class="field"><label>Couleur(s) exacte(s) <span class="hint">code Pantone / hex / RAL — produit ET packaging</span></label><input type="text" class="line"></div>
+<div class="field"><label>Format, dimensions, proportions <span class="hint">hauteur x largeur, contenance, ratio</span></label><input type="text" class="line"></div>
+<div class="field"><label>Matière et finition <span class="hint">mat / brillant / métallisé / transparent, texture, condensation…</span></label><input type="text" class="line"></div>
+<div class="field"><label>Variantes / déclinaisons à montrer <span class="hint">parfums, coloris, tailles…</span></label><input type="text" class="line"></div>
+<div class="field"><label>Packaging / étiquette <span class="hint">textes exacts à afficher, placement du logo, mentions légales, code-barres</span></label><input type="text" class="line"></div>
+<div class="field"><label>Éléments non-négociables <span class="hint">ce qui ne doit jamais changer&nbsp;: forme, proportions, position du logo, couleur</span></label><textarea class="area"></textarea></div>
+
+<h2 class="band"><span class="sec-num">4</span>Usage &amp; diffusion <span class="tag">Diffusion &amp; technique</span></h2>
+<div class="check-block">
+<div class="field">
+  <label>Où sera diffusée la vidéo&nbsp;?</label>
+  <div class="checks">
+    <label class="ck"><input type="checkbox"> Instagram</label><label class="ck"><input type="checkbox"> TikTok</label><label class="ck"><input type="checkbox"> YouTube</label><label class="ck"><input type="checkbox"> Facebook</label><label class="ck"><input type="checkbox"> LinkedIn</label><label class="ck"><input type="checkbox"> Site web</label><label class="ck"><input type="checkbox"> TV</label><label class="ck"><input type="checkbox"> Écran magasin / PLV</label><label class="ck"><input type="checkbox"> Cinéma</label><label class="ck"><input type="checkbox"> Autre</label>
+  </div>
+</div>
+</div>
+<div class="field"><label>Durée des droits d'utilisation souhaitée <span class="hint">6 mois, 1 an, illimité…</span></label><input type="text" class="line"></div>
+<div class="field"><label>Territoire <span class="hint">Royaume-Uni, États-Unis, France, international…</span></label><input type="text" class="line"></div>
+
+<h2 class="band"><span class="sec-num">5</span>Format &amp; spécifications <span class="tag">Diffusion &amp; technique</span></h2>
+<div class="check-block">
+<div class="field">
+  <label>Durée souhaitée de la vidéo</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> − de 15&nbsp;s</label><label class="ck"><input type="checkbox"> 20&nbsp;s</label><label class="ck"><input type="checkbox"> 30&nbsp;s</label><label class="ck"><input type="checkbox"> 40&nbsp;s</label><label class="ck"><input type="checkbox"> + de 40&nbsp;s</label><label class="ck"><input type="checkbox"> À définir</label></div>
+</div>
+<div class="field">
+  <label>Format / ratio</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> 16:9 paysage</label><label class="ck"><input type="checkbox"> 9:16 vertical</label><label class="ck"><input type="checkbox"> 1:1 carré</label><label class="ck"><input type="checkbox"> 4:5</label><label class="ck"><input type="checkbox"> À définir</label></div>
+</div>
+<div class="field">
+  <label>Résolution souhaitée</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> 720p</label><label class="ck"><input type="checkbox"> 1080p (Full HD)</label><label class="ck"><input type="checkbox"> 4K (UHD)</label><label class="ck"><input type="checkbox"> À définir</label></div>
+  <p class="note">La résolution influence directement le devis.</p>
+</div>
+<div class="field">
+  <label>Langue(s)</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> Français</label><label class="ck"><input type="checkbox"> Anglais</label><label class="ck"><input type="checkbox"> Autre</label></div>
+</div>
+<div class="field">
+  <label>Sous-titres&nbsp;?</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> Oui</label><label class="ck"><input type="checkbox"> Non</label><label class="ck"><input type="checkbox"> À définir</label></div>
+</div>
+<div class="field">
+  <label>Son</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> Voix-off</label><label class="ck"><input type="checkbox"> Musique</label><label class="ck"><input type="checkbox"> Dialogues</label><label class="ck"><input type="checkbox"> Sound design</label><label class="ck"><input type="checkbox"> Silencieux (sous-titré)</label></div>
+</div>
+
+</div>
+<h2 class="band"><span class="sec-num">6</span>Contenu &amp; script <span class="tag">Diffusion &amp; technique</span></h2>
+<div class="check-block">
+<div class="field">
+  <label>Avez-vous un script&nbsp;?</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> Oui, fourni</label><label class="ck"><input type="checkbox"> Non</label><label class="ck"><input type="checkbox"> À développer ensemble</label></div>
+</div>
+<div class="field">
+  <label>Souhaitez-vous un storyboard&nbsp;?</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> Oui</label><label class="ck"><input type="checkbox"> Non</label></div>
+</div>
+</div>
+<div class="field"><label>Textes, accroches, slogan imposés <span class="hint">tagline, mentions à afficher, hashtags…</span></label><textarea class="area"></textarea></div>
+<div class="field"><label>Plans / éléments obligatoires à l'écran <span class="hint">produit, logo, packaging, prix, adresse, mentions légales…</span></label><textarea class="area"></textarea></div>
+<div class="field"><label>Mentions légales / obligations <span class="hint">ex&nbsp;: «&nbsp;L'abus d'alcool…&nbsp;», mentions promotionnelles</span></label><input type="text" class="line"></div>
+
+<h2 class="band"><span class="sec-num">7</span>Direction créative — l'ambiance <span class="tag">Création</span></h2>
+<div class="field"><label>L'ambiance générale recherchée <span class="hint">énergique, premium, chaleureuse, fun, cinématographique, épurée, luxe, street… avec vos mots</span></label><textarea class="area"></textarea></div>
+<div class="field"><label>Références que vous aimez <span class="hint">liens YouTube / Instagram, noms de marques, moodboard</span></label><textarea class="area"></textarea></div>
+<div class="field"><label>Style visuel souhaité <span class="hint">réaliste, stylisé, animation, motion design, mix…</span></label><input type="text" class="line"></div>
+<div class="row">
+  <div class="col field"><label>Combien de personnages&nbsp;?</label><input type="text" class="line"></div>
+  <div class="col field"><label>Combien de produits&nbsp;?</label><input type="text" class="line"></div>
+  <div class="col field"><label>Combien d'environnements&nbsp;?</label><input type="text" class="line"></div>
+</div>
+<div class="field"><label>Description des personnages souhaités <span class="hint">genre, âge, look, énergie, tenue, ambiance…</span></label><textarea class="area"></textarea></div>
+<div class="row">
+  <div class="col field"><label>Lieux / décors souhaités</label><input type="text" class="line"></div>
+  <div class="col field"><label>Couleurs / charte à respecter</label><input type="text" class="line"></div>
+</div>
+
+<h2 class="band"><span class="sec-num">8</span>Les négatifs — à éviter absolument <span class="tag">Création</span></h2>
+<div class="field"><label>Ce que vous ne voulez PAS voir <span class="hint">visuels, clichés, styles, éléments interdits</span></label><textarea class="area"></textarea></div>
+<div class="field"><label>Restrictions de marque / sensibilités <span class="hint">concurrents, symboles, sujets à éviter, contraintes culturelles</span></label><textarea class="area"></textarea></div>
+<div class="field"><label>Ton à éviter <span class="hint">trop corporate, trop humoristique, trop agressif…</span></label><input type="text" class="line"></div>
+
+<h2 class="band"><span class="sec-num">9</span>Vos éléments disponibles <span class="tag">Organisation</span></h2>
+<div class="check-block">
+<div class="field">
+  <label>Éléments que vous pouvez fournir</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> Logo vectoriel</label><label class="ck"><input type="checkbox"> Charte graphique</label><label class="ck"><input type="checkbox"> Photos produits</label><label class="ck"><input type="checkbox"> Packaging</label><label class="ck"><input type="checkbox"> Vidéos existantes</label><label class="ck"><input type="checkbox"> Polices de marque</label><label class="ck"><input type="checkbox"> Musique / licence</label><label class="ck"><input type="checkbox"> Aucun</label></div>
+</div>
+</div>
+<div class="field"><label>Lien vers vos fichiers <span class="hint">Google Drive, WeTransfer, Dropbox…</span></label><input type="text" class="line"></div>
+
+<h2 class="band"><span class="sec-num">10</span>Délais <span class="tag">Organisation</span></h2>
+<div class="row">
+  <div class="col field"><label>Date de livraison souhaitée</label><input type="text" class="line"></div>
+  <div class="col field"><label>Dates clés / échéances</label><input type="text" class="line"></div>
+</div>
+<div class="check-block">
+<div class="field">
+  <label>Rounds de révisions attendus</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> 1</label><label class="ck"><input type="checkbox"> 2</label><label class="ck"><input type="checkbox"> 3</label><label class="ck"><input type="checkbox"> À définir</label></div>
+</div>
+<div class="field">
+  <label>Niveau d'urgence</label>
+  <div class="checks"><label class="ck"><input type="checkbox"> Standard</label><label class="ck"><input type="checkbox"> Prioritaire (délai serré — supplément)</label><label class="ck"><input type="checkbox"> Flexible</label></div>
+</div>
+
+</div>
+<h2 class="band"><span class="sec-num">11</span>Notes libres <span class="tag">Organisation</span></h2>
+<div class="field"><label>Tout ce que je devrais savoir et qui n'entre pas dans les cases ci-dessus</label><textarea class="area" style="height:30mm"></textarea></div>
+
+<div class="rule"></div>
+<div class="keep">
+<h3>Modalités</h3>
+<p>La production démarre uniquement à réception de ce brief validé, du devis signé et de
+l'acompte. Un brief complet me permet de vous proposer un devis juste et un planning
+réaliste. Sans brief clair, aucun projet ne démarre, c'est ce qui garantit un résultat
+à la hauteur.</p>
+<div class="row">
+  <div class="col field"><label>Brief rempli par</label><input type="text" class="line"></div>
+  <div class="col field"><label>Date</label><input type="text" class="line"></div>
+</div>
+</div>
+
+<p class="note" style="text-align:center;margin-top:5mm"><strong>lou@loudenim.com</strong>&nbsp;&nbsp;·&nbsp;&nbsp;+590 (0)690 299 544&nbsp;&nbsp;·&nbsp;&nbsp;loudenim.com&nbsp;&nbsp;·&nbsp;&nbsp;@loudenim</p>
+</body>
+</html>

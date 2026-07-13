@@ -1,0 +1,329 @@
+/* ==========================================================
+   LOU DENIM — document template (gallery white, pure B&W)
+   A4 portrait, print-safe pagination. Font: Jost.
+   Asset paths are relative to this file's parent directory.
+   ========================================================== */
+
+@font-face {
+  font-family: 'Jost';
+  src: url('../assets/fonts/jost-latin-300-normal.woff2') format('woff2');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Jost';
+  src: url('../assets/fonts/jost-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Jost';
+  src: url('../assets/fonts/jost-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+}
+
+/* ---------- page geometry ---------- */
+@page {
+  size: A4;
+  margin: 24mm 20mm 26mm 20mm;
+
+  @bottom-left {
+    content: "LOU DENIM — loudenim.com";
+    font-family: 'Jost';
+    font-weight: 400;
+    font-size: 7pt;
+    letter-spacing: 0.18em;
+    color: #000;
+    text-transform: uppercase;
+  }
+  @bottom-right {
+    content: counter(page) " / " counter(pages);
+    font-family: 'Jost';
+    font-weight: 400;
+    font-size: 7pt;
+    letter-spacing: 0.12em;
+    color: #000;
+  }
+}
+
+/* cover page: no header/footer, full bleed feel */
+@page cover {
+  margin: 0;
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+}
+
+/* ---------- base ---------- */
+html, body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 10pt;
+  line-height: 1.65;
+  color: #000;
+  background: #fff;
+  margin: 0;
+}
+
+/* ---------- print-safety rules (the whole point) ---------- */
+h1, h2, h3 { break-after: avoid; }          /* a heading never orphans at a page bottom */
+p  { orphans: 3; widows: 3; }               /* no lonely lines across breaks */
+.block, .keep { break-inside: avoid; }      /* mark any box that must stay whole */
+table { border-collapse: collapse; width: 100%; }
+thead { display: table-header-group; }      /* table header repeats on every page */
+tr    { break-inside: avoid; }              /* a row never splits across pages */
+figure, img { break-inside: avoid; }
+
+/* ---------- cover ---------- */
+.cover {
+  page: cover;
+  height: 297mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  break-after: page;
+}
+.cover .logo { width: 88mm; margin-bottom: 26mm; }
+.cover .doc-type {
+  font-weight: 300;
+  font-size: 11pt;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  margin: 0 0 6mm 0;
+  padding-top: 8mm;
+  border-top: 0.4pt solid #000;
+}
+.cover .doc-title {
+  font-weight: 400;
+  font-size: 19pt;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+.cover .doc-meta {
+  position: absolute;
+  bottom: 18mm;
+  left: 0; right: 0;
+  font-weight: 400;
+  font-size: 8pt;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* ---------- inner-page letterhead ---------- */
+.letterhead {
+  text-align: center;
+  margin-bottom: 12mm;
+}
+.letterhead img { width: 26mm; }
+.letterhead::after {
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: 0.4pt solid #000;
+  margin-top: 5mm;
+}
+
+/* ---------- typography ---------- */
+h1 {
+  font-weight: 300;
+  font-size: 17pt;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin: 0 0 9mm 0;
+}
+h2 {
+  font-weight: 500;
+  font-size: 10.5pt;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-top: 0.9pt solid #000;
+  padding-top: 3.5mm;
+  margin: 11mm 0 4mm 0;
+}
+h3 {
+  font-weight: 500;
+  font-size: 9.5pt;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 7mm 0 2.5mm 0;
+}
+p { margin: 0 0 3.5mm 0; }
+.lead { font-weight: 300; font-size: 11.5pt; line-height: 1.7; }
+.small, .note { font-size: 8pt; letter-spacing: 0.04em; }
+ul { margin: 0 0 4mm 0; padding-left: 5mm; }
+li { margin-bottom: 1.5mm; }
+
+/* ---------- tables (rate cards, forms) ---------- */
+th {
+  font-weight: 500;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: left;
+  border-top: 1pt solid #000;
+  border-bottom: 0.6pt solid #000;
+  padding: 2.6mm 3mm;
+}
+td {
+  font-size: 9.5pt;
+  border-bottom: 0.3pt solid #000;
+  padding: 2.4mm 3mm;
+  vertical-align: top;
+}
+td.num, th.num { text-align: right; }
+tr.total td {
+  border-top: 1pt solid #000;
+  border-bottom: none;
+  font-weight: 500;
+}
+
+/* ---------- form fields (formulaire de brief) ---------- */
+.field { margin-bottom: 4.5mm; break-inside: avoid; }
+.field > label {
+  display: block;
+  font-weight: 500;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 2mm;
+}
+.field .line {
+  border-bottom: 0.5pt solid #000;
+  height: 6mm;
+  background: #FBF1EF;
+}
+.field .area {
+  border: none;
+  height: 22mm;
+  background: #FBF1EF;
+}
+
+/* ---------- form layout: rows, checkboxes ---------- */
+.row { display: flex; gap: 7mm; }
+.row .col { flex: 1; }
+.checks { margin: 1.5mm 0 4mm 0; break-inside: avoid; }
+.checks span {
+  display: inline-block;
+  margin: 0 6mm 2mm 0;
+  font-size: 9pt;
+}
+.checks span::before {
+  content: "";
+  display: inline-block;
+  width: 3.2mm; height: 3.2mm;
+  border: 0.5pt solid #000;
+  margin-right: 2.2mm;
+  vertical-align: -0.4mm;
+}
+.hint { font-weight: 300; font-size: 8pt; color: #000; font-style: normal; letter-spacing: 0.02em; text-transform: none; }
+.numbered { counter-reset: none; }
+.sec-num {
+  display: inline-block;
+  min-width: 5.5mm;
+  background: #000; color: #fff;
+  font-size: 8.5pt; text-align: center;
+  padding: 0.8mm 1mm;
+  margin-right: 3mm;
+  letter-spacing: 0;
+}
+
+/* ---------- utilities ---------- */
+.page-break { break-before: page; }
+.rule { border-top: 0.4pt solid #000; margin: 8mm 0; }
+.center { text-align: center; }
+
+/* ---------- interactive form widgets (build with --pdf-forms) ---------- */
+input.line {
+  display: block; width: 100%; height: 6mm;
+  border: none; border-bottom: 0.5pt solid #000;
+  background: #FBF1EF;
+  font-family: 'Jost'; font-size: 10pt;
+}
+textarea.area {
+  display: block; width: 100%; height: 22mm;
+  border: none; background: #FBF1EF;
+  font-family: 'Jost'; font-size: 10pt;
+}
+.checks label.ck { display: inline-block; margin: 0 6mm 2mm 0; font-size: 9pt; }
+.checks input[type="checkbox"] {
+  display: inline-block;
+  width: 3.2mm; height: 3.2mm;
+  border: 0.5pt solid #000;
+  margin-right: 2.2mm; vertical-align: -0.4mm;
+  background: transparent;
+}
+
+/* ==========================================================
+   C2 "STUDIO BLUSH" SYSTEM — locked with Lou 2026-07-11
+   Rules: BLACK bands = section navigation · BLUSH = titles/headers
+   ONLY (never content rows) · GRAY zebra = readability.
+   Blush scale: --blush-1 #FBF1EF light (large surfaces, title box)
+                --blush-2 #F5E3DF medium (table headers, tabs)
+                --blush-3 #EBC9C3 dark (the ONE top-tier element per page)
+   ========================================================== */
+
+/* document header: logo on white, title in a light blush box */
+.form-head { text-align: center; margin-bottom: 9mm; }
+.form-head img { display: block; width: 40mm; margin: 0 auto 2.5mm auto; }
+.form-head .title-box { display: inline-block; background: #FBF1EF; padding: 3.5mm 9mm; margin: 0 0 5mm 0; }
+.form-head .doc-type { font-weight: 300; font-size: 14pt; letter-spacing: 0.38em; text-transform: uppercase; margin: 0 0 1mm 0; }
+.form-head .sub { font-weight: 400; font-size: 8.5pt; letter-spacing: 0.24em; text-transform: uppercase; margin: 0; }
+.form-head .contact { font-size: 7.5pt; letter-spacing: 0.08em; margin-top: 2mm; }
+
+/* black section bands */
+h2.band { background: #000; color: #fff; border-top: none; padding: 2.6mm 4mm; margin: 9mm 0 4mm 0; border-radius: 2.5mm; }
+h2.band .tag { float: right; font-size: 7pt; letter-spacing: 0.16em; font-weight: 400; color: #fff; }
+h2.band .sec-num { background: #fff; color: #000; }
+
+/* blush table headers, gray zebra content */
+th { background: #F5E3DF; border-top: none; }
+tbody tr:nth-child(even) td { background: #F7F7F7; }
+
+/* tier chips: blush scale rises with the tier */
+.chips { display: flex; gap: 4mm; margin: 4mm 0; break-inside: avoid; }
+.chip { flex: 1; text-align: center; padding: 3mm 2mm; }
+.chip b { display: block; font-weight: 500; font-size: 9.5pt; letter-spacing: 0.1em; text-transform: uppercase; }
+.chip span { font-size: 8pt; letter-spacing: 0.12em; }
+.chip.c1 { background: #FBF1EF; }
+.chip.c2 { background: #F5E3DF; }
+.chip.c3 { background: #EBC9C3; }
+
+/* black pack/offer bands */
+.pack { display: flex; align-items: baseline; gap: 4mm; padding: 3mm 4mm; margin: 4mm 0; break-inside: avoid; background: #DDDAD8; color: #000; }
+.pack b { font-weight: 500; font-size: 9pt; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
+.pack .desc { flex: 1; font-size: 9pt; }
+.pack .price { font-weight: 500; font-size: 10pt; white-space: nowrap; }
+
+/* bordered conditions block with blush tab heading */
+.conditions { border: 0.5pt solid #000; padding: 4mm 5mm; margin-top: 7mm; break-inside: avoid; }
+.conditions h3 { background: #F5E3DF; display: inline-block; padding: 1mm 3mm; margin-top: 0; }
+.conditions p { font-size: 8pt; line-height: 1.7; margin-bottom: 1.5mm; }
+
+/* light gray intro box (forms: the 'how it works' 1-2-3) */
+.intro-box { background: #F7F7F7; padding: 4mm 5mm; margin-bottom: 6mm; break-inside: avoid; }
+
+/* section cards — for FORM/big-block documents (not table docs):
+   white page, black band, blush card body, white write-zones */
+.sec-card { background: #FBF1EF; padding: 1mm 5mm 4mm 5mm; margin: 0 -5mm 7mm -5mm; }
+.sec-card h2.band { margin-top: 3mm; }
+.sec-card textarea.area, .sec-card .field .area { background: #fff; }
+.sec-card .checks input[type="checkbox"] { background: #fff; }
+
+/* document title band: WHITE ON BLACK, full content width — the answer to
+   "what is this PDF about" must be the strongest element after the logo */
+.title-band { background: #000; color: #fff; text-align: center; padding: 4mm 4mm 3.5mm 4mm; margin: 0 0 4mm 0; border-radius: 4mm; }
+.title-band .doc-type { font-weight: 300; font-size: 18pt; letter-spacing: 0.34em; text-transform: uppercase; margin: 0 0 1mm 0; color: #fff; }
+.title-band .sub { font-weight: 300; font-size: 8.5pt; letter-spacing: 0.26em; text-transform: uppercase; margin: 0; color: #fff; }
+
+/* blush check-block: a group of checkbox questions in one blush square */
+.check-block { background: #FBF1EF; padding: 3.5mm 4mm 0.5mm 4mm; margin: 0 0 4.5mm 0; }
+.check-block .field:last-child { margin-bottom: 2.5mm; }
+
+/* s minuscule dans les en-têtes de durée (sinon uppercase → ressemble à $) */
+th .lc { text-transform: none; }
+/* respiration entre la table vidéo et ses notes */
+.note.mt { margin-top: 3.5mm; }
+
+/* en-tête famille : logo -> filet -> directeur artistique IA -> contact -> titre */
+.head-rule { width: 62mm; height: 0.35mm; background: #000; margin: 1mm auto 2.2mm auto; }
+.head-sub { text-align: center; font-size: 8.5pt; letter-spacing: 0.24em; text-transform: uppercase; color: #000; margin: 0 0 2mm 0; }
+.form-head .contact { margin-bottom: 4mm; }
