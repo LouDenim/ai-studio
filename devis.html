@@ -299,13 +299,13 @@ function calc(){
 function renderPacks(){
   const el=document.getElementById('packs');if(!el)return;
   const vt=window._videoTotal||0;
-  if(vt<=0){el.innerHTML='<p class="packhint">Configurez une vidéo pour voir les tarifs de pack (3 ou 10 vidéos).</p>';return;}
-  const p3=Math.round(vt*0.8), p10=Math.round(vt*0.6);
+  if(vt<=0){el.innerHTML='<p class="packhint">Configurez une vidéo pour voir les tarifs de pack (3 ou 5 vidéos).</p>';return;}
+  const p3=Math.round(vt*0.85), p5=Math.round(vt*0.75);
   el.innerHTML=
     '<div class="packlab">Vous en voulez plusieurs&nbsp;?</div>'+
     '<div class="pkgrid">'+
-      '<div class="pk a"><div class="t">Pack de 3 vidéos</div><div class="s">−20 %</div><div class="pv">'+eur(p3)+'<small> / vidéo</small></div><div class="tt">3 vidéos&nbsp;: '+eur(p3*3)+'</div></div>'+
-      '<div class="pk b"><div class="t">Pack de 10 vidéos</div><div class="s">−40 %</div><div class="pv">'+eur(p10)+'<small> / vidéo</small></div><div class="tt">10 vidéos&nbsp;: '+eur(p10*10)+'</div></div>'+
+      '<div class="pk a"><div class="t">Pack de 3 vidéos</div><div class="s">−15 %</div><div class="pv">'+eur(p3)+'<small> / vidéo</small></div><div class="tt">3 vidéos&nbsp;: '+eur(p3*3)+'</div></div>'+
+      '<div class="pk b"><div class="t">Pack de 5 vidéos</div><div class="s">−25 %</div><div class="pv">'+eur(p5)+'<small> / vidéo</small></div><div class="tt">5 vidéos&nbsp;: '+eur(p5*5)+'</div></div>'+
     '</div>'+
     '<p class="packnote">Tarifs indicatifs pour des vidéos similaires, ajustés selon vos besoins.</p>';
 }

@@ -299,13 +299,13 @@ function calc(){
 function renderPacks(){
   const el=document.getElementById('packs');if(!el)return;
   const vt=window._videoTotal||0;
-  if(vt<=0){el.innerHTML='<p class="packhint">Configure a video to see pack rates (3 or 10 videos).</p>';return;}
-  const p3=Math.round(vt*0.8), p10=Math.round(vt*0.6);
+  if(vt<=0){el.innerHTML='<p class="packhint">Configure a video to see pack rates (3 or 5 videos).</p>';return;}
+  const p3=Math.round(vt*0.85), p5=Math.round(vt*0.75);
   el.innerHTML=
     '<div class="packlab">Ordering several&nbsp;?</div>'+
     '<div class="pkgrid">'+
-      '<div class="pk a"><div class="t">Pack of 3 videos</div><div class="s">−20%</div><div class="pv">'+eur(p3)+'<small> / video</small></div><div class="tt">3 videos: '+eur(p3*3)+'</div></div>'+
-      '<div class="pk b"><div class="t">Pack of 10 videos</div><div class="s">−40%</div><div class="pv">'+eur(p10)+'<small> / video</small></div><div class="tt">10 videos: '+eur(p10*10)+'</div></div>'+
+      '<div class="pk a"><div class="t">Pack of 3 videos</div><div class="s">−15%</div><div class="pv">'+eur(p3)+'<small> / video</small></div><div class="tt">3 videos: '+eur(p3*3)+'</div></div>'+
+      '<div class="pk b"><div class="t">Pack of 5 videos</div><div class="s">−25%</div><div class="pv">'+eur(p5)+'<small> / video</small></div><div class="tt">5 videos: '+eur(p5*5)+'</div></div>'+
     '</div>'+
     '<p class="packnote">Indicative rates for similar videos, adjusted to your needs.</p>';
 }
