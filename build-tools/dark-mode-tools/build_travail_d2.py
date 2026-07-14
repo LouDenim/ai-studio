@@ -1,8 +1,8 @@
 import re, json
 A = json.load(open('/root/homepage-mockups/assets.json'))
 
-# real video IDs from the production travail.html
-htmlfr = open('/root/catalogue-models/travail.html').read()
+# real video IDs from the production portfolio.html (renamed from travail.html 14 Jul 2026)
+htmlfr = open('/root/catalogue-models/portfolio.html').read()
 IDS_169 = re.findall(r'v169" data-id="([^"]+)"', htmlfr)
 IDS_916 = re.findall(r'v916" data-id="([^"]+)"', htmlfr)
 if not IDS_169:

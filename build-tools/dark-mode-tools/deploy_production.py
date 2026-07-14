@@ -11,16 +11,16 @@ PROD_DIR = "/root/catalogue-models/"
 # mockup filename -> production filename (order: -en variants first, harmless either way
 # since these are distinct full strings, but keeping it explicit/readable)
 RENAME_MAP = [
-    ("mockup-d20-en.html", "index-en.html"),
-    ("mockup-d20.html", "index.html"),
+    ("mockup-d20-en.html", "home-en.html"),
+    ("mockup-d20.html", "home.html"),
     ("mockup-models-d2-en.html", "models-en.html"),
     ("mockup-models-d2.html", "modeles.html"),
-    ("mockup-travail-d2-en.html", "travail-en.html"),
-    ("mockup-travail-d2.html", "travail.html"),
-    ("mockup-grille-en-preview.html", "grille-en.html"),
-    ("mockup-grille-preview.html", "grille.html"),
-    ("mockup-devis-en-preview.html", "devis-en.html"),
-    ("mockup-devis-preview.html", "devis.html"),
+    ("mockup-travail-d2-en.html", "portfolio-en.html"),
+    ("mockup-travail-d2.html", "portfolio.html"),
+    ("mockup-grille-en-preview.html", "rate-en.html"),
+    ("mockup-grille-preview.html", "rate.html"),
+    ("mockup-devis-en-preview.html", "simulator-en.html"),
+    ("mockup-devis-preview.html", "simulator.html"),
     ("mockup-brief-en-preview.html", "brief-en.html"),
     ("mockup-brief-preview.html", "brief.html"),
 ]

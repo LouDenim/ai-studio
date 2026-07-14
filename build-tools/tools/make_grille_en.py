@@ -11,8 +11,8 @@ REP = [
  ('<p class="sub">Directeur artistique IA</p>', '<p class="sub">AI Creative Director</p>'),
  ('Grille Tarifaire<small>Services créatifs IA</small>', 'Rate Card<small>AI creative services</small>'),
  # header actions
- ('href="devis.html" target="_blank" rel="noopener">Estimer votre projet — simulateur</a>',
-  'href="devis-en.html" target="_blank" rel="noopener">Estimate your project — simulator</a>'),
+ ('href="simulator.html" target="_blank" rel="noopener">Estimer votre projet — simulateur</a>',
+  'href="simulator-en.html" target="_blank" rel="noopener">Estimate your project — simulator</a>'),
  ('href="Grille_Tarifaire_LouDenim.pdf" download>Télécharger le PDF</a>',
   'href="Rate_Card_LouDenim.pdf" download>Download the PDF</a>'),
  ('href="modeles.html">Catalogue de modèles</a>', 'href="models-en.html">Model catalogue</a>'),
@@ -114,10 +114,10 @@ REP = [
  ('<strong>Acompte de 50&nbsp;%</strong> avant démarrage. · Aucun travail sans brief validé et accord signé.',
   '<strong>50% deposit</strong> before starting. · No work begins without a validated brief and signed agreement.'),
  # footer
- ('Envie de voir&nbsp;? <a href="travail.html">Le travail en images</a>',
-  'Want to see? <a href="travail-en.html">The work</a>'),
- ('Un projet ? <a href="devis.html" target="_blank" rel="noopener">Estimez-le en ligne</a> ou écrivez à',
-  'A project? <a href="devis-en.html" target="_blank" rel="noopener">Estimate it online</a> or write to'),
+ ('Envie de voir&nbsp;? <a href="portfolio.html">Le travail en images</a>',
+  'Want to see? <a href="portfolio-en.html">The work</a>'),
+ ('Un projet ? <a href="simulator.html" target="_blank" rel="noopener">Estimez-le en ligne</a> ou écrivez à',
+  'A project? <a href="simulator-en.html" target="_blank" rel="noopener">Estimate it online</a> or write to'),
 ]
 miss = 0
 for a, b in REP:

@@ -48,56 +48,63 @@ which are language-specific files linked from the toggle.
 
 | File | What it is | Language |
 |---|---|---|
-| `index.html` | Home / landing — dark "Direction D" design (hero, typewriter bio, trusted-by logos, Portfolio/Models boxes, 3 tool cards) | FR |
-| `index-en.html` | Home / landing, same design | EN |
+| `home.html` | Home / landing — dark "Direction D" design (hero, typewriter bio, trusted-by logos, Portfolio/Models boxes, 3 tool cards) | FR |
+| `home-en.html` | Home / landing, same design | EN |
 | `modeles.html` | Model catalogue — dark design (face grid, category filter pills → click → character sheet) | FR |
 | `models-en.html` | Model catalogue | EN |
-| `grille.html` | Rate card, online (interactive page + buttons) | FR |
-| `grille-en.html` | Rate card, online (£ prices, same numbers) | EN |
-| `devis.html` | Quote simulator (build project, live total, send) | FR (€) |
-| `devis-en.html` | Quote simulator | EN (£, same numbers) |
+| `rate.html` | Rate card, online (interactive page + buttons) | FR |
+| `rate-en.html` | Rate card, online (£ prices, same numbers) | EN |
+| `simulator.html` | Quote simulator (build project, live total, send) | FR (€) |
+| `simulator-en.html` | Quote simulator | EN (£, same numbers) |
 | `brief.html` | Video brief, fill online + send + print/PDF | FR |
 | `brief-en.html` | Video brief | EN |
-| `travail.html` | "Le travail en images" — video showcase (16:9 + verticals), dark design | FR |
-| `travail-en.html` | "The work" | EN |
+| `portfolio.html` | "Le travail en images" — video showcase (16:9 + verticals), dark design | FR |
+| `portfolio-en.html` | "The work" | EN |
 | `Grille_Tarifaire_LouDenim.pdf` | Printable rate card | FR |
 | `Rate_Card_LouDenim.pdf` | Printable rate card | EN |
 | `Brief_Video_IA_LouDenim.pdf` | Printable/fillable brief | FR |
 | `AI_Video_Brief_LouDenim.pdf` | Printable/fillable brief | EN |
 | `img/` | 96 model images + `img/logos-color/` (colour client logos) + `img/logos/` (grey versions) | — |
 
-The home page links to: models, portfolio, rate card (grille), simulator (devis), video brief.
+The home page links to: models, portfolio, rate card, simulator, video brief.
 The rate card and video brief cards open the **online pages** (not auto-downloads) — each online
 page has its own "download PDF" option inside it.
 
-**Note on `index.html`:** previously a single bilingual file with a client-side FR/EN toggle. As of
-14 July 2026 it's been split into `index.html` (FR) + `index-en.html` (EN), matching the two-file
-convention every other page already used — for consistency, and because the new dark homepage design
-isn't structured as a toggle overlay.
+**Filename history:** the homepage was originally one bilingual file with a client-side FR/EN
+toggle, then split into `index.html`(FR)/`index-en.html`(EN) for consistency with the two-file
+convention, then renamed again the same day (14 July 2026) — along with the rate card, simulator,
+and portfolio pages — to plain English words with no leftover French in the URL: `index`→`home`,
+`grille`→`rate`, `devis`→`simulator`, `travail`→`portfolio`. Lou wanted every client-facing URL to
+read cleanly regardless of language (e.g. `simulator-en.html`, not `devis-en.html`). `modeles.html`/
+`models-en.html` and `brief.html`/`brief-en.html` were already fine as-is and were left untouched.
+**If you ever see the old names (`index`, `grille`, `devis`, `travail`) referenced anywhere — a
+stray script, an old email, a bookmark — they no longer exist; the current names above are current
+as of 14 July 2026.**
 
 ---
 
 ## 4. HOW IT'S BUILT (the generators)
 
 **⚠️ Two toolchains exist — see `build-tools/README.md` for the full warning before rebuilding
-anything.** Short version: `index.html`, `index-en.html`, `modeles.html`, `models-en.html`,
-`travail.html`, `travail-en.html` are now built by the **dark-mode generators**
+anything.** Short version: `home.html`, `home-en.html`, `modeles.html`, `models-en.html`,
+`portfolio.html`, `portfolio-en.html` are now built by the **dark-mode generators**
 (`build-tools/dark-mode-tools/build_d20.py`, `build_models_d2.py`, `build_travail_d2.py` +
-`deploy_production.py`). `grille.html`/`-en`, `devis.html`/`-en`, `brief.html`/`-en`, and the 4 PDFs
-are still built by the **original toolchain** below. Do NOT run the old `build_landing.py` /
-`build_catalog.py` / `make_models_en.py` / `build_travail_web.py` — they'd regenerate the old white
-design and silently wipe out the dark redesign.
+`deploy_production.py` — note the scripts themselves still have their old `_d20`/`d2`/`travail`
+internal names; only the *deployed* filenames changed). `rate.html`/`-en`, `simulator.html`/`-en`,
+`brief.html`/`-en`, and the 4 PDFs are still built by the **original toolchain** below. Do NOT run
+the old `build_landing.py` / `build_catalog.py` / `make_models_en.py` / `build_travail_web.py` —
+they'd regenerate the old white design and silently wipe out the dark redesign.
 
 The original toolchain's scripts live **outside the repo**, in the Claude skill folder:
 `/root/.claude/skills/pdf-lou/`. `prices.json` in that folder is the **single source of truth for
 every price** on the site. A full mirror of both toolchains (including the dark-mode one) is kept
 inside this repo at `build-tools/` so nothing is ever lost even if the skill folder disappears.
 
-Generators (`tools/`) still in active use for the white pages:
-- `build_grille_web.py` — FR online rate card (`grille.html`), reads `prices.json`
-- `make_grille_en.py` — FR→EN + € → £ for the rate card (`grille-en.html`)
+Generators (`tools/`) still in active use for the white pages (script names are historical, unchanged):
+- `build_grille_web.py` — FR online rate card (`rate.html`), reads `prices.json`
+- `make_grille_en.py` — FR→EN + € → £ for the rate card (`rate-en.html`)
 - `build_brief_web.py` — the online brief, both languages (`brief.html`, `brief-en.html`)
-- `make_devis_en.py` — EN simulator (`devis-en.html`) from the FR template
+- `make_devis_en.py` — EN simulator (`simulator-en.html`) from the FR template
 
 Retired (historical reference only — do NOT run, see warning above):
 `build_landing.py`, `build_catalog.py`, `make_models_en.py`, `build_travail_web.py`.
@@ -106,14 +113,14 @@ Templates (`templates/`): `simulateur-devis.html` (FR quote simulator source),
 `grille-tarifaire.html` / `-en.html` (rate card PDFs), `brief-video.html` / `-en.html` (brief PDFs),
 `lou-denim.css` (PDF stylesheet).
 
-**PDFs** are built with WeasyPrint from the template HTML. The simulator (`devis.html`) is built
+**PDFs** are built with WeasyPrint from the template HTML. The simulator (`simulator.html`) is built
 by injecting the logo into `templates/simulateur-devis.html`.
 
 ### Rebuild order for the white pages only (rate card / simulator / brief / PDFs)
 ```
-python3 tools/build_grille_web.py <out> "devis.html" "modeles.html"
+python3 tools/build_grille_web.py <out> "simulator.html" "modeles.html"
 python3 tools/make_grille_en.py <out>
-# devis.html: inject logo into templates/simulateur-devis.html
+# simulator.html: inject logo into templates/simulateur-devis.html
 python3 tools/make_devis_en.py <out>
 python3 tools/build_brief_web.py <out>
 # PDFs:
@@ -128,7 +135,7 @@ weasyprint templates/brief-video-en.html      <out>/AI_Video_Brief_LouDenim.pdf
 ```
 cd build-tools/dark-mode-tools
 python3 build_d20.py && python3 build_models_d2.py && python3 build_travail_d2.py
-python3 deploy_production.py     # remaps mockup filenames -> index.html/modeles.html/etc. and writes into the repo
+python3 deploy_production.py     # remaps mockup filenames -> home.html/modeles.html/etc. and writes into the repo
 # then: git add -A && git commit && git push
 ```
 To add a model: edit `model_assets.json` (or the DATA list in `build_models_d2.py`), rerun the 3
@@ -140,7 +147,7 @@ Python f-strings — any literal `{` or `}` in injected CSS/JS must be **doubled
 
 **⚠️ Self-referential data trap — read this before touching `build_models_d2.py` or
 `build_travail_d2.py`:** both scripts originally seeded their own input data by reading the
-**already-deployed production HTML** (`modeles.html`/`models-en.html`, `travail.html`) instead of
+**already-deployed production HTML** (`modeles.html`/`models-en.html`, `portfolio.html`) instead of
 a stable independent source. That is backwards — a generator must never read its own prior output
 as if it were raw data, because every rebuild bakes that run's output back into the file the next
 run will read.
@@ -152,7 +159,7 @@ run will read.
   it to run at all. If it's ever lost, the model data will need to be re-sourced from
   `model_assets.json` / the original catalogue export instead.
 - `build_travail_d2.py` had the same shape of bug but a different symptom: it read the `data-id`
-  list back out of the deployed `travail.html` to seed `IDS_916`, then unconditionally appended a
+  list back out of the deployed `portfolio.html` to seed `IDS_916`, then unconditionally appended a
   `NEW_916` list on top. Every rebuild+redeploy cycle re-read IDs it had already written, so the
   same "new" IDs kept getting appended again — 2 videos ended up tripled. Fixed with an
   order-preserving dedupe right after the append: `IDS_916 = list(dict.fromkeys(IDS_916))`. If you
@@ -197,7 +204,7 @@ run will read.
 - **Role text** ("Directeur artistique IA" / "AI Creative Director"): pink `#ff7fc0`-family on dark
   pages, **`#D63E8D`** (a slightly darker pink, chosen so it reads clearly on white) on the white
   form pages — was plain black before.
-- **Logo click:** every inner page → the AI Studio home (`index.html` FR / `index-en.html` EN);
+- **Logo click:** every inner page → the AI Studio home (`home.html` FR / `home-en.html` EN);
   the AI Studio home logo → the main photography site `loudenim.com`.
 - **Font:** Jost (Google Fonts), weights 300–600.
 - **Client logos (homepage):** right-to-left seamless marquee, colour logos, pauses on hover.
@@ -219,9 +226,9 @@ run will read.
 - **Nav link underlines:** the dark pages have a global `a{text-decoration:none}` reset; the white
   pages never did, so the newly-added topnav links inherited the browser default underline until
   `.topnav a{text-decoration:none}` was added to `add_topnav.py`'s injected CSS.
-- **Devis/Simulator masthead alignment:** `devis.html`/`devis-en.html`'s `.wrap` had an extra 28px
-  of top padding that `grille.html`/`brief.html` didn't, which pushed the logo visibly lower than
-  the other two pages. Fixed in `devis.html`, `devis-en.html`, and the source template
+- **Simulator masthead alignment:** `simulator.html`/`simulator-en.html`'s `.wrap` had an extra 28px
+  of top padding that `rate.html`/`brief.html` didn't, which pushed the logo visibly lower than
+  the other two pages. Fixed in `simulator.html`, `simulator-en.html`, and the source template
   `templates/simulateur-devis.html` (`.wrap{padding:28px ...}` → `.wrap{padding:0 ...}`) so a future
   rebuild from the template won't reintroduce the misalignment.
 
@@ -279,7 +286,7 @@ campaign pack" on the rate card, which is 3 formats of ONE concept.)
 
 ## 8. HOW TO MAKE COMMON CHANGES
 
-- **Change a price:** edit `prices.json` → rebuild `grille.html` (+ `grille-en.html`), the two rate-card
+- **Change a price:** edit `prices.json` → rebuild `rate.html` (+ `rate-en.html`), the two rate-card
   PDFs (templates are hand-kept in sync with prices.json), and the simulator constants in
   `templates/simulateur-devis.html` (+ `make_devis_en.py`). Then push.
 - **Add a model:** Lou adds a folder inside her `MODEL CATALOG` → face-crop + base64-embed into

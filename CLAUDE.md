@@ -9,16 +9,20 @@ DNS at 123 Reg). Push to `main` → live in ~1 min.
 
 ## Critical facts before editing
 - **Pages are GENERATED, not hand-edited. Two toolchains — do not mix them up:**
-  - `index.html`/`index-en.html`, `modeles.html`/`models-en.html`, `travail.html`/`travail-en.html`
+  - `home.html`/`home-en.html`, `modeles.html`/`models-en.html`, `portfolio.html`/`portfolio-en.html`
     (dark design) ← `build-tools/dark-mode-tools/` (`build_d20.py`, `build_models_d2.py`,
-    `build_travail_d2.py`, `deploy_production.py`).
-  - `grille.html`/`-en`, `devis.html`/`-en`, `brief.html`/`-en`, and the 4 PDFs (white, unchanged
+    `build_travail_d2.py`, `deploy_production.py` — script names are historical, unchanged).
+  - `rate.html`/`-en`, `simulator.html`/`-en`, `brief.html`/`-en`, and the 4 PDFs (white, unchanged
     design) ← the original toolchain in `/root/.claude/skills/pdf-lou/` (`tools/` + `templates/`),
     mirrored in this repo's `build-tools/tools/` + `build-tools/templates/`. `prices.json` there is
     the single source of all prices.
   - **Do NOT run the old `build_landing.py` / `build_catalog.py` / `make_models_en.py` /
     `build_travail_web.py`** — retired, would silently regenerate the old white homepage/catalogue/
     portfolio over the current dark one.
+- **Filenames were renamed 14 July 2026** to drop leftover French from client-facing URLs:
+  `index`→`home`, `grille`→`rate`, `devis`→`simulator`, `travail`→`portfolio`. `modeles`/`models-en`
+  and `brief`/`brief-en` were already fine and untouched. If you see the old names anywhere they're
+  stale — see `PROJECT.md §3` for the full history and reasoning.
 - Full rebuild commands for both toolchains are in `PROJECT.md §4`.
 - **f-string trap:** `build_grille_web.py`, `build_brief_web.py`, and the dark-mode generators use
   Python f-strings — double every literal `{`/`}` in injected CSS/JS. Others use single braces.

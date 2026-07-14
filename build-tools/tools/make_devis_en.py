@@ -118,7 +118,7 @@ REP = [
  ("alert('Problème réseau — réessayez, ou utilisez « Copier le récapitulatif » et envoyez-le à lou@loudenim.com.')","alert('Network problem — retry, or use Copy the summary and email it to lou@loudenim.com.')"),
  ("(v===0?'inclus':eur(v))","(v===0?'included':eur(v))"),
  ("footer>Lou Denim — loudenim.com","footer>Lou Denim — loudenim.com"),
- ('Envie de voir&nbsp;? <a href="travail.html">Le travail en images</a>','Want to see? <a href="travail-en.html">The work</a>'),
+ ('Envie de voir&nbsp;? <a href="portfolio.html">Le travail en images</a>','Want to see? <a href="portfolio-en.html">The work</a>'),
 ]
 missed = 0
 for a,b in REP:
