@@ -49,9 +49,34 @@ input[type=text]:focus,textarea:focus{background:var(--blue2);outline:none;borde
 footer{margin-top:44px;text-align:center;font-size:11px;color:var(--grey);letter-spacing:.12em;text-transform:uppercase}
 @media print{#dotfx,.actions,.pdfline{display:none} h2.band{-webkit-print-color-adjust:exact}}
 .socials{display:flex;gap:20px;justify-content:center;margin-top:16px}.socials a{color:#8a8f93;transition:color .15s}.socials a:hover{color:#E7549F}.socials svg{height:18px;width:18px;fill:currentColor;display:block}
+
+.topnav{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid #eee}
+.topnav .hbar{max-width:1180px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:10px}
+.topnav nav{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.topnav nav a{font-size:14px;letter-spacing:.06em;color:#333}
+.topnav nav a:hover,.topnav nav a.on{color:#E7549F}
+.topnav .brand{display:flex;align-items:center;gap:14px}
+.topnav .brand span{font-size:13px;letter-spacing:.14em;font-weight:700;color:#E7549F}
+.topnav .langs{display:flex;gap:6px}
+.topnav .langs a{font-size:11px;letter-spacing:.1em;border:1px solid #E7549F;color:#E7549F;padding:5px 11px;border-radius:999px}
+.topnav .langs a.on{background:#E7549F;color:#fff;border-color:#E7549F}
 </style>
 </head>
 <body>
+<div class="topnav"><div class="hbar">
+  <nav>
+    <a href="index-en.html">Home</a>
+    <a href="travail-en.html">Portfolio</a>
+    <a href="models-en.html">Models</a>
+    <a href="grille-en.html">Rate card</a>
+    <a href="devis-en.html">Simulator</a>
+    <a class="on" href="brief-en.html">Video brief</a>
+  </nav>
+  <div class="brand"><span>AI STUDIO</span>
+    <div class="langs"><a class="" href="brief.html">FR</a><a class="on" href="brief-en.html">EN</a></div>
+  </div>
+</div></div>
 <canvas id="dotfx"></canvas>
 <div class="wrap">
 <header>
