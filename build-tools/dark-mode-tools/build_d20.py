@@ -30,17 +30,23 @@ nav a:hover,nav a.on{color:var(--pink2)}
 .masthead .mrole{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink2);font-weight:500}
 
 .glowwrap h1{position:relative;z-index:2;font-size:56px;font-weight:700;line-height:1.1;letter-spacing:-.01em;
-  max-width:880px;margin:38px auto 0}
+  max-width:880px;margin:26px auto 0}
 .glowwrap h1 span{color:var(--pink2)}
 
-.trustedby{position:relative;z-index:2;margin:44px 0 0;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#f0f0f2}
+.trustedby{position:relative;z-index:2;margin:20px 0 0;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#f0f0f2}
 
-.logostrip{position:relative;z-index:2;max-width:1180px;margin:20px auto 0;padding:0 28px;display:flex;
-  align-items:center;justify-content:center;gap:50px;flex-wrap:wrap}
+.logostrip{position:relative;z-index:2;max-width:820px;margin:14px auto 0;padding:0 28px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent)}
+.logostrip .track{display:flex;width:max-content;animation:logoscroll 32s linear infinite}
+.logostrip .seq{display:flex;align-items:center;gap:50px;padding-right:50px}
+.logostrip:hover .track{animation-play-state:paused}
 .logostrip img{height:20px;filter:grayscale(1) brightness(0) invert(1);opacity:.5}
 .logostrip img.banga{filter:grayscale(1) brightness(1.6) contrast(1.15);opacity:.6;height:24px}
+@keyframes logoscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.logostrip .track{animation:none}}
 
-.statement{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:36px 28px 16px;text-align:center}
+.statement{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:22px 28px 16px;text-align:center}
 .statement p{font-size:19px;font-weight:500;line-height:1.5;color:#f0f0f2;white-space:nowrap;
   position:relative;display:inline-block}
 .statement p span{color:var(--pink2)}
@@ -59,8 +65,8 @@ nav a:hover,nav a.on{color:var(--pink2)}
   100%{transform:scale(1);color:var(--pink2);text-shadow:0 0 0 rgba(255,127,192,0)}
 }
 
-.boxes{max-width:1180px;margin:44px auto 0;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:2}
-.box{position:relative;height:340px;border-radius:20px;overflow:hidden;display:block}
+.boxes{max-width:1180px;margin:14px auto 0;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:2}
+.box{position:relative;height:295px;border-radius:20px;overflow:hidden;display:block}
 .box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:saturate(1.05)}
 .box:hover img{transform:scale(1.05)}
 .box::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,.05) 55%)}
@@ -73,10 +79,7 @@ nav a:hover,nav a.on{color:var(--pink2)}
 .box .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--pink2)}
 
 .videobox{background:radial-gradient(120% 140% at 30% 20%, #2a2a30 0%, #101014 60%, #0a0a0c 100%)}
-.videobox .playbtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;
-  border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);
-  display:flex;align-items:center;justify-content:center;z-index:2;backdrop-filter:blur(3px)}
-.videobox .playbtn svg{width:22px;height:22px;fill:#fff;margin-left:4px}
+.videobox .bgvid{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;border:0}
 
 .toolswrap{position:relative;z-index:2}
 .tools{max-width:1180px;margin:24px auto 60px;padding:0 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -245,6 +248,9 @@ if('IntersectionObserver' in window){
 """
 
 PLAY_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg>'
+# TODO(Lou): confirm this is "the best video" / the one matching the model shown in the
+# adjacent Models box — placeholder pick, first ID in build_travail_d2.py's IDS_169 list.
+HERO_VIDEO_ID = "f8KkFZHk_38"
 
 IG_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.3 1.1.4 2.3.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.3-2.3.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.3-1.1-.4-2.3-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.3 2.3-.4 1.3-.1 1.7-.1 4.9-.1M12 0C8.7 0 8.3 0 7 .1c-1.3.1-2.2.3-3 .6-.8.3-1.5.7-2.2 1.4C1.1 2.8.7 3.5.4 4.3c-.3.8-.5 1.7-.6 3C-.1 8.3-.1 8.7-.1 12s0 3.7.1 5c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.7.5 3 .6 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.7.6-3 .1-1.3.1-1.7.1-5s0-3.7-.1-5c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.4-2.2C21.2 1.1 20.5.7 19.7.4c-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0z"/><path d="M12 5.8A6.2 6.2 0 1 0 18.2 12 6.2 6.2 0 0 0 12 5.8zm0 10.2A4 4 0 1 1 16 12a4 4 0 0 1-4 4z"/><circle cx="18.4" cy="5.6" r="1.4"/></svg>'
 
@@ -332,15 +338,21 @@ def body(lang):
   </a>
   <h1>{h1}</h1>
   <div class="trustedby">{trusted_by}</div>
-  <div class="logostrip">
-    <img src="{A['logo_kfc']}"><img src="{A['logo_milenis']}"><img src="{A['logo_pampryl']}">
-    <img src="{A['logo_sosh']}"><img class="banga" src="{A['logo_banga']}"><img src="{A['logo_mcdo']}">
-  </div>
+  <div class="logostrip"><div class="track">
+    <div class="seq">
+      <img src="{A['logo_kfc']}"><img src="{A['logo_milenis']}"><img src="{A['logo_pampryl']}">
+      <img src="{A['logo_sosh']}"><img class="banga" src="{A['logo_banga']}"><img src="{A['logo_mcdo']}">
+    </div>
+    <div class="seq">
+      <img src="{A['logo_kfc']}"><img src="{A['logo_milenis']}"><img src="{A['logo_pampryl']}">
+      <img src="{A['logo_sosh']}"><img class="banga" src="{A['logo_banga']}"><img src="{A['logo_mcdo']}">
+    </div>
+  </div></div>
 </div>
 
 <div class="boxes">
   <a class="box videobox" href="{portfolio_href}">
-    <div class="playbtn">{PLAY_SVG}</div>
+    <iframe class="bgvid" src="https://www.youtube-nocookie.com/embed/{HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist={HERO_VIDEO_ID}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1" allow="autoplay; encrypted-media" title="Lou Denim"></iframe>
     <div class="txt"><h2>{portfolio_title}</h2><p>{portfolio_sub}</p></div>
   </a>
   <a class="box" href="{models_href}">

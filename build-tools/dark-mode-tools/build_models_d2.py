@@ -2,10 +2,13 @@ import re, json
 A = json.load(open('/root/homepage-mockups/assets.json'))
 M = json.load(open('/root/homepage-mockups/model_assets.json'))
 
-# real catalogue data (FR) + EN labels
-htmlfr = open('/root/catalogue-models/modeles.html').read()
+# real catalogue data (FR) + EN labels — seeded ONCE from the original white catalogue
+# (pre-dark-redesign snapshot), NOT from modeles.html/models-en.html directly: those now
+# contain this script's own dark-design OUTPUT, which has no embedded `const DATA = [...]`
+# block, so reading them here would fail (or silently go stale) on every later rebuild.
+htmlfr = open('/root/backup_predeploy_snapshot/modeles.html').read()
 DATA = json.loads(re.search(r'const DATA = (\[.*?\}\];)', htmlfr, re.S).group(1)[:-1])
-htmlen = open('/root/catalogue-models/models-en.html').read()
+htmlen = open('/root/backup_predeploy_snapshot/models-en.html').read()
 DATA_EN = json.loads(re.search(r'const DATA = (\[.*?\}\];)', htmlen, re.S).group(1)[:-1])
 EN_LABEL = {s['key']: s['label'] for s in DATA_EN}
 

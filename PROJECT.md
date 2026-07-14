@@ -138,6 +138,27 @@ builds + deploy above. To add a video: edit the `IDS_169`/`IDS_916` lists in `bu
 Python f-strings — any literal `{` or `}` in injected CSS/JS must be **doubled** (`{{` `}}`).
 `make_*` and the templates are plain strings (single braces).
 
+**⚠️ Self-referential data trap — read this before touching `build_models_d2.py` or
+`build_travail_d2.py`:** both scripts originally seeded their own input data by reading the
+**already-deployed production HTML** (`modeles.html`/`models-en.html`, `travail.html`) instead of
+a stable independent source. That is backwards — a generator must never read its own prior output
+as if it were raw data, because every rebuild bakes that run's output back into the file the next
+run will read.
+- `build_models_d2.py` now reads the model `const DATA = [...]` blob from
+  `/root/backup_predeploy_snapshot/modeles.html` / `models-en.html` — a frozen pre-redesign
+  snapshot — **not** from the live dark-design files, which no longer contain that JS blob at all
+  (reading them crashes with `AttributeError: 'NoneType' object has no attribute 'group'`).
+  **`/root/backup_predeploy_snapshot/` must never be deleted** — `build_models_d2.py` depends on
+  it to run at all. If it's ever lost, the model data will need to be re-sourced from
+  `model_assets.json` / the original catalogue export instead.
+- `build_travail_d2.py` had the same shape of bug but a different symptom: it read the `data-id`
+  list back out of the deployed `travail.html` to seed `IDS_916`, then unconditionally appended a
+  `NEW_916` list on top. Every rebuild+redeploy cycle re-read IDs it had already written, so the
+  same "new" IDs kept getting appended again — 2 videos ended up tripled. Fixed with an
+  order-preserving dedupe right after the append: `IDS_916 = list(dict.fromkeys(IDS_916))`. If you
+  add more videos to `IDS_169`/`IDS_916` by hand in future, that dedupe line stays as a safety net,
+  but the real fix is: **never treat a generator's own deployed output as its data source.**
+
 ---
 
 ## 5. DESIGN SYSTEM (locked, current as of 14 July 2026 — "Direction D")
@@ -180,7 +201,29 @@ Python f-strings — any literal `{` or `}` in injected CSS/JS must be **doubled
   the AI Studio home logo → the main photography site `loudenim.com`.
 - **Font:** Jost (Google Fonts), weights 300–600.
 - **Client logos (homepage):** right-to-left seamless marquee, colour logos, pauses on hover.
+  Track is centred and capped at **`max-width:820px`** (not full page width) — a wide/edge-to-edge
+  loop looked off-centre and read as sloppy; narrower reads as a deliberate, contained strip roughly
+  the width of the "générative" line above it. Built as a doubled `.seq` list scrolling via
+  `@keyframes logoscroll` (translateX 0 → -50%), with an edge mask-image fade.
 - **Document title bands:** rounded pill (border-radius 999px web / 4mm PDF).
+- **Top nav on the white pages (grille/devis/brief, FR+EN):** these 6 pages never had a nav bar in
+  the original design (they were meant to be reached only via a link from the dark pages). Lou asked
+  for a full site nav + AI STUDIO brand + FR/EN toggle on all 6, matching the dark pages'. This was
+  added by a **separate, standalone script**, `build-tools/dark-mode-tools/add_topnav.py`, which
+  patches the already-built HTML directly (checks for `class="topnav"` to avoid double-inserting,
+  so re-running it after the nav is present is a safe no-op). **Known gap:** the original white-page
+  generators (`build_grille_web.py`, `build_brief_web.py`, `simulateur-devis.html`) do **not**
+  include the topnav themselves — if any of the 6 white pages is ever fully regenerated from those
+  scripts (e.g. for a price change), the topnav will be missing again until `add_topnav.py` is
+  re-run afterwards. Don't forget that step.
+- **Nav link underlines:** the dark pages have a global `a{text-decoration:none}` reset; the white
+  pages never did, so the newly-added topnav links inherited the browser default underline until
+  `.topnav a{text-decoration:none}` was added to `add_topnav.py`'s injected CSS.
+- **Devis/Simulator masthead alignment:** `devis.html`/`devis-en.html`'s `.wrap` had an extra 28px
+  of top padding that `grille.html`/`brief.html` didn't, which pushed the logo visibly lower than
+  the other two pages. Fixed in `devis.html`, `devis-en.html`, and the source template
+  `templates/simulateur-devis.html` (`.wrap{padding:28px ...}` → `.wrap{padding:0 ...}`) so a future
+  rebuild from the template won't reintroduce the misalignment.
 
 ---
 

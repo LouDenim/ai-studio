@@ -22,9 +22,13 @@ if not IDS_916:
 #  7 na6QT4fhOOU  THE COMMUTE
 IDS_169 = ["f8KkFZHk_38", "BTXAdeSvGNo", "6zJx8hfEUlw", "3FaG_t7ooH4", "55nJLwmTokc",
            "O5xgWge0gjA", "NU2DFE3SXqc", "Muy9NOETw5k", "na6QT4fhOOU"]
-# 2 new shorts (9:16, unique — fj9ihwxF0Co was sent twice): appended, cartoon-last still to confirm.
+# 2 new shorts (9:16): the cartoon (4RWnzGciM0I) + fj9ihwxF0Co.
 NEW_916 = ["fj9ihwxF0Co", "4RWnzGciM0I"]
 IDS_916 = IDS_916 + NEW_916
+# De-dupe, preserving order: this script seeds IDS_916 by reading the already-deployed
+# travail.html, so re-running it after a deploy would otherwise re-append NEW_916 on top
+# of IDs it already contains, snowballing duplicates on every rebuild.
+IDS_916 = list(dict.fromkeys(IDS_916))
 
 BASE_CSS = """
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap');
@@ -73,6 +77,9 @@ section{max-width:1180px;margin:0 auto;padding:0 28px;}
   background:radial-gradient(130% 150% at 32% 22%, #2a2a30 0%, #131317 55%, #0c0c0f 100%)}
 .vid.v916{aspect-ratio:9/16;background:radial-gradient(120% 130% at 50% 28%, #2a2a30 0%, #131317 58%, #0c0c0f 100%)}
 .vid:hover{border-color:var(--pink2);transform:translateY(-2px)}
+.vid .thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:.82}
+.vid:hover .thumb{opacity:1}
+.vid.v916 .thumb{object-position:center 30%}
 .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:6}
 /* --- video lightbox (shorts open big), same system as production travail.html --- */
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:999}
@@ -82,12 +89,12 @@ section{max-width:1180px;margin:0 auto;padding:0 28px;}
 .lb-x{position:absolute;top:16px;right:20px;width:46px;height:46px;border-radius:999px;border:0;cursor:pointer;
   background:rgba(255,255,255,.16);color:#fff;font-size:26px;line-height:1;transition:.15s;z-index:1000}
 .lb-x:hover{background:var(--pink)}
-.vid .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;
+.vid .play{position:absolute;z-index:3;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;
   backdrop-filter:blur(3px);transition:.15s}
 .vid:hover .play{background:rgba(231,84,159,.22);border-color:var(--pink2)}
 .vid .play svg{width:20px;height:20px;fill:#fff;margin-left:3px}
-.vid .fmt{position:absolute;left:14px;top:12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+.vid .fmt{position:absolute;z-index:3;left:14px;top:12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
   color:#c7c7ce;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.18);padding:4px 10px;border-radius:999px}
 
 .note{max-width:1180px;margin:22px auto 0;padding:0 28px;font-size:12px;color:#7a7a82;font-weight:300;text-align:center;font-style:italic}
@@ -231,7 +238,9 @@ SOCIAL_HTML = f"""<div class="social">
 
 def vid(vid_id, vertical, fmt):
     cls = "vid v916" if vertical else "vid"
+    thumb = f"https://i.ytimg.com/vi/{vid_id}/hqdefault.jpg"
     return (f'<div class="{cls}" data-id="{vid_id}" role="button" tabindex="0" aria-label="Play">'
+            f'<img class="thumb" src="{thumb}" alt="" loading="lazy">'
             f'<span class="fmt">{fmt}</span><span class="play">{PLAY_SVG}</span></div>')
 
 def build(lang):

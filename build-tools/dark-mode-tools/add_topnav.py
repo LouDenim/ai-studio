@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+"""Add a top nav bar (site nav + AI STUDIO brand + FR/EN toggle) to the white
+form pages (grille/devis/brief, FR+EN), matching the dark pages' nav, so users
+can navigate away from a form page without going back to the browser."""
+
+CSS = """
+.topnav{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid #eee}
+.topnav a{text-decoration:none}
+.topnav .hbar{max-width:1180px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:10px}
+.topnav nav{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.topnav nav a{font-size:14px;letter-spacing:.06em;color:#333}
+.topnav nav a:hover,.topnav nav a.on{color:#E7549F}
+.topnav .brand{display:flex;align-items:center;gap:14px}
+.topnav .brand span{font-size:13px;letter-spacing:.14em;font-weight:700;color:#E7549F}
+.topnav .langs{display:flex;gap:6px}
+.topnav .langs a{font-size:11px;letter-spacing:.1em;border:1px solid #E7549F;color:#E7549F;padding:5px 11px;border-radius:999px}
+.topnav .langs a.on{background:#E7549F;color:#fff;border-color:#E7549F}
+"""
+
+PAGES = {
+    "grille.html":   dict(home="index.html", portfolio="travail.html", models="modeles.html",
+                           grille="grille.html", devis="devis.html", brief="brief.html",
+                           self="grille", lang_self="grille.html", lang_other="grille-en.html",
+                           nav_home="Accueil", nav_portfolio="Portfolio", nav_models="Modèles",
+                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo"),
+    "grille-en.html": dict(home="index-en.html", portfolio="travail-en.html", models="models-en.html",
+                            grille="grille-en.html", devis="devis-en.html", brief="brief-en.html",
+                            self="grille", lang_self="grille-en.html", lang_other="grille.html",
+                            nav_home="Home", nav_portfolio="Portfolio", nav_models="Models",
+                            nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief"),
+    "devis.html":    dict(home="index.html", portfolio="travail.html", models="modeles.html",
+                           grille="grille.html", devis="devis.html", brief="brief.html",
+                           self="devis", lang_self="devis.html", lang_other="devis-en.html",
+                           nav_home="Accueil", nav_portfolio="Portfolio", nav_models="Modèles",
+                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo"),
+    "devis-en.html": dict(home="index-en.html", portfolio="travail-en.html", models="models-en.html",
+                           grille="grille-en.html", devis="devis-en.html", brief="brief-en.html",
+                           self="devis", lang_self="devis-en.html", lang_other="devis.html",
+                           nav_home="Home", nav_portfolio="Portfolio", nav_models="Models",
+                           nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief"),
+    "brief.html":    dict(home="index.html", portfolio="travail.html", models="modeles.html",
+                           grille="grille.html", devis="devis.html", brief="brief.html",
+                           self="brief", lang_self="brief.html", lang_other="brief-en.html",
+                           nav_home="Accueil", nav_portfolio="Portfolio", nav_models="Modèles",
+                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo"),
+    "brief-en.html": dict(home="index-en.html", portfolio="travail-en.html", models="models-en.html",
+                           grille="grille-en.html", devis="devis-en.html", brief="brief-en.html",
+                           self="brief", lang_self="brief-en.html", lang_other="brief.html",
+                           nav_home="Home", nav_portfolio="Portfolio", nav_models="Models",
+                           nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief"),
+}
+
+def on(cur, key):
+    return ' class="on"' if cur == key else ''
+
+def nav_html(p):
+    s = p["self"]
+    fr = (p["nav_home"] == "Accueil")
+    lang_fr_href, lang_en_href = (p["lang_self"], p["lang_other"]) if fr else (p["lang_other"], p["lang_self"])
+    return f"""<div class="topnav"><div class="hbar">
+  <nav>
+    <a{on(s,'home')} href="{p['home']}">{p['nav_home']}</a>
+    <a{on(s,'portfolio')} href="{p['portfolio']}">{p['nav_portfolio']}</a>
+    <a{on(s,'models')} href="{p['models']}">{p['nav_models']}</a>
+    <a{on(s,'grille')} href="{p['grille']}">{p['nav_grille']}</a>
+    <a{on(s,'devis')} href="{p['devis']}">{p['nav_devis']}</a>
+    <a{on(s,'brief')} href="{p['brief']}">{p['nav_brief']}</a>
+  </nav>
+  <div class="brand"><span>AI STUDIO</span>
+    <div class="langs"><a class="{'on' if fr else ''}" href="{lang_fr_href}">FR</a><a class="{'' if fr else 'on'}" href="{lang_en_href}">EN</a></div>
+  </div>
+</div></div>
+"""
+
+DIR = "/root/catalogue-models/"
+
+for fname, p in PAGES.items():
+    path = DIR + fname
+    with open(path, encoding="utf-8") as f:
+        html = f.read()
+    if 'class="topnav"' in html:
+        print(f"{fname}: topnav already present, skipping")
+        continue
+    html = html.replace("</style>", CSS + "</style>", 1)
+    html = html.replace("<body>\n<canvas", "<body>\n" + nav_html(p) + "<canvas", 1)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"{fname}: nav added")

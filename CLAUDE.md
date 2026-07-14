@@ -24,6 +24,15 @@ DNS at 123 Reg). Push to `main` → live in ~1 min.
   Python f-strings — double every literal `{`/`}` in injected CSS/JS. Others use single braces.
 - **Keep FR and EN in sync:** the `make_*_en.py` scripts hold FR→EN string maps; change a FR string
   and you must update its EN mapping or the translation silently won't apply.
+- **Never let a generator read its own deployed output as its data source.** `build_models_d2.py`
+  and `build_travail_d2.py` both had this bug (see `PROJECT.md §4` for the full story): reading back
+  already-deployed HTML to seed a data list, then appending more on every rebuild, snowballs
+  duplicates or crashes outright. `build_models_d2.py` now depends on
+  `/root/backup_predeploy_snapshot/` for its model data — **never delete that folder.**
+- **White pages (grille/devis/brief) have a topnav added by a separate script**,
+  `build-tools/dark-mode-tools/add_topnav.py`, run directly on the built HTML — it is NOT part of
+  `build_grille_web.py`/`build_brief_web.py`/`simulateur-devis.html`. If those pages are ever
+  regenerated from scratch, re-run `add_topnav.py` afterwards or the nav will be missing again.
 
 ## Locked design rules (do not break)
 - **Homepage / Models / Portfolio:** near-black `#0a0a0c` background, pink `#E7549F`/`#ff7fc0` accents
