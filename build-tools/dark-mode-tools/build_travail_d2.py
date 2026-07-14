@@ -94,8 +94,7 @@ section{max-width:1180px;margin:0 auto;padding:0 28px;}
   backdrop-filter:blur(3px);transition:.15s}
 .vid:hover .play{background:rgba(231,84,159,.22);border-color:var(--pink2)}
 .vid .play svg{width:20px;height:20px;fill:#fff;margin-left:3px}
-.vid .fmt{position:absolute;z-index:3;left:14px;top:12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:#c7c7ce;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.18);padding:4px 10px;border-radius:999px}
+.lb-inner.land{aspect-ratio:16/9;height:auto;width:min(92vw,1400px);max-height:88vh}
 
 .note{max-width:1180px;margin:22px auto 0;padding:0 28px;font-size:12px;color:#7a7a82;font-weight:300;text-align:center;font-style:italic}
 
@@ -236,12 +235,12 @@ SOCIAL_HTML = f"""<div class="social">
     <a href="https://www.tiktok.com/@loudenim" target="_blank" rel="noopener" aria-label="TikTok">{TT_SVG}</a>
   </div>"""
 
-def vid(vid_id, vertical, fmt):
+def vid(vid_id, vertical):
     cls = "vid v916" if vertical else "vid"
     thumb = f"https://i.ytimg.com/vi/{vid_id}/hqdefault.jpg"
     return (f'<div class="{cls}" data-id="{vid_id}" role="button" tabindex="0" aria-label="Play">'
             f'<img class="thumb" src="{thumb}" alt="" loading="lazy">'
-            f'<span class="fmt">{fmt}</span><span class="play">{PLAY_SVG}</span></div>')
+            f'<span class="play">{PLAY_SVG}</span></div>')
 
 def build(lang):
     fr = (lang == 'fr')
@@ -259,8 +258,6 @@ def build(lang):
     tag169 = "Format paysage" if fr else "Landscape"
     band916 = "Formats verticaux" if fr else "Vertical formats"
     tag916 = "Reels &middot; Stories &middot; Shorts"
-    fmt169 = "16:9"
-    fmt916 = "9:16"
     note = ("Aper&ccedil;u&nbsp;: les vignettes vid&eacute;o s&rsquo;affichent en direct sur le site publi&eacute; "
             "(chaque case ouvre d&eacute;j&agrave; la vraie vid&eacute;o YouTube).") if fr else \
            ("Preview note: video thumbnails load live on the published site (each tile already opens the real YouTube video).")
@@ -279,8 +276,8 @@ def build(lang):
             f'<a href="tel:+590690299544">+590&nbsp;(0)690&nbsp;299&nbsp;544</a> &middot; '
             f'<a href="https://www.loudenim.com" target="_blank" rel="noopener">{photo}&nbsp;: loudenim.com</a></div>{SOCIAL_HTML}')
 
-    grid169 = "".join(vid(v, False, fmt169) for v in IDS_169)
-    grid916 = "".join(vid(v, True, fmt916) for v in IDS_916)
+    grid169 = "".join(vid(v, False) for v in IDS_169)
+    grid916 = "".join(vid(v, True) for v in IDS_916)
 
     page = f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -336,7 +333,7 @@ def build(lang):
 <script>
 function ytIframe(id){{return '<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1" title="Lou Denim" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';}}
 var lb=document.getElementById('lb'), lbInner=document.getElementById('lbInner');
-function openLB(id){{lbInner.innerHTML=ytIframe(id);lb.classList.add('on');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}}
+function openLB(id,vertical){{lbInner.className='lb-inner'+(vertical?'':' land');lbInner.innerHTML=ytIframe(id);lb.classList.add('on');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}}
 function closeLB(){{lb.classList.remove('on');lb.setAttribute('aria-hidden','true');lbInner.innerHTML='';document.body.style.overflow='';}}
 document.getElementById('lbx').addEventListener('click',closeLB);
 lb.addEventListener('click',function(e){{if(e.target===lb)closeLB();}});
@@ -344,9 +341,7 @@ document.addEventListener('keydown',function(e){{if(e.key==='Escape')closeLB();}
 document.querySelectorAll('.vid').forEach(function(v){{
   function go(){{
     var id=v.dataset.id;
-    if(v.classList.contains('v916')){{openLB(id);return;}}      /* shorts -> big lightbox */
-    if(v.querySelector('iframe'))return;
-    v.innerHTML=ytIframe(id);                                    /* landscape -> plays inline in the tile */
+    openLB(id, v.classList.contains('v916'));   /* both formats open centred, sized to their own aspect ratio */
   }}
   v.addEventListener('click',go);
   v.addEventListener('keydown',function(e){{if(e.key==='Enter'||e.key===' '){{e.preventDefault();go();}}}});
