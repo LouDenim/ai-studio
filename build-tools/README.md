@@ -11,6 +11,34 @@ in the repo root) is generated *from* these files. See `/PROJECT.md` for the ful
 - `assets/` — the Lou Denim logo (svg used by the generators; png/pdf kept as backups).
 - `prices.json` — **single source of truth for every price on the site.**
 - `SETUP-DEVIS-IA.md` — the detailed maintenance log (design rules, locked decisions, history).
+- `dark-mode-tools/` — the **separate toolchain** that builds the current dark "Direction D" design
+  for `index.html`, `index-en.html`, `modeles.html`, `models-en.html`, `travail.html`, `travail-en.html`.
+  See the warning below — this is important.
+
+## ⚠️ TWO TOOLCHAINS NOW EXIST — READ BEFORE REBUILDING ANYTHING
+
+As of 14 July 2026 the site runs two different generator systems for different pages:
+
+1. **`dark-mode-tools/`** (`build_d20.py`, `build_models_d2.py`, `build_travail_d2.py`,
+   `deploy_production.py`) builds the **dark homepage, Models catalogue, and Portfolio** pages
+   (`index.html`, `index-en.html`, `modeles.html`, `models-en.html`, `travail.html`, `travail-en.html`).
+   These generators need `assets.json` (site chrome/logos, base64) and `model_assets.json`
+   (96 model photos, base64) — both included in this folder.
+2. **`tools/` + `templates/`** (the original toolkit, unchanged in purpose) still builds the
+   **white rate card, quote simulator, and video brief** (`grille.html`/`-en`, `devis.html`/`-en`,
+   `brief.html`/`-en`) plus all 4 PDFs. These stayed white deliberately (Lou: form pages that get
+   printed shouldn't burn ink on a black background).
+
+**DO NOT run `build_landing.py`, `build_catalog.py`, `make_models_en.py`, or `build_travail_web.py`
+from `tools/` anymore** — those built the *old white* homepage/catalogue/portfolio and would silently
+overwrite the current dark design if run again. They're kept only for historical reference.
+
+**Masthead consistency (locked, 14 July 2026):** logo 136px tall (was 86px), no black rule line under
+the logo, role text (`Directeur artistique IA` / `AI Creative Director`) in `#D63E8D` (was black/ink).
+This applies to every page, dark and white alike. The fix lives in `dark-mode-tools/build_d20.py`,
+`build_models_d2.py`, `build_travail_d2.py` (dark pages) AND has been back-ported into
+`tools/build_grille_web.py`, `tools/build_brief_web.py`, `templates/simulateur-devis.html` (white
+pages) so a future price-driven rebuild of the rate card/brief/simulator won't regress it.
 
 ## How to restore / use it (for a future Claude session)
 The generators expect to live at `/root/.claude/skills/pdf-lou/` (a Claude skill folder) and use

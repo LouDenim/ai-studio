@@ -52,9 +52,8 @@ html = f"""<!DOCTYPE html>
 body{{font-family:'Jost',sans-serif;background:#fff;color:var(--ink);position:relative;line-height:1.55}}
 .wrap{{max-width:900px;margin:0 auto;padding:0 20px 80px}}
 header{{padding:86px 0 26px;text-align:center}}
-header img{{height:86px;margin-bottom:8px}}
-.rule{{width:300px;max-width:70%;height:1px;background:#000;margin:0 auto 10px}}
-.sub{{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink)}}
+header img{{height:136px;margin-bottom:2px}}
+.sub{{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#D63E8D}}
 .contact{{margin-top:8px;font-size:11px;letter-spacing:.1em;color:var(--grey)}}
 .doc-band{{display:inline-block;background:#000;color:#fff;padding:10px 34px;border-radius:999px;margin-top:24px;
   font-size:15px;letter-spacing:.32em;text-transform:uppercase;font-weight:500}}
@@ -98,7 +97,6 @@ footer a{{color:#000}}
 <div class="wrap">
 <header>
   <a href="index.html"><img src="{logo}" alt="Lou Denim"></a>
-  <div class="rule"></div>
   <p class="sub">Directeur artistique IA</p>
   <div><span class="doc-band">Grille Tarifaire<small>Services créatifs IA</small></span></div>
   <div class="actions">

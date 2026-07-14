@@ -156,9 +156,8 @@ body{{font-family:'Jost',sans-serif;background:#fff;color:var(--ink);position:re
 @media (prefers-reduced-motion: reduce){{#dotfx{{display:none}}}}
 .wrap{{max-width:860px;margin:0 auto;padding:0 20px 90px}}
 header{{padding:86px 0 8px;text-align:center}}
-header img{{height:86px;margin-bottom:8px}}
-.rule{{width:300px;max-width:70%;height:1px;background:#000;margin:0 auto 10px}}
-.sub{{font-size:12px;letter-spacing:.24em;text-transform:uppercase}}
+header img{{height:136px;margin-bottom:2px}}
+.sub{{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#D63E8D}}
 .contact{{margin-top:8px;font-size:11px;letter-spacing:.1em;color:var(--grey)}}
 .doc-band{{display:inline-block;background:#000;color:#fff;padding:11px 36px;border-radius:999px;margin-top:22px;
   font-size:15px;letter-spacing:.3em;text-transform:uppercase;font-weight:500}}
@@ -201,7 +200,6 @@ footer{{margin-top:44px;text-align:center;font-size:11px;color:var(--grey);lette
 <div class="wrap">
 <header>
   <a href="{T['back']}"><img src="{logo}" alt="Lou Denim"></a>
-  <div class="rule"></div>
   <p class="sub">{T['role']}</p>
   <div><span class="doc-band">{T['doc']}<small>{T['sub2']}</small></span></div>
   <p class="intro">{T['intro']}</p>
