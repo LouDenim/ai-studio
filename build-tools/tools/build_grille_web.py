@@ -59,33 +59,33 @@ header img{{height:136px;margin-bottom:2px}}
   font-size:18px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;text-align:center}}
 .doc-band small{{display:block;font-size:10px;letter-spacing:.2em;color:#e8cfca;font-weight:400;text-transform:none;margin-top:3px}}
 .actions{{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}}
-.actions a{{display:inline-block;padding:11px 24px;border-radius:999px;font-size:12px;letter-spacing:.16em;
+.actions a{{display:inline-block;padding:11px 24px;border-radius:999px;font-size:13.5px;letter-spacing:.16em;
   text-transform:uppercase;text-decoration:none}}
 .actions a.primary{{background:#000;color:#fff}}
 .actions a.ghost{{background:#fff;color:#000;border:1px solid #000;transition:.15s}}
 .actions a:hover{{border-color:#E7549F;color:#E7549F}}
 .actions a.primary:hover{{background:#E7549F;color:#fff;border-color:#E7549F}}
-h2.band{{background:#000;color:#fff;font-size:13px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
+h2.band{{background:#000;color:#fff;font-size:14.5px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
   padding:9px 18px;border-radius:10px;margin:34px 0 12px;display:flex;justify-content:space-between;align-items:center}}
-h2.band .tag{{font-size:10px;letter-spacing:.14em;color:var(--blush3)}}
-table{{width:100%;border-collapse:collapse;font-size:13.5px}}
-td,th{{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}}
-th{{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}}
+h2.band .tag{{font-size:11px;letter-spacing:.14em;color:var(--blush3)}}
+table{{width:100%;border-collapse:collapse;font-size:15px}}
+td,th{{padding:9px 11px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}}
+th{{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}}
 th .lc{{text-transform:none}}
 td.num,th.num{{text-align:right;white-space:nowrap;font-weight:500}}
 tr:nth-child(even) td{{background:var(--blush)}}
-.note{{font-size:11.5px;color:var(--grey);margin:8px 2px 0}}
+.note{{font-size:13px;color:var(--grey);margin:8px 2px 0}}
 .chips{{display:flex;gap:10px;margin:16px 0 6px;flex-wrap:wrap}}
 .chip{{flex:1;min-width:140px;text-align:center;padding:10px;border-radius:12px;background:var(--blush)}}
 .chip.c2{{background:var(--blush2)}}.chip.c3{{background:var(--blush3)}}
-.chip b{{display:block;font-size:13px}}.chip span{{font-size:11px;color:#444}}
+.chip b{{display:block;font-size:14.5px}}.chip span{{font-size:12px;color:#444}}
 .pack{{display:flex;justify-content:space-between;align-items:center;gap:14px;background:var(--blush2);
   border-radius:12px;padding:14px 18px;margin:14px 0;flex-wrap:wrap}}
-.pack b{{font-size:14px}}.pack .desc{{font-size:12px;color:#444;flex:1}}.pack .price{{font-weight:600;white-space:nowrap}}
-.socle{{margin:30px 0 0;background:var(--blush);border-radius:12px;padding:16px 20px;font-size:13px;text-align:center;color:#333}}
-.conditions{{margin-top:30px;font-size:11.5px;color:#444;border-top:2px solid #000;padding-top:14px}}
+.pack b{{font-size:15.5px}}.pack .desc{{font-size:13.5px;color:#444;flex:1}}.pack .price{{font-weight:600;white-space:nowrap}}
+.socle{{margin:30px 0 0;background:var(--blush);border-radius:12px;padding:16px 20px;font-size:14.5px;text-align:center;color:#333}}
+.conditions{{margin-top:30px;font-size:13px;color:#444;border-top:2px solid #000;padding-top:14px}}
 .conditions p{{margin:6px 0}}
-footer{{margin-top:44px;text-align:center;font-size:11px;color:var(--grey);letter-spacing:.12em;text-transform:uppercase}}
+footer{{margin-top:44px;text-align:center;font-size:12px;color:var(--grey);letter-spacing:.12em;text-transform:uppercase}}
 footer a{{color:#000}}
 #dotfx{{position:absolute;top:0;left:0;width:100%;height:440px;z-index:-1;pointer-events:none}}
 @media (prefers-reduced-motion: reduce){{#dotfx{{display:none}}}}
@@ -141,7 +141,7 @@ footer a{{color:#000}}
 <table><tbody>{immo_rows}</tbody></table>
 <p class="note">{im["note_shoot"]}</p>
 
-<div class="pack"><b>Demande particulière</b><span class="desc">Toute demande hors grille&nbsp;: sur devis, après échange avec le créatif.</span><span class="price" style="font-size:14px;font-weight:bold">Sur devis</span></div>
+<div class="pack"><b>Demande particulière</b><span class="desc">Toute demande hors grille&nbsp;: sur devis, après échange avec le créatif.</span><span class="price" style="font-size:15.5px;font-weight:bold">Sur devis</span></div>
 <p class="note"><strong>Commandes régulières&nbsp;?</strong> Un forfait mensuel (retainer) peut être mis en place pour plusieurs vidéos par mois&nbsp;: tarif dégressif, priorité de production, à discuter avec le créatif.</p>
 
 <div class="socle">{P["socle"]}</div>

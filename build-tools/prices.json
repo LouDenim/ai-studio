@@ -144,7 +144,7 @@
  },
  "immobilier": {
   "visite": {
-   "label": "Visite animée du bien — à partir de vos photos : mouvements de caméra, transitions, montage sur musique",
+   "label": "Visite animée du bien, à partir de vos photos",
    "en": "Animated property tour from your photos",
    "prix": [
     300,
@@ -154,19 +154,19 @@
    "affichage_grille": "dès 300 €"
   },
   "personnage": {
-   "label": "Personnage ajouté — mise en vie du lieu",
+   "label": "Personnage ajouté pour donner vie à l'espace",
    "en": "Character added — bringing the place to life",
    "prix": 150
   },
   "embellissement": {
-   "label": "Embellissement photo — ciel, lumière, pelouse, désencombrement",
+   "label": "Embellissement photo : ciel, lumière, pelouse, désencombrement",
    "en": "Photo enhancement — sky, light, decluttering",
    "prix": 25,
    "des": true,
    "unite": "photo"
   },
   "staging": {
-   "label": "Home staging virtuel — meubler une pièce vide ou relooker la déco",
+   "label": "Home staging virtuel : meubler une pièce vide ou relooker la déco",
    "en": "Virtual home staging",
    "prix": 75,
    "des": true,
