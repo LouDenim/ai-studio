@@ -68,7 +68,7 @@ def nav_html(p):
     <a{on(s,'brief')} href="{p['brief']}">{p['nav_brief']}</a>
   </nav>
   <div class="brand"><span>AI STUDIO</span>
-    <div class="langs"><a class="{'on' if fr else ''}" href="{lang_fr_href}">FR</a><a class="{'' if fr else 'on'}" href="{lang_en_href}">EN</a></div>
+    <div class="langs"><a class="{'' if fr else 'on'}" href="{lang_en_href}">EN</a><a class="{'on' if fr else ''}" href="{lang_fr_href}">FR</a></div>
   </div>
 </div></div>
 """

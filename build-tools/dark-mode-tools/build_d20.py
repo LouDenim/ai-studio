@@ -380,7 +380,7 @@ def body(lang):
     <a href="{brief_href}">{nav_brief}</a>
   </nav>
   <div class="brand"><span>AI STUDIO</span>
-    <div class="langs"><a class="{lang_fr_on}" href="{home_href if lang_fr_on else lang_href}">FR</a><a class="{lang_en_on}" href="{lang_href if lang_fr_on else home_href}">EN</a></div>
+    <div class="langs"><a class="{lang_en_on}" href="{lang_href if lang_fr_on else home_href}">EN</a><a class="{lang_fr_on}" href="{home_href if lang_fr_on else lang_href}">FR</a></div>
   </div>
 </div></header>
 

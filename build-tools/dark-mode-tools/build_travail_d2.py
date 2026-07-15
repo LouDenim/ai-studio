@@ -299,7 +299,7 @@ def build(lang):
     <a href="{brief_href}">{nav_brief}</a>
   </nav>
   <div class="brand"><span>AI STUDIO</span>
-    <div class="langs"><a class="{lang_fr_on}" href="{self_href if fr else lang_href}">FR</a><a class="{lang_en_on}" href="{lang_href if fr else self_href}">EN</a></div>
+    <div class="langs"><a class="{lang_en_on}" href="{lang_href if fr else self_href}">EN</a><a class="{lang_fr_on}" href="{self_href if fr else lang_href}">FR</a></div>
   </div>
 </div></header>
 
