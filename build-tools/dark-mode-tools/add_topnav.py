@@ -6,7 +6,7 @@ can navigate away from a form page without going back to the browser."""
 CSS = """
 .topnav{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid #eee}
 .topnav a{text-decoration:none}
-.topnav .hbar{max-width:1180px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;
+.topnav .hbar{max-width:1180px;margin:0 auto;padding:22px 28px;display:flex;justify-content:space-between;
   align-items:center;flex-wrap:wrap;gap:10px}
 .topnav nav{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
 .topnav nav a{font-size:14px;letter-spacing:.06em;color:#333}
