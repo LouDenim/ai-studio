@@ -2,12 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Redirecting…</title>
-<meta http-equiv="refresh" content="0; url=home.html">
-<link rel="canonical" href="https://ai.loudenim.com/home.html">
-<script>location.replace("home.html");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOU DENIM — AI Studio</title>
+<!-- Language gateway: English by default (Lou's main site loudenim.com is English),
+     French only if the visitor's browser prefers French. Runs before paint, uses
+     location.replace() so it doesn't sit in the back-button history. Black background
+     matches the site so there is no white flash. -->
+<script>
+(function () {
+  try {
+    var langs = navigator.languages && navigator.languages.length
+      ? navigator.languages : [navigator.language || navigator.userLanguage || 'en'];
+    var prefersFrench = false;
+    for (var i = 0; i < langs.length; i++) {
+      var l = (langs[i] || '').toLowerCase();
+      if (l.indexOf('fr') === 0) { prefersFrench = true; break; }  // fr, fr-FR, fr-CA…
+      if (l.indexOf('en') === 0) { prefersFrench = false; break; } // English wins if it comes first
+    }
+    location.replace(prefersFrench ? 'home.html' : 'home-en.html');
+  } catch (e) {
+    location.replace('home-en.html');
+  }
+})();
+</script>
+<!-- No-JS fallback: default to English -->
+<meta http-equiv="refresh" content="0; url=home-en.html">
+<link rel="alternate" hreflang="en" href="https://ai.loudenim.com/home-en.html">
+<link rel="alternate" hreflang="fr" href="https://ai.loudenim.com/home.html">
+<link rel="alternate" hreflang="x-default" href="https://ai.loudenim.com/home-en.html">
+<style>html,body{margin:0;height:100%;background:#0a0a0c}</style>
 </head>
 <body>
-<p>This page has moved. <a href="home.html">Continue to home.html</a>.</p>
+<noscript>
+  <p style="color:#fff;font-family:sans-serif;text-align:center;padding:48px 20px;font-size:16px">
+    <a href="home-en.html" style="color:#ff7fc0;text-decoration:none">Enter — English</a>
+    &nbsp;·&nbsp;
+    <a href="home.html" style="color:#ff7fc0;text-decoration:none">Entrer — Français</a>
+  </p>
+</noscript>
 </body>
 </html>

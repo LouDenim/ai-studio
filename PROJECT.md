@@ -25,6 +25,11 @@ It replaces nothing on the main photography site — it is the **AI home**.
 
 - **Code repository (GitHub):** `github.com/LouDenim/ai-studio`, branch `main`.
 - **Hosting:** GitHub Pages (free). Every push to `main` goes live in ~1 minute.
+- **Language gateway:** the site root `index.html` is NOT a page — it's a tiny browser-language
+  detector. It reads `navigator.languages` and `location.replace()`s to `home.html` (FR) only if
+  the visitor prefers French, otherwise to `home-en.html` (EN default, since loudenim.com is English).
+  Inline head script + black background = no flash, no back-button entry. No-JS falls back to English
+  via meta-refresh. Do NOT turn `index.html` back into a plain redirect.
 - **Custom domain:** `ai.loudenim.com`
   - The repo contains a file named `CNAME` holding the text `ai.loudenim.com`.
   - **DNS is at 123 Reg** (GoDaddy-group infrastructure). There is a CNAME record:
