@@ -51,13 +51,13 @@ html = f"""<!DOCTYPE html>
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{font-family:'Jost',sans-serif;background:#fff;color:var(--ink);position:relative;line-height:1.55}}
 .wrap{{max-width:900px;margin:0 auto;padding:0 20px 80px}}
-header{{padding:86px 0 26px;text-align:center}}
+header{{padding:32px 0 26px;text-align:center}}
 header img{{height:136px;margin-bottom:2px}}
 .sub{{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#D63E8D}}
 .contact{{margin-top:8px;font-size:11px;letter-spacing:.1em;color:var(--grey)}}
-.doc-band{{display:inline-block;background:#000;color:#fff;padding:10px 34px;border-radius:999px;margin-top:24px;
-  font-size:15px;letter-spacing:.32em;text-transform:uppercase;font-weight:500}}
-.doc-band small{{display:block;font-size:10px;letter-spacing:.22em;color:#e8cfca;font-weight:400}}
+.doc-band{{display:inline-block;background:#000;color:#fff;padding:13px 40px;border-radius:999px;margin-top:24px;
+  font-size:18px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;text-align:center}}
+.doc-band small{{display:block;font-size:10px;letter-spacing:.2em;color:#e8cfca;font-weight:400;text-transform:none;margin-top:3px}}
 .actions{{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}}
 .actions a{{display:inline-block;padding:11px 24px;border-radius:999px;font-size:12px;letter-spacing:.16em;
   text-transform:uppercase;text-decoration:none}}

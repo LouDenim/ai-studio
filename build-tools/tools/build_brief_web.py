@@ -155,13 +155,13 @@ body{{font-family:'Jost',sans-serif;background:#fff;color:var(--ink);position:re
 #dotfx{{position:absolute;top:0;left:0;width:100%;height:440px;z-index:-1;pointer-events:none}}
 @media (prefers-reduced-motion: reduce){{#dotfx{{display:none}}}}
 .wrap{{max-width:860px;margin:0 auto;padding:0 20px 90px}}
-header{{padding:86px 0 8px;text-align:center}}
+header{{padding:32px 0 8px;text-align:center}}
 header img{{height:136px;margin-bottom:2px}}
 .sub{{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#D63E8D}}
 .contact{{margin-top:8px;font-size:11px;letter-spacing:.1em;color:var(--grey)}}
-.doc-band{{display:inline-block;background:#000;color:#fff;padding:11px 36px;border-radius:999px;margin-top:22px;
-  font-size:15px;letter-spacing:.3em;text-transform:uppercase;font-weight:500}}
-.doc-band small{{display:block;font-size:9.5px;letter-spacing:.2em;color:#e8cfca;font-weight:400;text-transform:none}}
+.doc-band{{display:inline-block;background:#000;color:#fff;padding:13px 40px;border-radius:999px;margin-top:24px;
+  font-size:18px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;text-align:center}}
+.doc-band small{{display:block;font-size:10px;letter-spacing:.2em;color:#e8cfca;font-weight:400;text-transform:none;margin-top:3px}}
 .intro{{max-width:640px;margin:18px auto 0;font-size:13px;color:#444;text-align:center}}
 h2.band{{background:#000;color:#fff;font-size:12.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
   padding:8px 15px;border-radius:10px;margin:32px 0 12px;display:flex;align-items:center;gap:10px}}

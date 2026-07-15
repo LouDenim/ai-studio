@@ -20,6 +20,7 @@ nav a:hover,nav a.on{color:var(--pink2)}
 .langs{display:flex;gap:6px}
 .langs a{font-size:11px;letter-spacing:.1em;border:1px solid var(--pink2);color:var(--pink2);padding:5px 11px;border-radius:999px}
 .langs a.on{background:var(--pink2);color:#0a0a0c;border-color:var(--pink2)}
+.burger{display:none}
 
 .glowwrap{position:relative;padding:0 28px 12px;text-align:center;overflow:hidden}
 #dotfx{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
@@ -35,7 +36,7 @@ nav a:hover,nav a.on{color:var(--pink2)}
 
 .trustedby{position:relative;z-index:2;margin:20px 0 0;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#f0f0f2}
 
-.logostrip{position:relative;z-index:2;max-width:820px;margin:14px auto 0;padding:0 28px;overflow:hidden;
+.logostrip{position:relative;z-index:2;max-width:500px;margin:14px auto 0;padding:0 28px;overflow:hidden;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent);
   mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent)}
 .logostrip .track{display:flex;width:max-content;animation:logoscroll 32s linear infinite}
@@ -65,8 +66,8 @@ nav a:hover,nav a.on{color:var(--pink2)}
   100%{transform:scale(1);color:var(--pink2);text-shadow:0 0 0 rgba(255,127,192,0)}
 }
 
-.boxes{max-width:1180px;margin:14px auto 0;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:2}
-.box{position:relative;height:295px;border-radius:20px;overflow:hidden;display:block}
+.boxes{max-width:1180px;margin:22px auto 0;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:2}
+.box{position:relative;height:320px;border-radius:20px;overflow:hidden;display:block}
 .box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:saturate(1.05)}
 .box:hover img{transform:scale(1.05)}
 .box::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,.05) 55%)}
@@ -80,9 +81,13 @@ nav a:hover,nav a.on{color:var(--pink2)}
 
 .videobox{background:radial-gradient(120% 140% at 30% 20%, #2a2a30 0%, #101014 60%, #0a0a0c 100%)}
 .videobox .bgvid{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;border:0}
+/* transparent shield over the player: the YouTube frame never receives hover/tap, so its
+   'More videos' / pause overlays never appear; clicks still bubble to the parent <a> link */
+.videobox .vshield{position:absolute;inset:0;z-index:2;background:transparent}
+.videobox .txt{z-index:3}
 
 .toolswrap{position:relative;z-index:2}
-.tools{max-width:1180px;margin:24px auto 60px;padding:0 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tools{max-width:1180px;margin:46px auto 60px;padding:0 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 /* statement gap: 44px top (boxes->text) matches 20px+24px=44px bottom (text->tools) */
 .tool{border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:22px 20px;transition:.15s;background:rgba(255,255,255,.02)}
 .tool:hover{border-color:var(--pink2);transform:translateY(-2px)}
@@ -98,6 +103,40 @@ footer a:hover{color:var(--pink2)}
 .social a{color:#8a8a92;display:inline-flex;line-height:0}
 .social a:hover{color:var(--pink2)}
 .social svg{width:16px;height:16px;fill:currentColor}
+
+/* ---------- MOBILE: burger menu + single-column stack (video, then models, then cards) ---------- */
+@media (max-width:760px){
+  .hbar{padding:16px 20px;position:relative}
+  /* collapse the full text nav behind a burger, top-left, aligned with AI STUDIO */
+  .burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:30px;height:26px;cursor:pointer;order:-1;z-index:40}
+  .burger span{display:block;width:26px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .2s}
+  .navtoggle:checked ~ .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .navtoggle:checked ~ .burger span:nth-child(2){opacity:0}
+  .navtoggle:checked ~ .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
+    background:#0a0a0c;border-bottom:1px solid rgba(255,255,255,.1);padding:6px 0;display:none;
+    box-shadow:0 18px 40px rgba(0,0,0,.55)}
+  .navtoggle:checked ~ nav{display:flex}
+  nav a{padding:14px 22px;font-size:15px;letter-spacing:.04em;border-bottom:1px solid rgba(255,255,255,.05)}
+  nav a:last-child{border-bottom:0}
+  .brand{margin-left:auto}
+  .brand span{font-size:13px}
+
+  .glowwrap{padding:0 20px 10px}
+  .masthead{padding:20px 0 0}
+  .masthead .mlogo{height:104px}
+  .glowwrap h1{font-size:38px;margin:20px auto 0}
+  .trustedby{margin:18px 0 0}
+  .logostrip{max-width:100%;margin:12px auto 0}
+
+  /* single column: video (Portfolio) first, Models second, then the sentence, then the 3 cards */
+  .boxes{grid-template-columns:1fr;gap:16px;margin:18px auto 0}
+  .box{height:224px}
+  .box .txt h2{font-size:30px}
+  .statement{padding:20px 20px 8px}
+  .statement p{white-space:normal;font-size:17px}
+  .tools{grid-template-columns:1fr;margin:26px auto 48px;gap:12px}
+}
 """
 
 # --- Hero dot animation (RESTORED: the quiet calibration Lou approved) -----
@@ -317,6 +356,8 @@ def body(lang):
 
     return title, f"""
 <header><div class="hbar">
+  <input type="checkbox" id="navtoggle" class="navtoggle" hidden>
+  <label for="navtoggle" class="burger" aria-label="Menu"><span></span><span></span><span></span></label>
   <nav>
     <a class="on" href="{home_href}">{nav_home}</a>
     <a href="{portfolio_href}">{nav_portfolio}</a>
@@ -352,7 +393,8 @@ def body(lang):
 
 <div class="boxes">
   <a class="box videobox" href="{portfolio_href}">
-    <iframe class="bgvid" src="https://www.youtube-nocookie.com/embed/{HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist={HERO_VIDEO_ID}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1" allow="autoplay; encrypted-media" title="Lou Denim"></iframe>
+    <iframe class="bgvid" src="https://www.youtube-nocookie.com/embed/{HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist={HERO_VIDEO_ID}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&cc_load_policy=0&iv_load_policy=3&fs=0&color=white" allow="autoplay; encrypted-media" title="Lou Denim"></iframe>
+    <span class="vshield" aria-hidden="true"></span>
     <div class="txt"><h2>{portfolio_title}</h2><p>{portfolio_sub}</p></div>
   </a>
   <a class="box" href="{models_href}">
