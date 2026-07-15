@@ -149,10 +149,11 @@ footer a:hover{color:var(--pink2)}
 /* landscape phone: trim the masthead so the Portfolio video is the hero on first view */
 @media (max-height:500px) and (orientation:landscape){
   .masthead{padding:14px 0 0}
-  .masthead .mlogo{height:66px}
-  .glowwrap h1{font-size:26px;margin:12px auto 0}
+  .masthead .mlogo{height:60px}
+  .glowwrap h1{font-size:24px;margin:10px auto 0}
   .trustedby,.logostrip{display:none}
-  .box{height:200px}
+  /* both boxes take the video's real 16:9 shape (full width) — no more thin letterbox strip */
+  .box{height:auto;aspect-ratio:16 / 9}
 }
 
 </style>
