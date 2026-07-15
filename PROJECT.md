@@ -5,7 +5,7 @@
 > what the site is, where it lives, how it's built, every locked decision, and how to change it.
 > You are **not** starting from scratch.
 
-Last updated: 14 July 2026.
+Last updated: 15 July 2026.
 
 ---
 
@@ -109,7 +109,12 @@ Generators (`tools/`) still in active use for the white pages (script names are 
 - `build_grille_web.py` — FR online rate card (`rate.html`), reads `prices.json`
 - `make_grille_en.py` — FR→EN + € → £ for the rate card (`rate-en.html`)
 - `build_brief_web.py` — the online brief, both languages (`brief.html`, `brief-en.html`)
-- `make_devis_en.py` — EN simulator (`simulator-en.html`) from the FR template
+- `make_devis_en.py` — EN simulator (`simulator-en.html`) from the FR template. **Since the July 2026
+  redesign the template `simulateur-devis.html` IS the full FR page** (duration slider, 3 formats,
+  steppers, reset button, sticky estimate, mobile total bar, top nav INCLUDED — `add_topnav.py`
+  skips it via its already-present guard). FR rebuild = inject the logo into the template;
+  EN rebuild = run `make_devis_en.py` (its FR→EN pair map covers the redesign strings — if you
+  change FR wording, add the matching pair or the EN page silently keeps French).
 
 Retired (historical reference only — do NOT run, see warning above):
 `build_landing.py`, `build_catalog.py`, `make_models_en.py`, `build_travail_web.py`.
@@ -260,11 +265,17 @@ use commas or colons instead (labels can keep it).
 
 ## 7. PRICES (source of truth = `prices.json`; € on FR, £ same numbers on EN)
 
-**AI video** (15s / 20s / 30–40s):
-- Product only — studio: 350 / 450 / 550
-- Product in an environment: 400 / 500 / 650
-- Product + 1 character: 550 / 750 / 1000
-- Product + 2 characters: 750 / 950 / 1200
+**AI video — 2026 model ("What does your video show?"), durations 15/20/30/40/50/60s.**
+Three base formats, price doubles with length (×2 at 30s, ×4 at 60s for all three):
+- The product on its own (plain background): 300 / 400 / 600 / 800 / 1000 / 1200
+- The product + 1 character (plain background): 350 / 450 / 700 / 900 / 1150 / 1400
+- UGC — character talking to camera (voice + lip-sync) + 1 real location INCLUDED: 400 / 500 / 800 / 1000 / 1300 / 1600
+Flat add-ons at any duration: each extra character +150 (casting, wardrobe & staging included;
+face from the model catalogue OR created for the client — same rate; exclusivity stays a separate
++300 option) · each environment (real location) +150 · each extra product/service +75.
+**The online rate card shows only 15/20/30s** (durees_carte in prices.json) — longer formats are
+priced in the simulator. UGC pricing rationale: market UGC runs €100–400/video; UGC 15s at 400 with
+the −15%/−25% packs lands at 340/300 per video, top of the human-creator range.
 - Resolution: 720p included · 1080p +20% · 4K +50%
 
 **AI images** (sets of 5 min): product only 250 · 1 char + product 380 · 2–3 char + product 600 · set of 10 = 900
@@ -281,8 +292,8 @@ source files/prompts/workflows NOT delivered (Lou's property) · **image rights 
 defined to suit your needs** · 50% deposit before starting · no work without a validated brief + signed agreement.
 
 ### Quote-simulator upsell (Lou loves this — keep it)
-Under the live estimate, two boxes appear **once a video is configured**: **Pack of 3 videos −20%**
-and **Pack of 10 videos −40%**, showing the discounted per-video price + pack total. Discount applies
+Under the live estimate, two boxes always show once a video is configured: **Pack of 3 videos −15%**
+and **Pack of 5 videos −25%**, showing the discounted per-video price + pack total. Discount applies
 to the video subtotal only (not image lots / real-estate). Savings shown in black (pink is hover-only).
 Before a video is picked, a small grey hint shows instead of the boxes. (Distinct from the "Full
 campaign pack" on the rate card, which is 3 formats of ONE concept.)

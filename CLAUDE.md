@@ -38,6 +38,15 @@ DNS at 123 Reg). Push to `main` → live in ~1 min.
   `build_grille_web.py`/`build_brief_web.py`/`simulateur-devis.html`. If those pages are ever
   regenerated from scratch, re-run `add_topnav.py` afterwards or the nav will be missing again.
 
+- **Pricing model (July 2026):** video = 3 base formats under "Que montre votre vidéo ? / What does
+  your video show?" — product only 300→1200, +1 character 350→1400, UGC (speech + 1 location
+  included) 400→1600 across 15/20/30/40/50/60s (price doubles with length). Flat add-ons: extra
+  character 150, environment 150, extra product 75. Online rate card shows 15/20/30s only; the
+  simulator (slider + steppers + reset + sticky estimate + mobile total bar) covers all durations.
+  `prices.json` holds the format ladders; the simulator constants live in
+  `templates/simulateur-devis.html` (BASE_A/B/C) — change BOTH when prices move, and mirror any FR
+  wording change into `make_devis_en.py`'s pair map.
+
 ## Locked design rules (do not break)
 - **Homepage / Models / Portfolio:** near-black `#0a0a0c` background, pink `#E7549F`/`#ff7fc0` accents
   (permanent on title pills/section bands, hover-only elsewhere), typewriter bio (homepage only),

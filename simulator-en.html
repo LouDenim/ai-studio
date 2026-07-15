@@ -23,7 +23,7 @@
   .titleband p{margin:3px 0 0;font-size:10px;letter-spacing:.2em;text-transform:none;color:#e8cfca;font-weight:400;}
   .headcenter{text-align:center;}
   .intro{font-size:14.5px;color:var(--mute);text-align:center;max-width:640px;margin:12px auto 0;}
-  .layout{display:grid;grid-template-columns:1fr 320px;gap:26px;margin-top:26px;align-items:start;}
+  .layout{display:grid;grid-template-columns:1fr 320px;gap:26px;margin-top:26px;}
   @media(max-width:820px){.layout{grid-template-columns:1fr}}
   h2.band{background:#000;color:#fff;font-weight:500;letter-spacing:.16em;text-transform:uppercase;font-size:13.5px;padding:8px 14px;border-radius:10px;margin:26px 0 12px;}
   .who{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px;}
@@ -45,8 +45,19 @@
   .hint{font-size:12px;color:var(--mute);margin:2px 0 0;font-style:italic;}
   .socle{margin:34px 0 0;background:var(--blush1);border-radius:12px;padding:14px 18px;font-size:14px;text-align:center;color:#333;}
   /* summary */
-  .summary{position:sticky;top:16px;margin-top:26px;background:var(--grey);border:1px solid var(--hair);border-radius:14px;padding:16px;}
+  .summary{position:sticky;top:86px;margin-top:26px;background:var(--grey);border:1px solid var(--hair);border-radius:14px;padding:16px;}
   .summary h3{margin:0 0 10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:13.5px;}
+  .resetbtn{background:none;border:1.5px solid #E7549F;color:#E7549F;font-family:inherit;font-size:11.5px;letter-spacing:.08em;
+    font-weight:600;padding:5px 14px;border-radius:999px;cursor:pointer;transition:.15s;}
+  .resetbtn:hover{background:#E7549F;color:#fff;}
+  .mobilebar{display:none;}
+  @media (max-width:760px){
+    .mobilebar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#fff;border-top:1px solid #eee;
+      box-shadow:0 -6px 24px rgba(0,0,0,.10);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
+    .mobilebar .mtot{font-size:13px;letter-spacing:.06em;color:#555;}
+    .mobilebar .mtot b{font-size:19px;color:#000;font-weight:600;margin-left:6px;}
+    body{padding-bottom:62px;}
+  }
   #lines{font-size:14px;}
   #lines .li{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dotted var(--hair);}
   #lines .li span:last-child{white-space:nowrap;font-weight:500;}
@@ -107,6 +118,17 @@
   .topnav nav a:last-child{border-bottom:0}
   .topnav .brand{margin-left:auto}
 }
+.durwrap{padding:6px 2px 2px;}
+.durwrap input[type=range]{width:100%;accent-color:#E7549F;height:28px;cursor:pointer;}
+.durticks{position:relative;height:20px;font-size:12px;color:var(--mute);margin-top:-2px;letter-spacing:.04em;}
+.durticks span{position:absolute;transform:translateX(-50%);white-space:nowrap;}
+.durticks span:nth-child(1){left:calc(8px + 0*((100% - 16px)/5));}
+.durticks span:nth-child(2){left:calc(8px + 1*((100% - 16px)/5));}
+.durticks span:nth-child(3){left:calc(8px + 2*((100% - 16px)/5));}
+.durticks span:nth-child(4){left:calc(8px + 3*((100% - 16px)/5));}
+.durticks span:nth-child(5){left:calc(8px + 4*((100% - 16px)/5));}
+.durticks span:nth-child(6){left:calc(8px + 5*((100% - 16px)/5));}
+.durticks span.on{color:#E7549F;font-weight:700;}
 </style>
 </head>
 <body>
@@ -147,12 +169,21 @@
       </div>
 
       <h2 class="band">AI video</h2>
-      <div class="q"><div class="lab">Scene type</div>
-        <div class="opts" id="scene"></div>
-        <p class="hint">Studio = plain background · Environment = real location · A service? its place / facade acts as the product.<br>
-        Characters: casting, wardrobe, props and staging <b>included</b>. Pick your faces in the <a href="models-en.html" target="_blank" rel="noopener">model catalogue</a>.</p>
+      <div class="q"><div class="lab">1 · Video length</div>
+        <div class="durwrap">
+          <input type="range" min="0" max="5" step="1" value="0" id="durslider" oninput="setDur(this.value)">
+          <div class="durticks"><span>15s</span><span>20s</span><span>30s</span><span>40s</span><span>50s</span><span>60s</span></div>
+        </div>
       </div>
-      <div class="q"><div class="lab">Duration</div><div class="opts" id="dur"></div></div>
+      <div class="q"><div class="lab">2 · What does your video show?</div>
+        <div class="opts" id="base"></div>
+        <p class="hint">Product = also a service (its place, its sign, its facade). The first two formats are on a plain background
+        &mdash; the real location is added at step 3. <b>UGC</b>: 1 character talking to camera (voice + lip-sync) and 1 real location <b>included</b>.</p>
+      </div>
+      <div class="q"><div class="lab">3 · Add to your scene</div>
+        <div id="vbuild"></div>
+        <p class="hint">Character: casting, wardrobe &amp; staging <b>included</b>. Pick a face in the <a href="models-en.html" target="_blank" rel="noopener">model catalogue</a>, or I create one for you &mdash; same rate. To reserve it for your brand, see <b>Exclusivity</b> in the Characters section.</p>
+      </div>
       <div class="q"><div class="lab">Resolution</div><div class="opts" id="res"></div></div>
       <div class="q"><div class="lab">Visual style <span class="pr" style="font-weight:400">— same rate</span></div><div class="opts" id="style"></div></div>
 
@@ -189,7 +220,10 @@
 
     <div>
       <div class="summary">
-        <h3>Your estimate</h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+          <h3 style="margin:0">Your estimate</h3>
+          <button type="button" class="resetbtn" onclick="resetAll()">&#8634; Reset</button>
+        </div>
         <div id="lines"></div>
         <div class="total"><b>Estimated total</b><span class="amt" id="amt">0 €</span></div>
         <p class="est">Indicative estimate, excl. VAT. The final quote is set by Lou Denim based on brief complexity. 50% deposit before we start.</p>
@@ -208,12 +242,11 @@
 </div>
 
 <script>
-const SCENES={
-  studio:{label:'Product only — studio',p:[350,450,550]},
-  environnement:{label:'Product in an environment',p:[400,500,650]},
-  perso1:{label:'Product + 1 character',p:[550,750,1000]},
-  perso2:{label:'Product + 2 characters',p:[750,950,1200]},
-};
+const BASE_A=[300,400,600,800,1000,1200];   // product/service — plain background
+const BASE_B=[350,450,700,900,1150,1400];   // product/service + 1 character
+const BASE_C=[400,500,800,1000,1300,1600];  // UGC — talking character + real location included
+const VDURS=['15s','20s','30s','40s','50s','60s'];
+const ENV_PRICE=150, PROD_PRICE=75, CHAR_PRICE=150;
 const DURS=['≤ 15s','≤ 20s','30–40s'];
 const RES={ '720':{label:'HD 720p — included',mult:1.0}, '1080':{label:'Full HD 1080p — +20%',mult:1.2}, '4k':{label:'4K Upscale — +50%',mult:1.5} };
 const STYLES=['Photorealistic','3D animation','2D cartoon'];
@@ -246,7 +279,7 @@ const IMAGES={
   multi:{label:'2–3 characters + product (set of 5)',price:600},
   lot10:{label:'Set of 10 — complex campaign',price:900},
 };
-const state={scene:null,dur:null,res:'720',style:null,fx:{},son:{},perso:{},opts:{},revision:0,urgence:false,
+const state={base:'A',envs:0,chars:0,prodsExtra:0,dur:0,res:'720',style:null,fx:{},son:{},perso:{},opts:{},revision:0,urgence:false,
              immoDur:null,immoPerso:false,immoEmb:0,immoStag:0,img:{}};
 
 function eur(n){return '£'+n.toLocaleString('en-GB');}
@@ -257,12 +290,15 @@ function chips(elId,obj,group){
       `<label class="opt" data-g="${group}" data-k="${k}"><input type="checkbox"> ${v.label} <span class="pr">${v.des?'from ':''}+£${v.price}</span></label>`);
   });
 }
-const sc=document.getElementById('scene');
-Object.entries(SCENES).forEach(([k,v])=>{
-  sc.insertAdjacentHTML('beforeend',`<label class="opt" data-g="scene" data-k="${k}"><input type="radio" name="scene">${v.label}</label>`);
-});
-const du=document.getElementById('dur');
-DURS.forEach((d,i)=>du.insertAdjacentHTML('beforeend',`<label class="opt" data-g="dur" data-k="${i}"><input type="radio" name="dur">${d}</label>`));
+document.getElementById('base').innerHTML=
+  `<label class="opt on" data-g="base" data-k="A"><input type="radio" name="base" checked>The product on its own</label>`+
+  `<label class="opt" data-g="base" data-k="B"><input type="radio" name="base">The product + 1 character</label>`+
+  `<label class="opt" data-g="base" data-k="C"><input type="radio" name="base">UGC — talking to camera</label>`;
+document.getElementById('vbuild').innerHTML=
+  `<div class="qtyrow"><span>Environments <span class="pr">+£${ENV_PRICE} / environment</span></span><input type="number" min="0" value="0" oninput="setV('envs',this.value)"></div>`+
+  `<div class="qtyrow"><span>Extra characters <span class="pr">+£${CHAR_PRICE} / character</span></span><input type="number" min="0" value="0" oninput="setV('chars',this.value)"></div>`+
+  `<div class="qtyrow"><span>Extra products / services <span class="pr">+£${PROD_PRICE} / unit</span></span><input type="number" min="0" value="0" oninput="setV('prodsExtra',this.value)"></div>`;
+markDur();
 const re=document.getElementById('res');
 Object.entries(RES).forEach(([k,v])=>re.insertAdjacentHTML('beforeend',`<label class="opt${k==='720'?' on':''}" data-g="res" data-k="${k}"><input type="radio" name="res" ${k==='720'?'checked':''}>${v.label}</label>`));
 const st=document.getElementById('style');
@@ -286,8 +322,7 @@ Object.entries(IMAGES).forEach(([k,v])=>im.insertAdjacentHTML('beforeend',
 document.querySelectorAll('label.opt').forEach(l=>{
   l.addEventListener('click',()=>{
     const g=l.dataset.g,k=l.dataset.k;
-    if(g==='scene'){state.scene=k;single('scene',l);}
-    if(g==='dur'){state.dur=+k;single('dur',l);}
+    if(g==='base'){state.base=k;single('base',l);}
     if(g==='res'){state.res=k;single('res',l);}
     if(g==='style'){state.style=+k;single('style',l);}
     if(g==='immoDur'){state.immoDur=+k;single('immoDur',l);}
@@ -301,22 +336,40 @@ document.querySelectorAll('label.opt').forEach(l=>{
 function single(g,el){document.querySelectorAll(`label.opt[data-g="${g}"]`).forEach(x=>x.classList.remove('on'));el.classList.add('on');calc();}
 function setRev(v){state.revision=Math.max(0,parseInt(v)||0);calc();}
 function setImg(k,v){state.img[k]=Math.max(0,parseInt(v)||0);calc();}
+function setV(k,v){state[k]=Math.min(9,Math.max(0,parseInt(v)||0));calc();}
+function setDur(i){state.dur=+i;markDur();calc();}
+function resetAll(){
+  state.base='A';state.envs=0;state.chars=0;state.prodsExtra=0;state.dur=0;state.res='720';state.style=null;
+  state.fx={};state.son={};state.perso={};state.opts={};state.revision=0;state.urgence=false;
+  state.immoDur=null;state.immoPerso=false;state.immoEmb=0;state.immoStag=0;state.img={};
+  document.querySelectorAll('label.opt').forEach(l=>{l.classList.remove('on');const i=l.querySelector('input');if(i)i.checked=false;});
+  const bA=document.querySelector('label.opt[data-g="base"][data-k="A"]');if(bA){bA.classList.add('on');const i=bA.querySelector('input');if(i)i.checked=true;}
+  const r7=document.querySelector('label.opt[data-g="res"][data-k="720"]');if(r7){r7.classList.add('on');const i=r7.querySelector('input');if(i)i.checked=true;}
+  document.querySelectorAll('input[type=number]').forEach(n=>n.value=0);
+  markDur();calc();
+}
+function markDur(){const s=document.getElementById('durslider');if(s)s.value=state.dur;document.querySelectorAll('.durticks span').forEach((el,i)=>el.classList.toggle('on',i===state.dur));}
 function setImmoQty(k,v){state[k]=Math.max(0,parseInt(v)||0);calc();}
 
 function calc(){
   const lines=[]; let total=0; let vt=0;
-  if(state.scene && state.dur!==null){
-    let base=SCENES[state.scene].p[state.dur];
+  if(state.dur!==null){
     const rm=RES[state.res].mult;
-    let vid=Math.round(base*rm);
-    lines.push([`${SCENES[state.scene].label} · ${DURS[state.dur]}`,base]);
-    if(rm!==1) lines.push([`Resolution ${RES[state.res].label.split('—')[0].trim()}`,vid-base]);
+    const base=(state.base==='C'?BASE_C:state.base==='B'?BASE_B:BASE_A)[state.dur];
+    const extraProd=state.prodsExtra*PROD_PRICE;
+    const envc=state.envs*ENV_PRICE;
+    const charc=state.chars*CHAR_PRICE;
+    const sub=base+extraProd+envc+charc;
+    let vid=Math.round(sub*rm);
+    lines.push([(state.base==='C'?`UGC — talking to camera (speech + location included) · ${VDURS[state.dur]}`:state.base==='B'?`The product + 1 character · ${VDURS[state.dur]}`:`The product on its own · ${VDURS[state.dur]}`),base]);
+    if(envc>0) lines.push([`Environments × ${state.envs}`,envc]);
+    if(charc>0) lines.push([`Extra characters × ${state.chars}`,charc]);
+    if(extraProd>0) lines.push([`Extra products / services × ${state.prodsExtra}`,extraProd]);
+    if(rm!==1) lines.push([`Resolution ${RES[state.res].label.split('—')[0].trim()}`,vid-sub]);
     if(state.style!==null) lines.push([`Style: ${STYLES[state.style]}`,0]);
     let vidSub=vid;
     if(state.urgence){const u=Math.round(vid*0.4);lines.push(['Rush +40%',u]);vidSub+=u;}
     total+=vidSub; vt+=vidSub;
-  } else if(state.scene || state.dur!==null){
-    lines.push(['Video — pick scene + duration',null]);
   }
   [['fx',FX],['son',SON],['perso',PERSO]].forEach(([bag,obj])=>{
     Object.keys(obj).forEach(k=>{if(state[bag][k]){lines.push([obj[k].label,obj[k].price]);total+=obj[k].price;vt+=obj[k].price;}});
@@ -333,6 +386,7 @@ function calc(){
   if(!lines.length){box.innerHTML='<div class="li muted"><span>Nothing selected yet</span></div>';}
   else{box.innerHTML=lines.map(([l,v])=>`<div class="li${v===null?' muted':''}"><span>${l}</span><span>${v===null?'—':(v===0?'included':eur(v))}</span></div>`).join('');}
   document.getElementById('amt').textContent=eur(total);
+  const a2=document.getElementById('amt2');if(a2)a2.textContent=eur(total);
   window._total=total;window._lines=lines;window._videoTotal=vt;
   renderPacks();
 }
@@ -430,5 +484,7 @@ function draw(now){
 requestAnimationFrame(draw);
 })();
 </script>
+<div class="mobilebar"><span class="mtot">Estimated total<b id="amt2">0 £</b></span><button type="button" class="resetbtn" onclick="resetAll()">&#8634; Reset</button></div>
+<script>if(typeof calc==='function')calc();</script>
 </body>
 </html>

@@ -2,54 +2,70 @@
  "_comment": "SOURCE UNIQUE des tarifs Lou Denim. Toute modification part d'ici : simulateur, grille en ligne, PDF FR/EN sont générés/synchronisés depuis ce fichier. Validé par Lou le 2026-07-12.",
  "devise": "€",
  "video": {
-  "scenes": {
-   "studio": {
-    "label": "Produit seul — studio",
-    "en": "Product only — studio",
+  "formats": {
+   "seul": {
+    "label": "Le produit seul",
+    "en": "The product on its own",
+    "prix": [
+     300,
+     400,
+     600,
+     800,
+     1000,
+     1200
+    ]
+   },
+   "personnage": {
+    "label": "Le produit + 1 personnage",
+    "en": "The product + 1 character",
     "prix": [
      350,
      450,
-     550
+     700,
+     900,
+     1150,
+     1400
     ]
    },
-   "environnement": {
-    "label": "Produit en environnement",
-    "en": "Product in an environment",
+   "ugc": {
+    "label": "UGC : personnage qui parle face caméra, lieu réel inclus",
+    "en": "UGC: character talking to camera, real location included",
     "prix": [
      400,
      500,
-     650
-    ]
-   },
-   "perso1": {
-    "label": "Produit + 1 personnage",
-    "en": "Product + 1 character",
-    "prix": [
-     550,
-     750,
-     1000
-    ]
-   },
-   "perso2": {
-    "label": "Produit + 2 personnages",
-    "en": "Product + 2 characters",
-    "prix": [
-     750,
-     950,
-     1200
+     800,
+     1000,
+     1300,
+     1600
     ]
    }
   },
   "durees": [
-   "≤ 15s",
-   "≤ 20s",
-   "30–40s"
+   "15s",
+   "20s",
+   "30s",
+   "40s",
+   "50s",
+   "60s"
   ],
-  "durees_en": [
-   "≤ 15s",
-   "≤ 20s",
-   "30–40s"
-  ],
+  "durees_carte": 3,
+  "supplements": {
+   "personnage": {
+    "label": "+ chaque personnage supplémentaire : casting, tenue & mise en scène inclus",
+    "en": "+ each extra character: casting, wardrobe & staging included",
+    "prix": 150
+   },
+   "environnement": {
+    "label": "+ chaque environnement (lieu réel)",
+    "en": "+ each environment (real location)",
+    "prix": 150
+   },
+   "produit": {
+    "label": "+ chaque produit ou service supplémentaire",
+    "en": "+ each extra product or service",
+    "prix": 75
+   }
+  },
   "resolutions": {
    "720": 1.0,
    "1080": 1.2,

@@ -17,9 +17,13 @@ def row(label, price, des=False):
     p = f"dès {eur(price)}" if des else (eur(price) if isinstance(price,int) else price)
     return f"<tr><td>{label}</td><td class='num'>{p}</td></tr>"
 
+NCARD = P["video"].get("durees_carte", 3)   # the online card shows 15/20/30s; longer -> simulator
 video_rows = "".join(
-    f"<tr><td>{v['label']}</td>" + "".join(f"<td class='num'>{eur(p)}</td>" for p in v["prix"]) + "</tr>"
-    for v in P["video"]["scenes"].values())
+    f"<tr><td>{v['label']}</td>" + "".join(f"<td class='num'>{eur(p)}</td>" for p in v["prix"][:NCARD]) + "</tr>"
+    for v in P["video"]["formats"].values())
+video_supp_rows = "".join(
+    f"<tr><td>{v['label']}</td><td class='num'>+&nbsp;{eur(v['prix'])}</td></tr>"
+    for v in P["video"]["supplements"].values())
 
 effets_rows = "".join(row(v["label"], v["prix"], True) for v in P["effets"].values())
 son_rows    = "".join(row(v["label"], v["prix"], v.get("des",False)) for v in P["son_finitions"].values())
@@ -111,9 +115,11 @@ footer a{{color:#000}}
 <p class="note">Images vendues par lots de 5 minimum. Tarif à l'unité disponible sur demande.</p>
 
 <h2 class="band">Production vidéo par IA <span class="tag">Produit / service</span></h2>
-<table><thead><tr><th>Scène</th><th class="num">≤&nbsp;15<span class="lc">s</span></th><th class="num">≤&nbsp;20<span class="lc">s</span></th><th class="num">30&nbsp;–&nbsp;40<span class="lc">s</span></th></tr></thead>
+<table><thead><tr><th>Que montre votre vidéo ?</th><th class="num">15<span class="lc">s</span></th><th class="num">20<span class="lc">s</span></th><th class="num">30<span class="lc">s</span></th></tr></thead>
 <tbody>{video_rows}</tbody></table>
-<p class="note"><strong>Studio</strong> = fond neutre · <strong>Environnement</strong> = lieu réel · <strong>Personnages</strong> = présents dans la scène — casting, habillement, accessoires et mise en scène <strong>inclus</strong>.</p>
+<table><tbody>{video_supp_rows}</tbody></table>
+<p class="note">Le prix s'additionne : votre format (selon la durée) + vos environnements + vos personnages et produits supplémentaires. Les deux premiers formats sont sur fond neutre ; le format UGC inclut la parole (voix + synchro labiale) et 1 lieu réel. Pour votre combinaison exacte — et les formats plus longs (40 à 60 s) — utilisez le <a href="simulator.html">simulateur</a>.</p>
+<p class="note"><strong>Personnage :</strong> choisi dans le <a href="modeles.html">catalogue de modèles</a> ou créé pour vous, même tarif. Pour le réserver à votre marque (non réutilisé ailleurs), voir <strong>Exclusivité</strong> dans la section Personnages.</p>
 <p class="note"><strong>Un service ?</strong> Son lieu, son enseigne ou sa façade fait office de produit (ex : la façade de la banque, la salle d'un restaurant).</p>
 <p class="note"><strong>Style visuel — même tarif :</strong> Photoréaliste · Animation 3D · Dessin animé 2D.</p>
 

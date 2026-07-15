@@ -120,11 +120,64 @@ REP = [
  ("footer>Lou Denim — loudenim.com","footer>Lou Denim — loudenim.com"),
  ('Envie de voir&nbsp;? <a href="portfolio.html">Le travail en images</a>','Want to see? <a href="portfolio-en.html">The work</a>'),
 ]
+
+# --- pairs for the 2026 redesign (3 formats + slider + reset + mobile bar + topnav in template) ---
+REP += [
+ ('href="home.html">Accueil</a>','href="home-en.html">Home</a>'),
+ ('href="portfolio.html">Portfolio</a>','href="portfolio-en.html">Portfolio</a>'),
+ ('href="modeles.html">Modèles</a>','href="models-en.html">Models</a>'),
+ ('href="rate.html">Grille tarifaire</a>','href="rate-en.html">Rate card</a>'),
+ ('class="on" href="simulator.html">Simulateur</a>','class="on" href="simulator-en.html">Simulator</a>'),
+ ('href="brief.html">Brief vidéo</a>','href="brief-en.html">Video brief</a>'),
+ ('<div class="langs"><a class="" href="simulator-en.html">EN</a><a class="on" href="simulator.html">FR</a></div>',
+  '<div class="langs"><a class="on" href="simulator-en.html">EN</a><a class="" href="simulator.html">FR</a></div>'),
+ ('1 · Durée de la vidéo','1 · Video length'),
+ ('2 · Que montre votre vidéo ?','2 · What does your video show?'),
+ ("""Produit = aussi un service (son lieu, son enseigne, sa fa&ccedil;ade). Les deux premiers formats sont sur fond neutre
+        &mdash; le lieu r&eacute;el s&rsquo;ajoute &agrave; l&rsquo;&eacute;tape 3. <b>UGC</b> : 1 personnage qui parle face cam&eacute;ra
+        (voix + synchro labiale) et 1 lieu r&eacute;el <b>inclus</b>.""",
+  """Product = also a service (its place, its sign, its facade). The first two formats are on a plain background
+        &mdash; the real location is added at step 3. <b>UGC</b>: 1 character talking to camera (voice + lip-sync) and 1 real location <b>included</b>."""),
+ ('3 · Ajoutez à votre scène','3 · Add to your scene'),
+ ('Personnage : casting, tenue &amp; mise en scène <b>inclus</b>. Choisissez un visage dans le <a href="modeles.html" target="_blank" rel="noopener">catalogue de modèles</a>, ou je le crée pour vous — même tarif. Pour le réserver à votre marque, voir <b>Exclusivité</b> dans la section Personnages.',
+  'Character: casting, wardrobe &amp; staging <b>included</b>. Pick a face in the <a href="models-en.html" target="_blank" rel="noopener">model catalogue</a>, or I create one for you — same rate. To reserve it for your brand, see <b>Exclusivity</b> in the Characters section.'),
+ ('>Le produit seul</label>','>The product on its own</label>'),
+ ('>Le produit + 1 personnage</label>','>The product + 1 character</label>'),
+ ('>UGC — face cam&eacute;ra</label>','>UGC — talking to camera</label>'),
+ ('Environnements <span class="pr">+${ENV_PRICE} € / environnement</span>','Environments <span class="pr">+£${ENV_PRICE} / environment</span>'),
+ ('Personnages suppl&eacute;mentaires <span class="pr">+${CHAR_PRICE} € / personnage</span>','Extra characters <span class="pr">+£${CHAR_PRICE} / character</span>'),
+ ('Produits / services en plus <span class="pr">+${PROD_PRICE} € / unité</span>','Extra products / services <span class="pr">+£${PROD_PRICE} / unit</span>'),
+ ('// produit/service — studio','// product/service — plain background'),
+ ('// produit/service + 1 personnage','// product/service + 1 character'),
+ ('// UGC — personnage qui parle + lieu réel inclus','// UGC — talking character + real location included'),
+ ('`UGC — face caméra (parole + lieu inclus) · ${VDURS[state.dur]}`','`UGC — talking to camera (speech + location included) · ${VDURS[state.dur]}`'),
+ ('`Le produit + 1 personnage · ${VDURS[state.dur]}`','`The product + 1 character · ${VDURS[state.dur]}`'),
+ ('`Le produit seul · ${VDURS[state.dur]}`','`The product on its own · ${VDURS[state.dur]}`'),
+ ('`Environnements × ${state.envs}`','`Environments × ${state.envs}`'),
+ ('`Produits / services en plus × ${state.prodsExtra}`','`Extra products / services × ${state.prodsExtra}`'),
+ ('<h3 style="margin:0">Votre estimation</h3>','<h3 style="margin:0">Your estimate</h3>'),
+ ('&#8634; Réinitialiser','&#8634; Reset'),
+ ('<span class="mtot">Total estimé<b id="amt2">0 €</b></span>','<span class="mtot">Estimated total<b id="amt2">0 £</b></span>'),
+]
+REP += [
+ ('<a href="home.html"><img src="__LOGO_SRC__" alt="Lou Denim"></a>','<a href="home-en.html"><img src="__LOGO_SRC__" alt="Lou Denim"></a>'),
+ ('<h2 class="band">Immobilier &amp; lieux <span style="font-weight:400;letter-spacing:.04em;font-size:11px;opacity:.7">— à partir de vos photos</span></h2>',
+  '<h2 class="band">Real estate &amp; places <span style="font-weight:400;letter-spacing:.04em;font-size:11px;opacity:.7">— from your photos</span></h2>'),
+ ('<h2 class="band">Images par IA <span style="font-weight:400;letter-spacing:.04em;font-size:11px;opacity:.7">— lots de 5 minimum</span></h2>',
+  '<h2 class="band">AI images <span style="font-weight:400;letter-spacing:.04em;font-size:11px;opacity:.7">— sets of 5 minimum</span></h2>'),
+ ('<a href="modeles.html" target="_blank" rel="noopener">AI model catalogue</a>','<a href="models-en.html" target="_blank" rel="noopener">AI model catalogue</a>'),
+ ('<a href="rate.html" target="_blank" rel="noopener">Grille tarifaire</a>','<a href="Rate_Card_LouDenim.pdf" target="_blank" rel="noopener">Rate card (PDF)</a>'),
+ ("'<h3>Merci&nbsp;!</h3><p style=\"font-size:14.5px;line-height:1.6\">Votre demande a bien été envoyée à Lou Denim. Vous recevrez un devis rapidement.</p>'",
+  "'<h3>Thank you!</h3><p style=\"font-size:14.5px;line-height:1.6\">Your request has been sent to Lou Denim. You will receive a quote shortly.</p>'"),
+]
+# the extra-characters receipt line carries a literal \u00e9 escape inside the JS template string
+REP += [('`Personnages suppl\\u00e9mentaires × ${state.chars}`','`Extra characters × ${state.chars}`')]
+
 missed = 0
 for a,b in REP:
     if a in h: h = h.replace(a,b)
     elif a != b: missed += 1; print('  (absent):', a[:70])
 b64 = "data:image/svg+xml;base64," + base64.b64encode(open(f"{SKILL}/assets/lou-denim-logo.svg","rb").read()).decode()
 h = h.replace('__LOGO_SRC__', b64).replace('__LINK_CATALOGUE__','models-en.html').replace('__LINK_GRILLE__','Rate_Card_LouDenim.pdf')
-open(f"{OUT}/devis-en.html",'w').write(h)
-print('devis-en.html ok — non trouvés:', missed)
+open(f"{OUT}/simulator-en.html",'w').write(h)
+print('simulator-en.html ok — non trouvés:', missed)
