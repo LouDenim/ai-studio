@@ -84,10 +84,9 @@ nav a:hover,nav a.on{color:var(--pink2)}
 .box .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--pink2)}
 
 .videobox{background:radial-gradient(120% 140% at 30% 20%, #2a2a30 0%, #101014 60%, #0a0a0c 100%)}
-.videobox .bgvid{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;border:0}
-/* transparent shield over the player: the YouTube frame never receives hover/tap, so its
-   'More videos' / pause overlays never appear; clicks still bubble to the parent <a> link */
-.videobox .vshield{position:absolute;inset:0;z-index:2;background:transparent}
+/* self-hosted MP4 background: object-fit:cover crops to fill the box at ANY aspect ratio
+   (desktop / portrait / landscape), no YouTube chrome, no logo, no captions, no 'More videos' */
+.videobox .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;border:0}
 .videobox .txt{z-index:3}
 
 .toolswrap{position:relative;z-index:2}
@@ -303,34 +302,7 @@ if('IntersectionObserver' in window){
 })();
 """
 
-# --- Hero video: drive it through the YouTube IFrame API so we can actually strip captions
-# and guarantee the loop. URL params (cc_load_policy=0 etc.) are not reliable on their own —
-# especially on mobile — so on ready/every state change we unload the captions module, and if
-# the clip ever reaches the end we seek back to 0 and replay (kills the 'More videos' endscreen).
-HEROVID_JS = r"""
-(function(){
-  var tag=document.createElement('script');
-  tag.src='https://www.youtube.com/iframe_api';
-  document.head.appendChild(tag);
-})();
-function killCaps(t){try{t.unloadModule('captions');}catch(e){} try{t.unloadModule('cc');}catch(e){}}
-function onYouTubeIframeAPIReady(){
-  if(!document.getElementById('herovid')) return;
-  new YT.Player('herovid',{
-    events:{
-      onReady:function(e){var t=e.target;t.mute();t.playVideo();killCaps(t);setTimeout(function(){killCaps(t);},1500);},
-      onStateChange:function(e){var t=e.target;killCaps(t);
-        if(e.data===YT.PlayerState.ENDED){t.seekTo(0,true);t.playVideo();}
-      }
-    }
-  });
-}
-"""
-
 PLAY_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg>'
-# TODO(Lou): confirm this is "the best video" / the one matching the model shown in the
-# adjacent Models box — placeholder pick, first ID in build_travail_d2.py's IDS_169 list.
-HERO_VIDEO_ID = "f8KkFZHk_38"
 
 IG_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.3 1.1.4 2.3.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.3-2.3.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.3-1.1-.4-2.3-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.3 2.3-.4 1.3-.1 1.7-.1 4.9-.1M12 0C8.7 0 8.3 0 7 .1c-1.3.1-2.2.3-3 .6-.8.3-1.5.7-2.2 1.4C1.1 2.8.7 3.5.4 4.3c-.3.8-.5 1.7-.6 3C-.1 8.3-.1 8.7-.1 12s0 3.7.1 5c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.7.5 3 .6 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.7.6-3 .1-1.3.1-1.7.1-5s0-3.7-.1-5c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.4-2.2C21.2 1.1 20.5.7 19.7.4c-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0z"/><path d="M12 5.8A6.2 6.2 0 1 0 18.2 12 6.2 6.2 0 0 0 12 5.8zm0 10.2A4 4 0 1 1 16 12a4 4 0 0 1-4 4z"/><circle cx="18.4" cy="5.6" r="1.4"/></svg>'
 
@@ -434,8 +406,7 @@ def body(lang):
 
 <div class="boxes">
   <a class="box videobox" href="{portfolio_href}">
-    <iframe id="herovid" class="bgvid" src="https://www.youtube-nocookie.com/embed/{HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist={HERO_VIDEO_ID}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&cc_load_policy=0&cc_lang_pref=zz&iv_load_policy=3&fs=0&color=white&enablejsapi=1" allow="autoplay; encrypted-media" title="Lou Denim"></iframe>
-    <span class="vshield" aria-hidden="true"></span>
+    <video class="bgvid" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg"><source src="hero.mp4" type="video/mp4"></video>
     <div class="txt"><h2>{portfolio_title}</h2><p>{portfolio_sub}</p></div>
   </a>
   <div class="statement"><p>{bio}</p></div>
@@ -470,7 +441,6 @@ for lang, fname in [('fr','mockup-d20.html'), ('en','mockup-d20-en.html')]:
 {b}
 <script>{TYPE_JS}</script>
 <script>{DOTFX_JS}</script>
-<script>{HEROVID_JS}</script>
 </body>
 </html>"""
     open(f'/root/homepage-mockups/{fname}','w').write(html)

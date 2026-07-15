@@ -85,10 +85,9 @@ nav a:hover,nav a.on{color:var(--pink2)}
 .box .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--pink2)}
 
 .videobox{background:radial-gradient(120% 140% at 30% 20%, #2a2a30 0%, #101014 60%, #0a0a0c 100%)}
-.videobox .bgvid{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;border:0}
-/* transparent shield over the player: the YouTube frame never receives hover/tap, so its
-   'More videos' / pause overlays never appear; clicks still bubble to the parent <a> link */
-.videobox .vshield{position:absolute;inset:0;z-index:2;background:transparent}
+/* self-hosted MP4 background: object-fit:cover crops to fill the box at ANY aspect ratio
+   (desktop / portrait / landscape), no YouTube chrome, no logo, no captions, no 'More videos' */
+.videobox .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;border:0}
 .videobox .txt{z-index:3}
 
 .toolswrap{position:relative;z-index:2}
@@ -198,8 +197,7 @@ footer a:hover{color:var(--pink2)}
 
 <div class="boxes">
   <a class="box videobox" href="portfolio-en.html">
-    <iframe id="herovid" class="bgvid" src="https://www.youtube-nocookie.com/embed/f8KkFZHk_38?autoplay=1&mute=1&loop=1&playlist=f8KkFZHk_38&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&cc_load_policy=0&cc_lang_pref=zz&iv_load_policy=3&fs=0&color=white&enablejsapi=1" allow="autoplay; encrypted-media" title="Lou Denim"></iframe>
-    <span class="vshield" aria-hidden="true"></span>
+    <video class="bgvid" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg"><source src="hero.mp4" type="video/mp4"></video>
     <div class="txt"><h2>Portfolio</h2><p>AI videos and images, cinematic and vertical formats.</p></div>
   </a>
   <div class="statement"><p>Editorial and advertising photographer for 25+ years. Now with <span>AI superpowers.</span></p></div>
@@ -356,25 +354,6 @@ function draw(now){
 }
 requestAnimationFrame(draw);
 })();
-</script>
-<script>
-(function(){
-  var tag=document.createElement('script');
-  tag.src='https://www.youtube.com/iframe_api';
-  document.head.appendChild(tag);
-})();
-function killCaps(t){try{t.unloadModule('captions');}catch(e){} try{t.unloadModule('cc');}catch(e){}}
-function onYouTubeIframeAPIReady(){
-  if(!document.getElementById('herovid')) return;
-  new YT.Player('herovid',{
-    events:{
-      onReady:function(e){var t=e.target;t.mute();t.playVideo();killCaps(t);setTimeout(function(){killCaps(t);},1500);},
-      onStateChange:function(e){var t=e.target;killCaps(t);
-        if(e.data===YT.PlayerState.ENDED){t.seekTo(0,true);t.playVideo();}
-      }
-    }
-  });
-}
 </script>
 </body>
 </html>
