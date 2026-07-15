@@ -47,7 +47,7 @@ nav a:hover,nav a.on{color:var(--pink2)}
 @keyframes logoscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion: reduce){.logostrip .track{animation:none}}
 
-.statement{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:22px 28px 16px;text-align:center}
+.statement{position:relative;z-index:2;margin:0;padding:22px 28px 16px;text-align:center}
 .statement p{font-size:19px;font-weight:500;line-height:1.5;color:#f0f0f2;white-space:nowrap;
   position:relative;display:inline-block}
 .statement p span{color:var(--pink2)}
@@ -66,8 +66,12 @@ nav a:hover,nav a.on{color:var(--pink2)}
   100%{transform:scale(1);color:var(--pink2);text-shadow:0 0 0 rgba(255,127,192,0)}
 }
 
-.boxes{max-width:1180px;margin:22px auto 0;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:2}
+.boxes{max-width:1180px;margin:22px auto 0;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;column-gap:20px;row-gap:0;position:relative;z-index:2}
 .box{position:relative;height:320px;border-radius:20px;overflow:hidden;display:block}
+/* desktop: video + models side by side (row 1), sentence full-width below (row 2) */
+.boxes .videobox{grid-column:1;grid-row:1}
+.boxes .models-box{grid-column:2;grid-row:1}
+.boxes .statement{grid-column:1 / -1;grid-row:2}
 .box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:saturate(1.05)}
 .box:hover img{transform:scale(1.05)}
 .box::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,.05) 55%)}
@@ -104,8 +108,9 @@ footer a:hover{color:var(--pink2)}
 .social a:hover{color:var(--pink2)}
 .social svg{width:16px;height:16px;fill:currentColor}
 
-/* ---------- MOBILE: burger menu + single-column stack (video, then models, then cards) ---------- */
-@media (max-width:760px){
+/* ---------- MOBILE + landscape phone: burger menu + single-column stack ---------- */
+/* portrait phones (narrow) OR landscape phones (short + landscape) both get the clean stack */
+@media (max-width:760px), (max-height:500px) and (orientation:landscape){
   .hbar{padding:16px 20px;position:relative}
   /* collapse the full text nav behind a burger, top-left, aligned with AI STUDIO */
   .burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:30px;height:26px;cursor:pointer;order:-1;z-index:40}
@@ -129,13 +134,25 @@ footer a:hover{color:var(--pink2)}
   .trustedby{margin:18px 0 0}
   .logostrip{max-width:100%;margin:12px auto 0}
 
-  /* single column: video (Portfolio) first, Models second, then the sentence, then the 3 cards */
-  .boxes{grid-template-columns:1fr;gap:16px;margin:18px auto 0}
+  /* single column, reordered: video (Portfolio), then the sentence, then Models, then the 3 cards */
+  .boxes{grid-template-columns:1fr;column-gap:0;row-gap:16px;margin:18px auto 0}
+  .boxes .videobox{grid-column:1;grid-row:1}
+  .boxes .statement{grid-column:1;grid-row:2}
+  .boxes .models-box{grid-column:1;grid-row:3}
   .box{height:224px}
   .box .txt h2{font-size:30px}
-  .statement{padding:20px 20px 8px}
+  .statement{padding:2px 20px 2px}
   .statement p{white-space:normal;font-size:17px}
   .tools{grid-template-columns:1fr;margin:26px auto 48px;gap:12px}
+}
+
+/* landscape phone: trim the masthead so the Portfolio video is the hero on first view */
+@media (max-height:500px) and (orientation:landscape){
+  .masthead{padding:14px 0 0}
+  .masthead .mlogo{height:66px}
+  .glowwrap h1{font-size:26px;margin:12px auto 0}
+  .trustedby,.logostrip{display:none}
+  .box{height:200px}
 }
 """
 
@@ -286,6 +303,30 @@ if('IntersectionObserver' in window){
 })();
 """
 
+# --- Hero video: drive it through the YouTube IFrame API so we can actually strip captions
+# and guarantee the loop. URL params (cc_load_policy=0 etc.) are not reliable on their own —
+# especially on mobile — so on ready/every state change we unload the captions module, and if
+# the clip ever reaches the end we seek back to 0 and replay (kills the 'More videos' endscreen).
+HEROVID_JS = r"""
+(function(){
+  var tag=document.createElement('script');
+  tag.src='https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+})();
+function killCaps(t){try{t.unloadModule('captions');}catch(e){} try{t.unloadModule('cc');}catch(e){}}
+function onYouTubeIframeAPIReady(){
+  if(!document.getElementById('herovid')) return;
+  new YT.Player('herovid',{
+    events:{
+      onReady:function(e){var t=e.target;t.mute();t.playVideo();killCaps(t);setTimeout(function(){killCaps(t);},1500);},
+      onStateChange:function(e){var t=e.target;killCaps(t);
+        if(e.data===YT.PlayerState.ENDED){t.seekTo(0,true);t.playVideo();}
+      }
+    }
+  });
+}
+"""
+
 PLAY_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg>'
 # TODO(Lou): confirm this is "the best video" / the one matching the model shown in the
 # adjacent Models box — placeholder pick, first ID in build_travail_d2.py's IDS_169 list.
@@ -393,17 +434,16 @@ def body(lang):
 
 <div class="boxes">
   <a class="box videobox" href="{portfolio_href}">
-    <iframe class="bgvid" src="https://www.youtube-nocookie.com/embed/{HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist={HERO_VIDEO_ID}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&cc_load_policy=0&iv_load_policy=3&fs=0&color=white" allow="autoplay; encrypted-media" title="Lou Denim"></iframe>
+    <iframe id="herovid" class="bgvid" src="https://www.youtube-nocookie.com/embed/{HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist={HERO_VIDEO_ID}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&cc_load_policy=0&cc_lang_pref=zz&iv_load_policy=3&fs=0&color=white&enablejsapi=1" allow="autoplay; encrypted-media" title="Lou Denim"></iframe>
     <span class="vshield" aria-hidden="true"></span>
     <div class="txt"><h2>{portfolio_title}</h2><p>{portfolio_sub}</p></div>
   </a>
-  <a class="box" href="{models_href}">
+  <div class="statement"><p>{bio}</p></div>
+  <a class="box models-box" href="{models_href}">
     <img src="{A['models_face']}">
     <div class="txt"><h2>{b_models}</h2><p>{p_models}</p></div>
   </a>
 </div>
-
-<div class="statement"><p>{bio}</p></div>
 
 <div class="toolswrap">
   <div class="tools">
@@ -430,6 +470,7 @@ for lang, fname in [('fr','mockup-d20.html'), ('en','mockup-d20-en.html')]:
 {b}
 <script>{TYPE_JS}</script>
 <script>{DOTFX_JS}</script>
+<script>{HEROVID_JS}</script>
 </body>
 </html>"""
     open(f'/root/homepage-mockups/{fname}','w').write(html)
