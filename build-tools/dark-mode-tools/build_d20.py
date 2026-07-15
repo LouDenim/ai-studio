@@ -145,14 +145,16 @@ footer a:hover{color:var(--pink2)}
   .tools{grid-template-columns:1fr;margin:26px auto 48px;gap:12px}
 }
 
-/* landscape phone: trim the masthead so the Portfolio video is the hero on first view */
+/* landscape phone: shrink the masthead hard so the whole Portfolio video fits on first view */
 @media (max-height:500px) and (orientation:landscape){
-  .masthead{padding:14px 0 0}
-  .masthead .mlogo{height:60px}
-  .glowwrap h1{font-size:24px;margin:10px auto 0}
+  .masthead{padding:8px 0 0}
+  .masthead .mlogo{height:46px}
+  .masthead .mrole{display:none}
+  .glowwrap{padding-bottom:6px}
+  .glowwrap h1{font-size:20px;margin:8px auto 0}
   .trustedby,.logostrip{display:none}
-  /* both boxes take the video's real 16:9 shape (full width) — no more thin letterbox strip */
-  .box{height:auto;aspect-ratio:16 / 9}
+  /* 16:9, sized off viewport height so it sits fully on screen under the trimmed masthead */
+  .box{height:auto;aspect-ratio:16 / 9;width:min(100%, calc(56vh * 16 / 9));margin-left:auto;margin-right:auto}
 }
 """
 
@@ -270,6 +272,9 @@ requestAnimationFrame(draw);
 TYPE_JS = r"""
 (function(){
 if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+/* on phones the typed line is nowrap and gets cut ('...years'), then jumps to the wrapped
+   version — skip the animation on mobile and just show the full sentence, wrapped, in place */
+if(matchMedia('(max-width:760px)').matches) return;
 var p=document.querySelector('.statement p'); if(!p) return;
 var span=p.querySelector('span'); if(!span) return;
 var pre=''; p.childNodes.forEach(function(n){ if(n.nodeType===3) pre+=n.textContent; if(n===span) return; });

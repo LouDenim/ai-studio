@@ -93,10 +93,26 @@
 .topnav .langs{display:flex;gap:6px}
 .topnav .langs a{font-size:11px;letter-spacing:.1em;border:1px solid #E7549F;color:#E7549F;padding:5px 11px;border-radius:999px}
 .topnav .langs a.on{background:#E7549F;color:#fff;border-color:#E7549F}
+.topnav .burger{display:none}
+@media (max-width:760px), (max-height:500px) and (orientation:landscape){
+  .topnav .hbar{position:relative;padding:16px 20px}
+  .topnav .burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:30px;height:26px;cursor:pointer;order:-1;z-index:40}
+  .topnav .burger span{display:block;width:26px;height:2px;background:#333;border-radius:2px;transition:transform .25s,opacity .2s}
+  .topnav .navtoggle:checked ~ .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .topnav .navtoggle:checked ~ .burger span:nth-child(2){opacity:0}
+  .topnav .navtoggle:checked ~ .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .topnav nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid #eee;padding:6px 0;display:none;box-shadow:0 18px 40px rgba(0,0,0,.12)}
+  .topnav .navtoggle:checked ~ nav{display:flex}
+  .topnav nav a{padding:14px 20px;font-size:15px;border-bottom:1px solid #f0f0f0}
+  .topnav nav a:last-child{border-bottom:0}
+  .topnav .brand{margin-left:auto}
+}
 </style>
 </head>
 <body>
 <div class="topnav"><div class="hbar">
+  <input type="checkbox" id="navtoggle" class="navtoggle" hidden>
+  <label for="navtoggle" class="burger" aria-label="Menu"><span></span><span></span><span></span></label>
   <nav>
     <a href="home.html">Accueil</a>
     <a href="portfolio.html">Portfolio</a>
