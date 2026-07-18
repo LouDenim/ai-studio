@@ -264,6 +264,7 @@ def build(lang):
     nav_brief = "Brief vidéo" if fr else "Video brief"
     nav_portfolio = "Portfolio"
     nav_models = "Mod&egrave;les" if fr else "Models"
+    nav_about = "&Agrave; propos" if fr else "About"
     role = "Directeur artistique IA" if fr else "AI Creative Director"
     h1 = "Portfolio"
     intro = ("Une s&eacute;lection de vid&eacute;os 16:9 et de formats verticaux, cr&eacute;&eacute;s par le studio.") if fr else \
@@ -313,6 +314,7 @@ def build(lang):
     <a href="{grille_href}">{nav_grille}</a>
     <a href="{devis_href}">{nav_sim}</a>
     <a href="{brief_href}">{nav_brief}</a>
+    <a href="{home_href}#about">{nav_about}</a>
   </nav>
   <div class="brand"><span>AI STUDIO</span>
     <div class="langs"><a class="{lang_en_on}" href="{lang_href if fr else self_href}">EN</a><a class="{lang_fr_on}" href="{self_href if fr else lang_href}">FR</a></div>

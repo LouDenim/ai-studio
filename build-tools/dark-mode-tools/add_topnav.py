@@ -37,32 +37,32 @@ PAGES = {
                            grille="rate.html", devis="simulator.html", brief="brief.html",
                            self="grille", lang_self="rate.html", lang_other="rate-en.html",
                            nav_home="Accueil", nav_portfolio="Portfolio", nav_models="Modèles",
-                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo"),
+                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo", nav_about="À propos"),
     "rate-en.html": dict(home="home-en.html", portfolio="portfolio-en.html", models="models-en.html",
                             grille="rate-en.html", devis="simulator-en.html", brief="brief-en.html",
                             self="grille", lang_self="rate-en.html", lang_other="rate.html",
                             nav_home="Home", nav_portfolio="Portfolio", nav_models="Models",
-                            nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief"),
+                            nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief", nav_about="About"),
     "simulator.html":    dict(home="home.html", portfolio="portfolio.html", models="modeles.html",
                            grille="rate.html", devis="simulator.html", brief="brief.html",
                            self="devis", lang_self="simulator.html", lang_other="simulator-en.html",
                            nav_home="Accueil", nav_portfolio="Portfolio", nav_models="Modèles",
-                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo"),
+                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo", nav_about="À propos"),
     "simulator-en.html": dict(home="home-en.html", portfolio="portfolio-en.html", models="models-en.html",
                            grille="rate-en.html", devis="simulator-en.html", brief="brief-en.html",
                            self="devis", lang_self="simulator-en.html", lang_other="simulator.html",
                            nav_home="Home", nav_portfolio="Portfolio", nav_models="Models",
-                           nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief"),
+                           nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief", nav_about="About"),
     "brief.html":    dict(home="home.html", portfolio="portfolio.html", models="modeles.html",
                            grille="rate.html", devis="simulator.html", brief="brief.html",
                            self="brief", lang_self="brief.html", lang_other="brief-en.html",
                            nav_home="Accueil", nav_portfolio="Portfolio", nav_models="Modèles",
-                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo"),
+                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo", nav_about="À propos"),
     "brief-en.html": dict(home="home-en.html", portfolio="portfolio-en.html", models="models-en.html",
                            grille="rate-en.html", devis="simulator-en.html", brief="brief-en.html",
                            self="brief", lang_self="brief-en.html", lang_other="brief.html",
                            nav_home="Home", nav_portfolio="Portfolio", nav_models="Models",
-                           nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief"),
+                           nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief", nav_about="About"),
 }
 
 def on(cur, key):
@@ -82,6 +82,7 @@ def nav_html(p):
     <a{on(s,'grille')} href="{p['grille']}">{p['nav_grille']}</a>
     <a{on(s,'devis')} href="{p['devis']}">{p['nav_devis']}</a>
     <a{on(s,'brief')} href="{p['brief']}">{p['nav_brief']}</a>
+    <a href="{p['home']}#about">{p['nav_about']}</a>
   </nav>
   <div class="brand"><span>AI STUDIO</span>
     <div class="langs"><a class="{'' if fr else 'on'}" href="{lang_en_href}">EN</a><a class="{'on' if fr else ''}" href="{lang_fr_href}">FR</a></div>

@@ -5,6 +5,8 @@ BASE_CSS = """
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap');
 :root{--pink:#E7549F;--pink2:#ff7fc0}
 *{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 body{font-family:'Jost',sans-serif;background:#0a0a0c;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 """
@@ -47,7 +49,7 @@ nav a:hover,nav a.on{color:var(--pink2)}
 @keyframes logoscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion: reduce){.logostrip .track{animation:none}}
 
-.statement{position:relative;z-index:2;margin:0;padding:22px 28px 16px;text-align:center}
+.statement{position:relative;z-index:2;margin:0;padding:40px 28px 0;text-align:center}
 .statement p{font-size:19px;font-weight:500;line-height:1.5;color:#f0f0f2;white-space:nowrap;
   position:relative;display:inline-block}
 .statement p span{color:var(--pink2)}
@@ -88,9 +90,14 @@ nav a:hover,nav a.on{color:var(--pink2)}
    (desktop / portrait / landscape), no YouTube chrome, no logo, no captions, no 'More videos' */
 .videobox .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;border:0}
 .videobox .txt{z-index:3}
+.sndbtn{position:absolute;right:14px;bottom:14px;z-index:4;width:40px;height:40px;border-radius:50%;padding:0;
+  border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.42);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.sndbtn:hover{border-color:var(--pink2);background:rgba(0,0,0,.6)}
+.sndbtn svg{width:19px;height:19px;fill:#fff;display:block}
 
 .toolswrap{position:relative;z-index:2}
-.tools{max-width:1180px;margin:46px auto 60px;padding:0 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tools{max-width:1180px;margin:40px auto 48px;padding:0 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 /* statement gap: 44px top (boxes->text) matches 20px+24px=44px bottom (text->tools) */
 .tool{border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:22px 20px;transition:.15s;background:rgba(255,255,255,.02)}
 .tool:hover{border-color:var(--pink2);transform:translateY(-2px)}
@@ -106,6 +113,13 @@ footer a:hover{color:var(--pink2)}
 .social a{color:#8a8a92;display:inline-flex;line-height:0}
 .social a:hover{color:var(--pink2)}
 .social svg{width:16px;height:16px;fill:currentColor}
+
+.about{position:relative;z-index:2;max-width:640px;margin:0 auto;padding:8px 28px 30px;text-align:center;scroll-margin-top:90px}
+.about .ablabel{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink2);font-weight:500;margin-bottom:20px}
+.about p{font-size:15.5px;line-height:1.7;color:#c9c9d0;font-weight:300;margin-bottom:15px}
+.about p.portlink{margin-top:8px;margin-bottom:0;font-size:14px;letter-spacing:.03em;color:#d8d8dc}
+.about p.portlink a{color:var(--pink2)}
+.about p.portlink a:hover{text-decoration:underline}
 
 /* ---------- MOBILE + landscape phone: burger menu + single-column stack ---------- */
 /* portrait phones (narrow) OR landscape phones (short + landscape) both get the clean stack */
@@ -142,7 +156,9 @@ footer a:hover{color:var(--pink2)}
   .box .txt h2{font-size:30px}
   .statement{padding:2px 20px 2px}
   .statement p{white-space:normal;font-size:17px}
-  .tools{grid-template-columns:1fr;margin:26px auto 48px;gap:12px}
+  .tools{grid-template-columns:1fr;margin:26px auto 40px;gap:12px}
+  .about{padding:4px 22px 26px}
+  .about p{font-size:15px}
 }
 
 /* landscape phone: shrink the masthead hard so the whole Portfolio video fits on first view */
@@ -310,6 +326,26 @@ if('IntersectionObserver' in window){
 
 PLAY_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg>'
 
+SND_OFF_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>'
+SND_ON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>'
+
+# Hero sound toggle: video starts muted (browsers require it for autoplay); one tap unmutes.
+# preventDefault/stopPropagation so tapping the button never follows the Portfolio link.
+SND_JS = ("""
+(function(){
+var OFF=%s, ON=%s;
+document.querySelectorAll('.videobox').forEach(function(box){
+  var v=box.querySelector('.bgvid'), b=box.querySelector('.sndbtn'); if(!v||!b) return;
+  b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();
+    v.muted=!v.muted;
+    if(!v.muted){ v.volume=1; var p=v.play(); if(p&&p.catch){p.catch(function(){});} }
+    b.innerHTML=v.muted?OFF:ON;
+    b.setAttribute('aria-label', v.muted?'Sound off':'Sound on');
+  });
+});
+})();
+""" % (json.dumps(SND_OFF_SVG), json.dumps(SND_ON_SVG)))
+
 IG_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.3 1.1.4 2.3.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.3-2.3.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.3-1.1-.4-2.3-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.3 2.3-.4 1.3-.1 1.7-.1 4.9-.1M12 0C8.7 0 8.3 0 7 .1c-1.3.1-2.2.3-3 .6-.8.3-1.5.7-2.2 1.4C1.1 2.8.7 3.5.4 4.3c-.3.8-.5 1.7-.6 3C-.1 8.3-.1 8.7-.1 12s0 3.7.1 5c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.7.5 3 .6 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.7.6-3 .1-1.3.1-1.7.1-5s0-3.7-.1-5c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.4-2.2C21.2 1.1 20.5.7 19.7.4c-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0z"/><path d="M12 5.8A6.2 6.2 0 1 0 18.2 12 6.2 6.2 0 0 0 12 5.8zm0 10.2A4 4 0 1 1 16 12a4 4 0 0 1-4 4z"/><circle cx="18.4" cy="5.6" r="1.4"/></svg>'
 
 LI_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>'
@@ -333,6 +369,7 @@ def body(lang):
     if lang == 'fr':
         nav_home, nav_grille, nav_sim, nav_brief = "Accueil","Grille tarifaire","Simulateur","Brief vidéo"
         nav_portfolio, nav_models = "Portfolio", "Mod&egrave;les"
+        nav_about = "&Agrave; propos"
         role = "Directeur artistique IA"
         h1 = "L&rsquo;IA g&eacute;n&eacute;rative pour les <span>marques.</span>"
         bio = "Photographe &eacute;ditorial et pub depuis 25 ans, arm&eacute;e de <span>super-pouvoirs IA.</span>"
@@ -348,12 +385,18 @@ def body(lang):
         t1b,t1s,t1e = "Grille tarifaire","Tous les prix, clairs et sans surprise.","Voir les tarifs"
         t2b,t2s,t2e = "Simulateur de devis","Composez votre projet, recevez une estimation en direct.","Estimer mon projet"
         t3b,t3s,t3e = "Brief vid&eacute;o","Le formulaire pour lancer votre projet dans de bonnes conditions.","Remplir le brief"
+        about_label = "&Agrave; propos"
+        bio_p1 = "Photographe de m&eacute;tier, j&rsquo;ai construit l&rsquo;essentiel de ma carri&egrave;re &agrave; Londres, dans l&rsquo;&eacute;ditorial et la publicit&eacute;."
+        bio_p2 = "J&rsquo;ai photographi&eacute; une grande diversit&eacute; de personnalit&eacute;s&nbsp;: des acteurs comme Liv Tyler et Sean Bean, des musiciens comme Robbie Williams, mais aussi des humoristes, des animateurs t&eacute;l&eacute; et des sportifs. C&ocirc;t&eacute; publicit&eacute;, j&rsquo;ai eu la chance de collaborer avec des marques comme H&amp;M, Rimmel London ou L&rsquo;Or&eacute;al, pour n&rsquo;en citer que quelques-unes."
+        bio_p3 = "La g&eacute;n&eacute;ration d&rsquo;images et de vid&eacute;os par IA a ouvert de nouveaux horizons. C&rsquo;est un outil de plus dans ma palette cr&eacute;ative, au service de mes clients."
+        bio_link = 'D&eacute;couvrez mon portfolio photo sur <a href="https://www.loudenim.com" target="_blank" rel="noopener">loudenim.com</a>'
         title = "LOU DENIM — AI Studio"
         lang_fr_on, lang_en_on = "on", ""
         foot = f'''<div class="footline"><a href="mailto:lou@loudenim.com">lou@loudenim.com</a> &middot; <a href="tel:+590690299544">+590&nbsp;(0)690&nbsp;299&nbsp;544</a> &middot; <a href="https://www.loudenim.com" target="_blank" rel="noopener">Photographie&nbsp;: loudenim.com</a></div>{SOCIAL_HTML}'''
     else:
         nav_home, nav_grille, nav_sim, nav_brief = "Home","Rate card","Simulator","Video brief"
         nav_portfolio, nav_models = "Portfolio", "Models"
+        nav_about = "About"
         role = "AI Creative Director"
         h1 = "Generative AI for <span>brands.</span>"
         bio = "Editorial and advertising photographer for 25+ years. Now with <span>AI superpowers.</span>"
@@ -369,6 +412,11 @@ def body(lang):
         t1b,t1s,t1e = "Rate card","All prices, clear and upfront.","View the rates"
         t2b,t2s,t2e = "Quote simulator","Build your project, get a live estimate.","Estimate my project"
         t3b,t3s,t3e = "Video brief","The form to start your project on solid ground.","Fill in the brief"
+        about_label = "About"
+        bio_p1 = "I&rsquo;m a photographer by trade and built most of my career in London, UK, in the editorial and advertising industry."
+        bio_p2 = "I&rsquo;ve worked with a diverse range of celebrities, from film stars like Liv Tyler and Sean Bean to musicians like Robbie Williams, as well as comedians, TV presenters and sports stars. On the advertising side, I&rsquo;ve had the opportunity to work for brands such as H&amp;M, Rimmel London or L&rsquo;Or&eacute;al, to name a few."
+        bio_p3 = "I started experimenting with AI, pushing my craft in new directions. I got hooked straight away. Now it&rsquo;s another tool in my creative kit, one more way to create high-end visuals for my clients."
+        bio_link = 'See my photography portfolio at <a href="https://www.loudenim.com" target="_blank" rel="noopener">loudenim.com</a>'
         title = "LOU DENIM — AI Studio"
         lang_fr_on, lang_en_on = "", "on"
         foot = f'''<div class="footline"><a href="mailto:lou@loudenim.com">lou@loudenim.com</a> &middot; <a href="tel:+590690299544">+590&nbsp;(0)690&nbsp;299&nbsp;544</a> &middot; <a href="https://www.loudenim.com" target="_blank" rel="noopener">Photography&nbsp;: loudenim.com</a></div>{SOCIAL_HTML}'''
@@ -384,6 +432,7 @@ def body(lang):
     <a href="{grille_href}">{nav_grille}</a>
     <a href="{devis_href}">{nav_sim}</a>
     <a href="{brief_href}">{nav_brief}</a>
+    <a href="#about">{nav_about}</a>
   </nav>
   <div class="brand"><span>AI STUDIO</span>
     <div class="langs"><a class="{lang_en_on}" href="{lang_href if lang_fr_on else home_href}">EN</a><a class="{lang_fr_on}" href="{home_href if lang_fr_on else lang_href}">FR</a></div>
@@ -413,6 +462,7 @@ def body(lang):
 <div class="boxes">
   <a class="box videobox" href="{portfolio_href}">
     <video class="bgvid" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg"><source src="hero.mp4" type="video/mp4"></video>
+    <button class="sndbtn" type="button" aria-label="Sound off">{SND_OFF_SVG}</button>
     <div class="txt"><h2>{portfolio_title}</h2><p>{portfolio_sub}</p></div>
   </a>
   <div class="statement"><p>{bio}</p></div>
@@ -429,6 +479,13 @@ def body(lang):
     <a class="tool" href="{brief_href}"><b>{t3b}</b><span>{t3s}</span><em>{t3e}</em></a>
   </div>
 </div>
+<section class="about" id="about">
+  <div class="ablabel">{about_label}</div>
+  <p>{bio_p1}</p>
+  <p>{bio_p2}</p>
+  <p>{bio_p3}</p>
+  <p class="portlink">{bio_link}</p>
+</section>
 <footer>{foot}</footer>
 """
 
@@ -447,6 +504,7 @@ for lang, fname in [('fr','mockup-d20.html'), ('en','mockup-d20-en.html')]:
 {b}
 <script>{TYPE_JS}</script>
 <script>{DOTFX_JS}</script>
+<script>{SND_JS}</script>
 </body>
 </html>"""
     open(f'/root/homepage-mockups/{fname}','w').write(html)
