@@ -6,13 +6,13 @@ can navigate away from a form page without going back to the browser."""
 CSS = """
 .topnav{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid #eee}
 .topnav a{text-decoration:none}
-.topnav .hbar{max-width:1180px;margin:0 auto;padding:22px 28px;display:flex;justify-content:space-between;
-  align-items:center;flex-wrap:wrap;gap:10px}
+.topnav .hbar{max-width:1220px;margin:0 auto;padding:22px 28px;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:20px}
 .topnav nav{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
 .topnav nav a{font-size:14px;letter-spacing:.06em;color:#333}
 .topnav nav a:hover,.topnav nav a.on{color:#E7549F}
 .topnav .brand{display:flex;align-items:center;gap:14px}
-.topnav .brand span{font-size:13px;letter-spacing:.14em;font-weight:700;color:#E7549F}
+.topnav .brand span{font-size:15px;letter-spacing:.16em;font-weight:600;color:#E7549F}
 .topnav .langs{display:flex;gap:6px}
 .topnav .langs a{font-size:11px;letter-spacing:.1em;border:1px solid #E7549F;color:#E7549F;padding:5px 11px;border-radius:999px}
 .topnav .langs a.on{background:#E7549F;color:#fff;border-color:#E7549F}
@@ -34,35 +34,35 @@ CSS = """
 
 PAGES = {
     "rate.html":   dict(home="home.html", portfolio="portfolio.html", models="modeles.html",
-                           grille="rate.html", devis="simulator.html", brief="brief.html",
-                           self="grille", lang_self="rate.html", lang_other="rate-en.html",
+                           pricing="pricing.html", about="about.html", contact="contact.html",
+                           self="pricing", lang_self="rate.html", lang_other="rate-en.html",
                            nav_home="Accueil", nav_portfolio="Portfolio", nav_models="Modèles",
-                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo", nav_about="À propos"),
+                           nav_pricing="Tarifs", nav_about="À propos", nav_contact="Contact"),
     "rate-en.html": dict(home="home-en.html", portfolio="portfolio-en.html", models="models-en.html",
-                            grille="rate-en.html", devis="simulator-en.html", brief="brief-en.html",
-                            self="grille", lang_self="rate-en.html", lang_other="rate.html",
+                            pricing="pricing-en.html", about="about-en.html", contact="contact-en.html",
+                            self="pricing", lang_self="rate-en.html", lang_other="rate.html",
                             nav_home="Home", nav_portfolio="Portfolio", nav_models="Models",
-                            nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief", nav_about="About"),
+                            nav_pricing="Pricing", nav_about="About", nav_contact="Contact"),
     "simulator.html":    dict(home="home.html", portfolio="portfolio.html", models="modeles.html",
-                           grille="rate.html", devis="simulator.html", brief="brief.html",
-                           self="devis", lang_self="simulator.html", lang_other="simulator-en.html",
+                           pricing="pricing.html", about="about.html", contact="contact.html",
+                           self="pricing", lang_self="simulator.html", lang_other="simulator-en.html",
                            nav_home="Accueil", nav_portfolio="Portfolio", nav_models="Modèles",
-                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo", nav_about="À propos"),
+                           nav_pricing="Tarifs", nav_about="À propos", nav_contact="Contact"),
     "simulator-en.html": dict(home="home-en.html", portfolio="portfolio-en.html", models="models-en.html",
-                           grille="rate-en.html", devis="simulator-en.html", brief="brief-en.html",
-                           self="devis", lang_self="simulator-en.html", lang_other="simulator.html",
+                           pricing="pricing-en.html", about="about-en.html", contact="contact-en.html",
+                           self="pricing", lang_self="simulator-en.html", lang_other="simulator.html",
                            nav_home="Home", nav_portfolio="Portfolio", nav_models="Models",
-                           nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief", nav_about="About"),
+                           nav_pricing="Pricing", nav_about="About", nav_contact="Contact"),
     "brief.html":    dict(home="home.html", portfolio="portfolio.html", models="modeles.html",
-                           grille="rate.html", devis="simulator.html", brief="brief.html",
-                           self="brief", lang_self="brief.html", lang_other="brief-en.html",
+                           pricing="pricing.html", about="about.html", contact="contact.html",
+                           self="pricing", lang_self="brief.html", lang_other="brief-en.html",
                            nav_home="Accueil", nav_portfolio="Portfolio", nav_models="Modèles",
-                           nav_grille="Grille tarifaire", nav_devis="Simulateur", nav_brief="Brief vidéo", nav_about="À propos"),
+                           nav_pricing="Tarifs", nav_about="À propos", nav_contact="Contact"),
     "brief-en.html": dict(home="home-en.html", portfolio="portfolio-en.html", models="models-en.html",
-                           grille="rate-en.html", devis="simulator-en.html", brief="brief-en.html",
-                           self="brief", lang_self="brief-en.html", lang_other="brief.html",
+                           pricing="pricing-en.html", about="about-en.html", contact="contact-en.html",
+                           self="pricing", lang_self="brief-en.html", lang_other="brief.html",
                            nav_home="Home", nav_portfolio="Portfolio", nav_models="Models",
-                           nav_grille="Rate card", nav_devis="Simulator", nav_brief="Video brief", nav_about="About"),
+                           nav_pricing="Pricing", nav_about="About", nav_contact="Contact"),
 }
 
 def on(cur, key):
@@ -79,10 +79,9 @@ def nav_html(p):
     <a{on(s,'home')} href="{p['home']}">{p['nav_home']}</a>
     <a{on(s,'portfolio')} href="{p['portfolio']}">{p['nav_portfolio']}</a>
     <a{on(s,'models')} href="{p['models']}">{p['nav_models']}</a>
-    <a{on(s,'grille')} href="{p['grille']}">{p['nav_grille']}</a>
-    <a{on(s,'devis')} href="{p['devis']}">{p['nav_devis']}</a>
-    <a{on(s,'brief')} href="{p['brief']}">{p['nav_brief']}</a>
-    <a href="{p['home']}#about">{p['nav_about']}</a>
+    <a{on(s,'pricing')} href="{p['pricing']}">{p['nav_pricing']}</a>
+    <a{on(s,'about')} href="{p['about']}">{p['nav_about']}</a>
+    <a{on(s,'contact')} href="{p['contact']}">{p['nav_contact']}</a>
   </nav>
   <div class="brand"><span>AI STUDIO</span>
     <div class="langs"><a class="{'' if fr else 'on'}" href="{lang_en_href}">EN</a><a class="{'on' if fr else ''}" href="{lang_fr_href}">FR</a></div>
