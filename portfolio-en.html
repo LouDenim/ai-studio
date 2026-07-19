@@ -98,8 +98,8 @@ footer a:hover{color:var(--pink2)}
 .strip{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
   padding:6px calc(50% - min(33vw,430px)) 6px}
 .strip::-webkit-scrollbar{display:none}
-.feat{flex:0 0 min(66vw,860px);scroll-snap-align:center;transition:opacity .35s,transform .35s;opacity:.28;transform:scale(.96)}
-.feat.on{opacity:1;transform:scale(1)}
+.feat{flex:0 0 min(66vw,860px);scroll-snap-align:center;transition:opacity .35s,transform .35s,filter .35s;opacity:.35;transform:scale(.96);filter:blur(3px)}
+.feat.on{opacity:1;transform:scale(1);filter:none}
 .feat .frame{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#000}
 .feat iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .feat .snd{position:absolute;right:14px;bottom:14px;z-index:5;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);
@@ -171,60 +171,82 @@ footer a:hover{color:var(--pink2)}
     <button class="arr left" id="prev" aria-label="Previous">&#8592;</button>
     <button class="arr right" id="next" aria-label="Next">&#8594;</button>
     <div class="strip" id="strip">
-      <div class="feat">
+      <div class="feat clone" aria-hidden="true">
+      <div class="frame">
+        <video src="videos/just-be-cool.mp4" poster="img/poster-just-be-cool.jpg" muted playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+      </div>
+      <div class="cap"><b>Just Be Cool</b><span>Spec ad &middot; 20s</span></div>
+    </div><div class="feat" data-slug="morning-shift">
       <div class="frame">
         <video id="v0" src="videos/morning-shift.mp4" poster="img/poster-morning-shift.jpg" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
         <button class="snd" data-i="0" data-on="0" aria-label="Sound"><svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg></button>
       </div>
       <div class="cap"><b>Morning Shift</b><span>First place &middot; Gen HQ Contest &middot; 20s</span></div>
-    </div><div class="feat">
+    </div><div class="feat" data-slug="milenis">
       <div class="frame">
         <video id="v1" src="videos/milenis.mp4" poster="img/poster-milenis.jpg" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
         <button class="snd" data-i="1" data-on="0" aria-label="Sound"><svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg></button>
       </div>
       <div class="cap"><b>Milenis</b><span>In cinemas &middot; 20s</span></div>
-    </div><div class="feat">
+    </div><div class="feat" data-slug="the-commute">
       <div class="frame">
         <video id="v2" src="videos/the-commute.mp4" poster="img/poster-the-commute.jpg" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
         <button class="snd" data-i="2" data-on="0" aria-label="Sound"><svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg></button>
       </div>
       <div class="cap"><b>The Commute</b><span>Tribute to David Attenborough &middot; 30s</span></div>
-    </div><div class="feat">
+    </div><div class="feat" data-slug="out-of-the-office">
       <div class="frame">
         <video id="v3" src="videos/out-of-the-office.mp4" poster="img/poster-out-of-the-office.jpg" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
         <button class="snd" data-i="3" data-on="0" aria-label="Sound"><svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg></button>
       </div>
       <div class="cap"><b>Out of the Office</b><span>25s</span></div>
-    </div><div class="feat">
+    </div><div class="feat" data-slug="gardel">
       <div class="frame">
         <video id="v4" src="videos/gardel.mp4" poster="img/poster-gardel.jpg" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
         <button class="snd" data-i="4" data-on="0" aria-label="Sound"><svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg></button>
       </div>
       <div class="cap"><b>La Douceur de la Guadeloupe</b><span>Spec ad &middot; Gardel &middot; 30s</span></div>
-    </div><div class="feat">
+    </div><div class="feat" data-slug="just-be-cool">
       <div class="frame">
         <video id="v5" src="videos/just-be-cool.mp4" poster="img/poster-just-be-cool.jpg" muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
         <button class="snd" data-i="5" data-on="0" aria-label="Sound"><svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg></button>
       </div>
       <div class="cap"><b>Just Be Cool</b><span>Spec ad &middot; 20s</span></div>
+    </div><div class="feat clone" aria-hidden="true">
+      <div class="frame">
+        <video src="videos/morning-shift.mp4" poster="img/poster-morning-shift.jpg" muted playsinline preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+      </div>
+      <div class="cap"><b>Morning Shift</b><span>First place &middot; Gen HQ Contest &middot; 20s</span></div>
     </div>
     </div>
   </div>
 
   <div class="band" style="max-width:1264px;margin-left:auto;margin-right:auto"><h2>Reels</h2><span class="stag">Vertical, for mobile</span></div>
   <div class="reelmarquee"><div class="reeltrack">
-    <div class="reel" data-id="KxIryljbHVk" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/KxIryljbHVk/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+    <div class="reel" data-id="UGYX9ExLo04" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/UGYX9ExLo04/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="qnAD9OzUb6o" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/qnAD9OzUb6o/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="KxIryljbHVk" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/KxIryljbHVk/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="LG4u8d-GkKg" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/LG4u8d-GkKg/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="GGHXw06kIyQ" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/GGHXw06kIyQ/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-<div class="reel" data-id="la-zG8RK4eU" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/la-zG8RK4eU/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-<div class="reel" data-id="fdYbw6vgS1Y" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fdYbw6vgS1Y/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="Zb2604Me_kI" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/Zb2604Me_kI/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="SOk8ZgUGfU8" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/SOk8ZgUGfU8/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-    <div class="reel" data-id="KxIryljbHVk" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/KxIryljbHVk/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="8OITHSH83UA" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/8OITHSH83UA/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="fdYbw6vgS1Y" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fdYbw6vgS1Y/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="la-zG8RK4eU" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/la-zG8RK4eU/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="fj9ihwxF0Co" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fj9ihwxF0Co/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="4RWnzGciM0I" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/4RWnzGciM0I/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+    <div class="reel" data-id="UGYX9ExLo04" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/UGYX9ExLo04/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="qnAD9OzUb6o" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/qnAD9OzUb6o/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="KxIryljbHVk" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/KxIryljbHVk/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="LG4u8d-GkKg" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/LG4u8d-GkKg/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="GGHXw06kIyQ" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/GGHXw06kIyQ/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-<div class="reel" data-id="la-zG8RK4eU" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/la-zG8RK4eU/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-<div class="reel" data-id="fdYbw6vgS1Y" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fdYbw6vgS1Y/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="Zb2604Me_kI" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/Zb2604Me_kI/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="SOk8ZgUGfU8" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/SOk8ZgUGfU8/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="8OITHSH83UA" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/8OITHSH83UA/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="fdYbw6vgS1Y" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fdYbw6vgS1Y/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="la-zG8RK4eU" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/la-zG8RK4eU/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="fj9ihwxF0Co" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fj9ihwxF0Co/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="4RWnzGciM0I" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/4RWnzGciM0I/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
   </div></div>
 </section>
 
@@ -232,27 +254,38 @@ footer a:hover{color:var(--pink2)}
 (function(){
   var strip=document.getElementById('strip');
   var feats=[].slice.call(strip.querySelectorAll('.feat'));
-  function card(){return feats[0].getBoundingClientRect().width+24}
+  var N=feats.length; // includes 2 clones
+  function cw(){return feats[1].getBoundingClientRect().width+24}
+  function centerOf(el){return el.offsetLeft-(strip.clientWidth-el.getBoundingClientRect().width)/2}
   function activeIndex(){
     var mid=strip.getBoundingClientRect().left+strip.clientWidth/2, bi=0, bd=1e9;
     feats.forEach(function(f,i){var r=f.getBoundingClientRect(),c=r.left+r.width/2,d=Math.abs(c-mid);if(d<bd){bd=d;bi=i}});
     return bi;
   }
-  document.getElementById('prev').onclick=function(){
-    if(activeIndex()===0){ strip.scrollTo({left:strip.scrollWidth,behavior:'smooth'}); }
-    else strip.scrollBy({left:-card(),behavior:'smooth'});
-  };
-  document.getElementById('next').onclick=function(){
-    if(activeIndex()===feats.length-1){ strip.scrollTo({left:0,behavior:'smooth'}); }
-    else strip.scrollBy({left:card(),behavior:'smooth'});
-  };
   function mark(){
     var bi=activeIndex();
     feats.forEach(function(f,i){f.classList.toggle('on',i===bi)});
   }
-  strip.addEventListener('scroll',function(){requestAnimationFrame(mark)});
-  window.addEventListener('resize',mark);
-  mark();
+  function playActive(){
+    feats.forEach(function(f){
+      var v=f.querySelector('video'); if(!v||!v.id) { return; }
+      if(f.classList.contains('on')){ v.play().catch(function(){}); }
+      else { v.pause(); if(!v.muted){v.muted=true; var b=f.querySelector('.snd'); if(b){b.dataset.on='0'; b.innerHTML=OFF;}} }
+    });
+  }
+  function settle(){
+    var bi=activeIndex();
+    if(bi===0){ strip.scrollTo({left:centerOf(feats[N-2]),behavior:'auto'}); }
+    else if(bi===N-1){ strip.scrollTo({left:centerOf(feats[1]),behavior:'auto'}); }
+    mark(); playActive();
+  }
+  document.getElementById('prev').onclick=function(){strip.scrollBy({left:-cw(),behavior:'smooth'})};
+  document.getElementById('next').onclick=function(){strip.scrollBy({left:cw(),behavior:'smooth'})};
+  strip.addEventListener('scroll',function(){
+    requestAnimationFrame(mark);
+    clearTimeout(strip._t); strip._t=setTimeout(settle,200);
+  });
+  window.addEventListener('resize',function(){strip.scrollTo({left:centerOf(feats[activeIndex()]),behavior:'auto'})});
   var ON='<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
   var OFF='<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>';
   document.querySelectorAll('.snd').forEach(function(btn){
@@ -262,15 +295,11 @@ footer a:hover{color:var(--pink2)}
       btn.dataset.on=v.muted?'0':'1'; btn.innerHTML=v.muted?OFF:ON;
     });
   });
-  function playActive(){
-    feats.forEach(function(f,i){
-      var v=document.getElementById('v'+i);
-      if(f.classList.contains('on')){ v.play().catch(function(){}); }
-      else { v.pause(); if(!v.muted){v.muted=true; var b=f.querySelector('.snd'); b.dataset.on='0'; b.innerHTML=OFF;} }
-    });
-  }
-  strip.addEventListener('scroll',function(){clearTimeout(strip._t);strip._t=setTimeout(playActive,180)});
-  playActive();
+  // init: center the real first card, no animation
+  requestAnimationFrame(function(){
+    strip.scrollTo({left:centerOf(feats[1]),behavior:'auto'});
+    mark(); playActive();
+  });
 })();
 </script>
 <footer><div class="footline"><a href="mailto:lou@loudenim.com">lou@loudenim.com</a> &middot; <a href="tel:+590690299544">+590&nbsp;(0)690&nbsp;299&nbsp;544</a> &middot; <a href="https://www.loudenim.com" target="_blank" rel="noopener">Photographie&nbsp;: loudenim.com</a></div><div class="social">
