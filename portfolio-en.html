@@ -128,13 +128,19 @@ footer a:hover{color:var(--pink2)}
 .reel .play svg{width:17px;height:17px;fill:#fff;margin-left:2px}
 @media (max-width:700px){.feat{flex-basis:86vw}.strip{padding:6px calc(50% - 43vw)}.arr{display:none}.reel{flex-basis:160px}}
 
-/* reels marquee */
-.reelmarquee{overflow:hidden;max-width:1320px;margin:0 auto;padding:20px 0 6px;
-  mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent)}
-.reeltrack{display:flex;gap:14px;width:max-content;animation:reelscroll 45s linear infinite}
-.reelmarquee:hover .reeltrack{animation-play-state:paused}
-@keyframes reelscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.reeltrack .reel{flex:0 0 200px}
+/* reels: JS marquee + arrows */
+.reelstrip{scroll-snap-type:none !important}
+.reelstrip .reel{scroll-snap-align:none !important}
+
+.reelwrap{position:relative;max-width:1320px;margin:0 auto;padding:20px 0 6px}
+.reelstrip{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding:0 28px;
+  mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent)}
+.reelstrip::-webkit-scrollbar{display:none}
+.rarr{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.35);background:rgba(10,10,12,.6);color:#fff;font-size:16px;cursor:pointer;
+  backdrop-filter:blur(4px);transition:.15s;display:flex;align-items:center;justify-content:center}
+.rarr:hover{border-color:var(--pink2);color:var(--pink2)}
+.rarr.left{left:6px}.rarr.right{right:6px}
 </style>
 </head>
 <body>
@@ -222,8 +228,11 @@ footer a:hover{color:var(--pink2)}
   </div>
 
   <div class="band" style="max-width:1264px;margin-left:auto;margin-right:auto"><h2>Reels</h2><span class="stag">Vertical, for mobile</span></div>
-  <div class="reelmarquee"><div class="reeltrack">
-    <div class="reel" data-id="UGYX9ExLo04" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/UGYX9ExLo04/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+  <div class="reelwrap">
+    <button class="rarr left" id="rprev" aria-label="&#8592;">&#8592;</button>
+    <button class="rarr right" id="rnext" aria-label="&#8594;">&#8594;</button>
+    <div class="reelstrip" id="reelstrip">
+      <div class="reel" data-id="UGYX9ExLo04" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/UGYX9ExLo04/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="qnAD9OzUb6o" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/qnAD9OzUb6o/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="KxIryljbHVk" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/KxIryljbHVk/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="LG4u8d-GkKg" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/LG4u8d-GkKg/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
@@ -235,7 +244,7 @@ footer a:hover{color:var(--pink2)}
 <div class="reel" data-id="la-zG8RK4eU" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/la-zG8RK4eU/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="fj9ihwxF0Co" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fj9ihwxF0Co/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="4RWnzGciM0I" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/4RWnzGciM0I/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-    <div class="reel" data-id="UGYX9ExLo04" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/UGYX9ExLo04/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+      <div class="reel" data-id="UGYX9ExLo04" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/UGYX9ExLo04/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="qnAD9OzUb6o" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/qnAD9OzUb6o/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="KxIryljbHVk" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/KxIryljbHVk/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="LG4u8d-GkKg" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/LG4u8d-GkKg/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
@@ -247,7 +256,52 @@ footer a:hover{color:var(--pink2)}
 <div class="reel" data-id="la-zG8RK4eU" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/la-zG8RK4eU/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="fj9ihwxF0Co" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fj9ihwxF0Co/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="4RWnzGciM0I" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/4RWnzGciM0I/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
-  </div></div>
+      <div class="reel" data-id="UGYX9ExLo04" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/UGYX9ExLo04/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="qnAD9OzUb6o" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/qnAD9OzUb6o/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="KxIryljbHVk" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/KxIryljbHVk/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="LG4u8d-GkKg" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/LG4u8d-GkKg/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="GGHXw06kIyQ" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/GGHXw06kIyQ/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="Zb2604Me_kI" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/Zb2604Me_kI/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="SOk8ZgUGfU8" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/SOk8ZgUGfU8/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="8OITHSH83UA" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/8OITHSH83UA/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="fdYbw6vgS1Y" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fdYbw6vgS1Y/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="la-zG8RK4eU" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/la-zG8RK4eU/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="fj9ihwxF0Co" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/fj9ihwxF0Co/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+<div class="reel" data-id="4RWnzGciM0I" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/4RWnzGciM0I/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  var s=document.getElementById('reelstrip');
+  var seq=0, paused=false, down=false;
+  function measure(){ seq=s.scrollWidth/3; }
+  function wrap(){
+    if(!seq) return;
+    if(s.scrollLeft>=2*seq) s.scrollLeft-=seq;
+    else if(s.scrollLeft<seq*0.02) s.scrollLeft+=seq;
+  }
+  window.addEventListener('load',function(){ measure(); s.scrollLeft=seq; });
+  setTimeout(function(){ measure(); if(s.scrollLeft<10) s.scrollLeft=seq; },600);
+  s.addEventListener('mouseenter',function(){paused=true});
+  s.addEventListener('mouseleave',function(){paused=false});
+  s.addEventListener('pointerdown',function(){down=true});
+  window.addEventListener('pointerup',function(){down=false});
+  s.addEventListener('scroll',wrap,{passive:true});
+  document.getElementById('rprev').onclick=function(){s.scrollBy({left:-3*214,behavior:'smooth'})};
+  document.getElementById('rnext').onclick=function(){s.scrollBy({left:3*214,behavior:'smooth'})};
+  var pos=null;
+  function tick(){
+    if(!paused && !down && seq){
+      if(pos===null || Math.abs(s.scrollLeft-pos)>2) pos=s.scrollLeft;
+      pos+=0.6; s.scrollLeft=pos; wrap();
+      if(Math.abs(s.scrollLeft-pos)>2) pos=s.scrollLeft;
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
 </section>
 
 <script>
