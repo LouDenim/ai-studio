@@ -344,8 +344,7 @@ Three base formats, price doubles with length (×2 at 30s, ×4 at 60s for all th
 - The product + 1 character (plain background): 350 / 450 / 700 / 900 / 1150 / 1400
 - UGC — character talking to camera (voice + lip-sync) + 1 real location INCLUDED: 400 / 500 / 800 / 1000 / 1300 / 1600
 Flat add-ons at any duration: each extra character +150 (casting, wardrobe & staging included;
-face from the model catalogue OR created for the client — same rate; exclusivity stays a separate
-+300 option) · each environment (real location) +150 · each extra product/service +75.
+face from the model catalogue: INCLUDED; made-to-measure face: +50/character with 2 proposals included (changed 20 July 2026 — was "same rate"); exclusivity stays a separate +300 option) · each environment (real location) +150 · each extra product/service +75.
 **The online rate card shows only 15/20/30s** (durees_carte in prices.json) — longer formats are
 priced in the simulator. UGC pricing rationale: market UGC runs €100–400/video; UGC 15s at 400 with
 the −15%/−25% packs lands at 340/300 per video, top of the human-creator range.

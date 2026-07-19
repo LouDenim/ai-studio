@@ -155,8 +155,14 @@
    "prix": 300,
    "des": false
   },
-  "note_inclus": "Personnage : casting, habillement, accessoires et mise en scène inclus.",
-  "note_inclus_en": "Character: casting, wardrobe, props and staging included."
+  "note_inclus": "Personnage : casting, habillement, accessoires et mise en scène inclus. Visage choisi dans le catalogue de modèles : inclus. Visage sur mesure : +50 €/personnage (2 propositions incluses).",
+  "note_inclus_en": "Character: casting, wardrobe, props and staging included. Face picked from the model catalogue: included. Made-to-measure face: +50/character (2 proposals included).",
+  "visage_surmesure": {
+   "label": "Visage sur mesure — créé selon vos attributs, 2 propositions incluses",
+   "en": "Made-to-measure face — built to your spec, 2 proposals included",
+   "prix": 50,
+   "unite": "personnage"
+  }
  },
  "immobilier": {
   "visite": {

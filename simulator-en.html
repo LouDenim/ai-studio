@@ -312,7 +312,7 @@ const BASE_A=[300,400,600,800,1000,1200];   // product/service — plain backgro
 const BASE_B=[350,450,700,900,1150,1400];   // product/service + 1 character
 const BASE_C=[400,500,800,1000,1300,1600];  // UGC — talking character + real location included
 const VDURS=['15s','20s','30s','40s','50s','60s'];
-const ENV_PRICE=150, PROD_PRICE=75, CHAR_PRICE=150;
+const ENV_PRICE=150, PROD_PRICE=75, CHAR_PRICE=150, FACE_PRICE=50;
 const DURS=['≤ 15s','≤ 20s','30–40s'];
 const RES={ '720':{label:'HD 720p — included',mult:1.0}, '1080':{label:'Full HD 1080p — +20%',mult:1.2}, '4k':{label:'4K Upscale — +50%',mult:1.5} };
 const STYLES=['Photorealistic','3D animation','2D cartoon'];
@@ -345,7 +345,7 @@ const IMAGES={
   multi:{label:'2–3 characters + product (set of 5)',price:600},
   lot10:{label:'Set of 10 — complex campaign',price:900},
 };
-const state={base:'A',envs:0,chars:0,prodsExtra:0,dur:0,res:'720',style:null,fx:{},son:{},perso:{},opts:{},revision:0,urgence:false,
+const state={base:'A',envs:0,chars:0,faces:0,prodsExtra:0,dur:0,res:'720',style:null,fx:{},son:{},perso:{},opts:{},revision:0,urgence:false,
              immoDur:null,immoPerso:false,immoEmb:0,immoStag:0,img:{}};
 
 function eur(n){return '£'+n.toLocaleString('en-GB');}
@@ -363,6 +363,8 @@ document.getElementById('base').innerHTML=
 document.getElementById('vbuild').innerHTML=
   `<div class="qtyrow"><span>Environments <span class="pr">+£${ENV_PRICE} / environment</span></span><input type="number" min="0" value="0" oninput="setV('envs',this.value)"></div>`+
   `<div class="qtyrow"><span>Extra characters <span class="pr">+£${CHAR_PRICE} / character</span></span><input type="number" min="0" value="0" oninput="setV('chars',this.value)"></div>`+
+  `<div class="qtyrow"><span>Made-to-measure faces <span class="pr">+£${FACE_PRICE} / face — 2 proposals included</span></span><input type="number" min="0" value="0" oninput="setV('faces',this.value)"></div>`+
+  `<div class="hint">Face picked from the <a href="models-en.html" target="_blank">model catalogue</a>: included.</div>`+
   `<div class="qtyrow"><span>Extra products / services <span class="pr">+£${PROD_PRICE} / unit</span></span><input type="number" min="0" value="0" oninput="setV('prodsExtra',this.value)"></div>`;
 markDur();
 const re=document.getElementById('res');
@@ -405,7 +407,7 @@ function setImg(k,v){state.img[k]=Math.max(0,parseInt(v)||0);calc();}
 function setV(k,v){state[k]=Math.min(9,Math.max(0,parseInt(v)||0));calc();}
 function setDur(i){state.dur=+i;markDur();calc();}
 function resetAll(){
-  state.base='A';state.envs=0;state.chars=0;state.prodsExtra=0;state.dur=0;state.res='720';state.style=null;
+  state.base='A';state.envs=0;state.chars=0;state.faces=0;state.prodsExtra=0;state.dur=0;state.res='720';state.style=null;
   state.fx={};state.son={};state.perso={};state.opts={};state.revision=0;state.urgence=false;
   state.immoDur=null;state.immoPerso=false;state.immoEmb=0;state.immoStag=0;state.img={};
   document.querySelectorAll('label.opt').forEach(l=>{l.classList.remove('on');const i=l.querySelector('input');if(i)i.checked=false;});
@@ -425,11 +427,13 @@ function calc(){
     const extraProd=state.prodsExtra*PROD_PRICE;
     const envc=state.envs*ENV_PRICE;
     const charc=state.chars*CHAR_PRICE;
-    const sub=base+extraProd+envc+charc;
+    const facec=state.faces*FACE_PRICE;
+    const sub=base+extraProd+envc+charc+facec;
     let vid=Math.round(sub*rm);
     lines.push([(state.base==='C'?`UGC — talking to camera (speech + location included) · ${VDURS[state.dur]}`:state.base==='B'?`The product + 1 character · ${VDURS[state.dur]}`:`The product on its own · ${VDURS[state.dur]}`),base]);
     if(envc>0) lines.push([`Environments × ${state.envs}`,envc]);
     if(charc>0) lines.push([`Extra characters × ${state.chars}`,charc]);
+    if(facec>0) lines.push([`Made-to-measure faces × ${state.faces}`,facec]);
     if(extraProd>0) lines.push([`Extra products / services × ${state.prodsExtra}`,extraProd]);
     if(rm!==1) lines.push([`Resolution ${RES[state.res].label.split('—')[0].trim()}`,vid-sub]);
     if(state.style!==null) lines.push([`Style: ${STYLES[state.style]}`,0]);
