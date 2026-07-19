@@ -55,6 +55,33 @@ generators are updated to match the deployed 19 July pages.** The white-page too
 
 ---
 
+
+## 0bis. 20 JULY 2026 UPDATE — pricing IA, portfolio carousel, compact brief, dark simulator
+
+- **Tarifs hub KEPT** (Lou reversed the 19/07 kill decision — he likes its human explanations).
+  Card 1 now DOWNLOADS the rate-card PDF directly (no online rate page). `rate.html`/`rate-en.html`
+  are redirect stubs → pricing hubs. The white online rate card is retired; the PDF is the rate card.
+- **Simulator is DARK** (FR+EN): CSS variable override + polish (pink bands, dark topnav, inverted
+  logo, pink CTAs). Carries "Download the rate card (PDF)" + agency line ("Agences : projets
+  récurrents ? Parlons-en." / "Agencies: repeat work, volume? Let's talk.") → contact.
+- **Portfolio = centered video carousel** (FR+EN): six LOCAL mp4 films in `/videos/` (compressed
+  from Lou's masters, posters in `img/poster-*.jpg`), wrap-around arrows, dimmed neighbours,
+  captions with Lou's official durations (end card excluded from timing), auto-scrolling reels
+  marquee (YouTube thumbs + lightbox). Films: Morning Shift (First place · Gen HQ Contest · 20s),
+  Milenis (Diffusé au cinéma / In cinemas · 20s), The Commute (Tribute to David Attenborough · 30s),
+  Out of the Office (25s), La Douceur de la Guadeloupe (Spec ad · Gardel · 30s), Just Be Cool
+  (Spec ad · 20s). Titles identical in both languages.
+- **Brief is COMPACT + DARK** (FR+EN): 6 blocks / ~16 questions replacing the 11-section 40-question
+  form (real client feedback: too complicated). Principle: only ask what only the client knows;
+  format block (duration/ratio/platforms) kept because it's quoted against. Prints white via
+  @media print. Old long form retired from the site; long PDFs still downloadable.
+- **Homepage benefit line** (FR: « Des campagnes sans tournage, sans casting, livrées en jours,
+  pas en semaines. » / EN keeps "no logistics") + CTA wording rule: FR « Contactez-moi » /
+  EN "Get in touch" everywhere.
+- **Testimonials page built but NOT live** (temoignages.html exists only in session mockups) —
+  waiting for real client quotes; do not publish invented ones.
+- Nav verified byte-identical geometry on all 16 pages (nav x=138, brand x=1102, langs x=1214).
+
 ## 1. WHAT THIS IS
 
 A bilingual (French / English) client-facing website for Lou Denim's AI creative studio.

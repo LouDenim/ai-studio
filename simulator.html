@@ -130,6 +130,70 @@
 .durticks span:nth-child(6){left:calc(8px + 5*((100% - 16px)/5));}
 .durticks span.on{color:#E7549F;font-weight:700;}
 </style>
+
+<style>
+/* ===== DARK SIMULATOR (v3 mockup) ===== */
+:root{
+  --ink:#fff; --mute:#9a9aa2; --hair:rgba(255,255,255,.16);
+  --blush1:rgba(255,255,255,.055); --blush2:rgba(231,84,159,.10); --blush3:rgba(231,84,159,.17);
+  --grey:rgba(255,255,255,.045);
+}
+body{background:#0a0a0c !important;color:#fff}
+canvas{display:none !important}
+/* topnav to dark */
+.topnav{background:#0a0a0c !important;border-bottom:1px solid rgba(255,255,255,.1) !important}
+.topnav nav a{color:#d8d8dc !important}
+.topnav nav a:hover,.topnav nav a.on{color:#ff7fc0 !important}
+.topnav .brand span{color:#ff7fc0 !important}
+.topnav .langs a{border-color:#ff7fc0 !important;color:#ff7fc0 !important}
+.topnav .langs a.on{background:#ff7fc0 !important;color:#0a0a0c !important}
+.topnav .burger span{background:#fff !important}
+@media (max-width:760px){.topnav nav{background:#0a0a0c !important;border-bottom:1px solid rgba(255,255,255,.1) !important}
+  .topnav nav a{border-bottom:1px solid rgba(255,255,255,.06) !important}}
+/* masthead */
+header img{filter:brightness(0) invert(1)}
+.sub{color:#ff7fc0 !important}
+.titleband{background:#E7549F !important;color:#fff !important;box-shadow:0 8px 30px rgba(231,84,159,.28)}
+.intro{color:#c7c7ce !important}
+/* cards / sections */
+.q{border-color:rgba(255,255,255,.14) !important;background:rgba(255,255,255,.02)}
+.opt{border-color:rgba(255,255,255,.10)}
+.opt:hover{border-color:#ff7fc0}
+.opt.on{background:#E7549F !important;color:#fff !important;border-color:#E7549F !important}
+input,select,textarea{background:rgba(255,255,255,.05) !important;color:#fff !important;border-color:rgba(255,255,255,.18) !important}
+input:focus,select:focus,textarea:focus{border-color:#ff7fc0 !important}
+input::placeholder,textarea::placeholder{color:#7a7a82}
+.total{border-top-color:rgba(255,255,255,.5) !important}
+.btn{background:#E7549F !important}
+.btn:hover{background:#ff7fc0 !important}
+.btn.alt{background:transparent !important;color:#fff !important;border:1px solid rgba(255,255,255,.35) !important}
+.btn.alt:hover{border-color:#ff7fc0 !important;color:#ff7fc0 !important}
+.resetbtn{background:transparent !important;color:#c7c7ce !important;border:1px solid rgba(255,255,255,.3) !important}
+.resetbtn:hover{border-color:#ff7fc0;color:#ff7fc0}
+input[type=range]{accent-color:#E7549F}
+.pk{border:1px solid rgba(255,255,255,.14)}
+/* download + agency row */
+.dlrow{max-width:1000px;margin:34px auto 0;padding:0 22px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;text-align:center}
+.dlrow a.pdfbtn{display:inline-block;border:1px solid rgba(255,255,255,.35);color:#fff;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;padding:13px 26px;border-radius:999px;transition:.15s}
+.dlrow a.pdfbtn:hover{border-color:#ff7fc0;color:#ff7fc0}
+.agencyline{width:100%;font-size:13.5px;color:#9a9aa2;font-weight:300;margin-top:10px}
+.agencyline a{color:#c7c7ce;border-bottom:1px solid rgba(255,255,255,.25)}
+.agencyline a:hover{color:#ff7fc0;border-color:#ff7fc0}
+
+/* dark polish v2 */
+.band{background:#E7549F !important;color:#fff !important;border:0 !important}
+a{color:#ff9fce}
+a:hover{color:#ff7fc0}
+.dlrow a.pdfbtn{text-decoration:none !important;color:#fff}
+.socle{color:#9a9aa2 !important;background:rgba(255,255,255,.03) !important;border-color:rgba(255,255,255,.12) !important;opacity:1 !important}
+footer, .foot, .contactline{color:#8a8a92 !important}
+footer a{color:#c7c7ce !important}
+footer a:hover{color:#ff7fc0 !important}
+.crosslinks, .crosslinks a{color:#c7c7ce !important}
+.crosslinks a:hover{color:#ff7fc0 !important}
+</style>
+
 </head>
 <body>
 <div class="topnav"><div class="hbar">
@@ -231,7 +295,11 @@
         <div id="packs"></div>
         <button class="btn" id="sendBtn" onclick="send()">Envoyer à Lou Denim</button>
         <button class="btn alt" onclick="copyRecap()">Copier le récapitulatif</button>
-        <div class="crosslinks">
+        <div class="dlrow">
+  <a class="pdfbtn" href="Grille_Tarifaire_LouDenim.pdf" download>T&eacute;l&eacute;charger la grille tarifaire (PDF)</a>
+  <div class="agencyline">Agences : projets r&eacute;currents, volumes ? <a href="contact.html">Parlons-en.</a></div>
+</div>
+<div class="crosslinks">
           <a href="modeles.html" target="_blank" rel="noopener">Catalogue de modèles IA</a> ·
           <a href="rate.html" target="_blank" rel="noopener">Grille tarifaire</a>
         </div>

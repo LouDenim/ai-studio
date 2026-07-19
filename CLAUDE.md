@@ -13,7 +13,7 @@ Nav is now 6 items everywhere (Home · Portfolio · Models · **Pricing** · **A
 `pricing/contact/about(.html/-en.html)` are NEW hand-built static pages (no generator builds them).
 Homepage lost its tool cards + inline About and gained the "How it works" section. Models tagline
 changed. **The dark-mode generators have NOT been updated for any of this — running the dark rebuild
-would silently revert the 19 July redesign.** See `PROJECT.md §0` before rebuilding anything.
+would silently revert the 19 July redesign.** See `PROJECT.md §0` and `§0bis` (20 July: pricing hub kept w/ PDF card, dark simulator, portfolio video carousel with local mp4s in /videos/, compact dark brief) before rebuilding anything. The white-page toolchain no longer matches the live simulator/brief either — full regeneration would revert them.
 `add_topnav.py` IS updated (new nav + aligned geometry) — re-run it after regenerating white pages.
 
 ## Critical facts before editing
