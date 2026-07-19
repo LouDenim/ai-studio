@@ -5,8 +5,26 @@
 > what the site is, where it lives, how it's built, every locked decision, and how to change it.
 > You are **not** starting from scratch.
 
-Last updated: 19 July 2026.
+Last updated: 20 July 2026 (§0ter).
 
+
+---
+
+## 0ter. 20 JULY 2026 (evening) UPDATE — portfolio arrows, mobile PDF downloads, simulator toast
+
+All live (commits 0e383c7, 41b6633, f64fda4):
+
+- **Portfolio (FR+EN):** film-carousel arrows now vertically centered on the VIDEO FRAME, not the
+  block (`top:calc(6px + (min(66vw,860px) * 9 / 32))`, mobile `86vw` variant). Reels arrows
+  REMOVED entirely (strip auto-scrolls; arrows contradicted the marquee — Lou agreed).
+- **Pricing + Simulator (FR+EN):** every `a[download]` PDF link now fetches the file as a blob and
+  triggers a real download, so phones stop opening the PDF in their inline viewer. Falls back to
+  normal navigation if fetch fails. (iOS may still show a preview with save button — OS limit.)
+- **Simulator (FR+EN):** « Copier le récapitulatif » no longer alert()s; shows an inline pink toast
+  under the button: « Copié dans le presse-papiers. Collez-le dans un e-mail. » / "Copied to
+  clipboard. Paste it into an email." (#cptoast, injected by showToast()).
+- Testimonials mockups (FR temoignages.html + EN testimonials-en.html) remain session-built,
+  NOT in repo, NOT live — waiting on real client quotes (Lou sent both mockups to clients).
 
 ---
 
