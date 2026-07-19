@@ -486,7 +486,29 @@ function buildText(){
   lines.push('ESTIMATED TOTAL: '+eur(window._total||0)+' (excl. VAT, estimate)');
   return lines.join('\n');
 }
-function copyRecap(){navigator.clipboard.writeText(buildText()).then(()=>alert('Summary copied — paste it into an email to lou@loudenim.com'));}
+function showToast(msg){
+  var t=document.getElementById('cptoast');
+  if(!t){t=document.createElement('div');t.id='cptoast';
+    t.style.cssText='margin-top:10px;font-size:13px;color:#ff7fc0;text-align:center;line-height:1.5;opacity:0;transition:opacity .3s';
+    var b=document.querySelector('.summary .btn.alt'); b.parentNode.insertBefore(t,b.nextSibling);}
+  t.textContent=msg; requestAnimationFrame(function(){t.style.opacity='1';});
+  clearTimeout(t._h); t._h=setTimeout(function(){t.style.opacity='0';},3500);
+}
+function copyRecap(){navigator.clipboard.writeText(buildText()).then(()=>showToast('Copied to clipboard. Paste it into an email.')).catch(()=>showToast('Copy is not available in this browser.'));}
+/* Force real download on mobile: fetch the PDF as a blob so the browser
+   saves it instead of opening its inline viewer. */
+document.querySelectorAll('a[download]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    var href=a.getAttribute('href');
+    fetch(href).then(function(r){if(!r.ok)throw 0;return r.blob();}).then(function(b){
+      var u=URL.createObjectURL(b),t=document.createElement('a');
+      t.href=u;t.download=href.split('/').pop();
+      document.body.appendChild(t);t.click();t.remove();
+      setTimeout(function(){URL.revokeObjectURL(u);},4000);
+    }).catch(function(){location.href=href;});
+  });
+});
 async function send(){
   const name=document.getElementById('c_name').value.trim();
   const mail=document.getElementById('c_mail').value.trim();
