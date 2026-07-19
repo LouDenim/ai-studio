@@ -142,13 +142,7 @@ footer a:hover{color:var(--pink2)}
 .rarr:hover{border-color:var(--pink2);color:var(--pink2)}
 .rarr.left{left:6px}.rarr.right{right:6px}
 
-/* images strip */
-.imgstrip{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding:20px 28px 6px;max-width:1320px;margin:0 auto;align-items:center}
-.imgstrip::-webkit-scrollbar{display:none}
-.imgstrip .im{flex:0 0 auto;height:300px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:.15s;position:relative}
-.imgstrip .im:hover{border-color:var(--pink2);transform:translateY(-2px)}
-.imgstrip .im img{height:100%;width:auto;display:block}
-@media (max-width:700px){.imgstrip .im{height:210px}}
+@media (max-width:700px){}
 /* image lightbox */
 #ilb{position:fixed;inset:0;background:rgba(6,6,8,.96);z-index:998;display:none;align-items:center;justify-content:center}
 #ilb.on{display:flex}
@@ -158,6 +152,21 @@ footer a:hover{color:var(--pink2)}
 #ilb .inav{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(10,10,12,.55);color:#fff;font-size:18px;cursor:pointer}
 #ilb .inav:hover{border-color:var(--pink2);color:var(--pink2)}
 #ilb .iprev{left:18px}#ilb .inext{right:18px}
+
+/* images: paged 5-up grid strip, edge-aligned */
+.imgwrap{position:relative;max-width:1320px;margin:0 auto;padding:20px 28px 6px}
+.imgstrip{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth}
+.imgstrip::-webkit-scrollbar{display:none}
+.imgstrip .im{flex:0 0 calc((100% - 56px)/5);aspect-ratio:3/4;scroll-snap-align:start;border-radius:14px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:.15s;position:relative}
+.imgstrip .im:hover{border-color:var(--pink2);transform:translateY(-2px)}
+.imgstrip .im img{width:100%;height:100%;object-fit:cover;display:block}
+.iarr{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:32px;height:32px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.35);background:rgba(10,10,12,.62);color:#fff;font-size:13px;cursor:pointer;
+  backdrop-filter:blur(4px);transition:.15s;display:flex;align-items:center;justify-content:center}
+.iarr:hover{border-color:var(--pink2);color:var(--pink2)}
+.iarr.left{left:6px}.iarr.right{right:6px}
+@media (max-width:700px){.imgstrip .im{flex-basis:calc((100% - 14px)/2)}}
 </style>
 </head>
 <body>
@@ -333,7 +342,10 @@ footer a:hover{color:var(--pink2)}
 </script>
 
   <div class="band" style="max-width:1264px;margin-left:auto;margin-right:auto"><h2>Images</h2><span class="stag">Same energy, on paper</span></div>
-  <div class="imgstrip">
+  <div class="imgwrap">
+    <button class="iarr left" id="iprev" aria-label="Previous">&#8592;</button>
+    <button class="iarr right" id="inext" aria-label="Next">&#8594;</button>
+    <div class="imgstrip" id="imgstrip">
     <div class="im" data-i="0"><img src="img/photos/photo-01.jpg" alt="" loading="lazy"></div>
     <div class="im" data-i="1"><img src="img/photos/photo-02.jpg" alt="" loading="lazy"></div>
     <div class="im" data-i="2"><img src="img/photos/photo-03.jpg" alt="" loading="lazy"></div>
@@ -341,13 +353,13 @@ footer a:hover{color:var(--pink2)}
     <div class="im" data-i="4"><img src="img/photos/photo-05.jpg" alt="" loading="lazy"></div>
     <div class="im" data-i="5"><img src="img/photos/photo-06.jpg" alt="" loading="lazy"></div>
     <div class="im" data-i="6"><img src="img/photos/photo-07.jpg" alt="" loading="lazy"></div>
-    <div class="im" data-i="7"><img src="img/photos/photo-08.jpg" alt="" loading="lazy"></div>
-    <div class="im" data-i="8"><img src="img/photos/photo-09.jpg" alt="" loading="lazy"></div>
-    <div class="im" data-i="9"><img src="img/photos/photo-10.jpg" alt="" loading="lazy"></div>
-    <div class="im" data-i="10"><img src="img/photos/photo-11.jpg" alt="" loading="lazy"></div>
-    <div class="im" data-i="11"><img src="img/photos/photo-12.jpg" alt="" loading="lazy"></div>
-    <div class="im" data-i="12"><img src="img/photos/photo-13.jpg" alt="" loading="lazy"></div>
-    <div class="im" data-i="13"><img src="img/photos/photo-14.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="7"><img src="img/photos/photo-09.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="8"><img src="img/photos/photo-10.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="9"><img src="img/photos/photo-11.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="10"><img src="img/photos/photo-12.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="11"><img src="img/photos/photo-13.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="12"><img src="img/photos/photo-14.jpg" alt="" loading="lazy"></div>
+  </div>
   </div>
 </section>
 
@@ -417,9 +429,11 @@ footer a:hover{color:var(--pink2)}
 <img src="" alt=""></div>
 <script>
 (function(){
-  var srcs=[]; for(var i=1;i<=14;i++){srcs.push('img/photos/photo-'+String(i).padStart(2,'0')+'.jpg');}
+  var srcs=["img/photos/photo-01.jpg", "img/photos/photo-02.jpg", "img/photos/photo-03.jpg", "img/photos/photo-04.jpg", "img/photos/photo-05.jpg", "img/photos/photo-06.jpg", "img/photos/photo-07.jpg", "img/photos/photo-09.jpg", "img/photos/photo-10.jpg", "img/photos/photo-11.jpg", "img/photos/photo-12.jpg", "img/photos/photo-13.jpg", "img/photos/photo-14.jpg"];
   var lb=document.getElementById('ilb'), img=lb.querySelector('img'), cur=0;
   function open(i){cur=(i+srcs.length)%srcs.length; img.src=srcs[cur]; lb.classList.add('on');}
+  document.getElementById('iprev').onclick=function(){var s=document.getElementById('imgstrip');s.scrollBy({left:-s.clientWidth-14,behavior:'smooth'})};
+  document.getElementById('inext').onclick=function(){var s=document.getElementById('imgstrip');s.scrollBy({left:s.clientWidth+14,behavior:'smooth'})};
   document.querySelectorAll('.imgstrip .im').forEach(function(el){
     el.addEventListener('click',function(){open(parseInt(el.dataset.i,10))});
   });
