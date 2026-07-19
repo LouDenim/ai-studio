@@ -338,6 +338,10 @@ footer a:hover{color:var(--pink2)}
     <div class="im" data-i="7"><img src="img/photos/photo-08.jpg" alt="" loading="lazy"></div>
     <div class="im" data-i="8"><img src="img/photos/photo-09.jpg" alt="" loading="lazy"></div>
     <div class="im" data-i="9"><img src="img/photos/photo-10.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="10"><img src="img/photos/photo-11.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="11"><img src="img/photos/photo-12.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="12"><img src="img/photos/photo-13.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="13"><img src="img/photos/photo-14.jpg" alt="" loading="lazy"></div>
   </div>
 </section>
 
@@ -407,7 +411,7 @@ footer a:hover{color:var(--pink2)}
 <img src="" alt=""></div>
 <script>
 (function(){
-  var srcs=[]; for(var i=1;i<=10;i++){srcs.push('img/photos/photo-'+String(i).padStart(2,'0')+'.jpg');}
+  var srcs=[]; for(var i=1;i<=14;i++){srcs.push('img/photos/photo-'+String(i).padStart(2,'0')+'.jpg');}
   var lb=document.getElementById('ilb'), img=lb.querySelector('img'), cur=0;
   function open(i){cur=(i+srcs.length)%srcs.length; img.src=srcs[cur]; lb.classList.add('on');}
   document.querySelectorAll('.imgstrip .im').forEach(function(el){
