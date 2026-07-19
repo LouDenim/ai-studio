@@ -201,6 +201,10 @@ footer a:hover{color:var(--pink2)}
 @media (max-width:640px){.how .htitle{font-size:30px}}
 .benefit{position:relative;z-index:2;margin:12px auto 30px;max-width:640px;font-size:16px;color:#c7c7ce;font-weight:300;line-height:1.5}
 .benefit span{display:block;margin-top:4px}
+@media (max-width:760px){
+  .statement p{text-align:left}
+  .statement .typed{white-space:normal;width:100%;text-align:left}
+}
 </style>
 </head>
 <body>
@@ -282,9 +286,7 @@ footer a:hover{color:var(--pink2)}
 <script>
 (function(){
 if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-/* on phones the typed line is nowrap and gets cut ('...years'), then jumps to the wrapped
-   version — skip the animation on mobile and just show the full sentence, wrapped, in place */
-if(matchMedia('(max-width:760px)').matches) return;
+/* mobile: typed overlay wraps like the ghost (left-aligned), so the animation runs everywhere */
 var p=document.querySelector('.statement p'); if(!p) return;
 var span=p.querySelector('span'); if(!span) return;
 var pre=''; p.childNodes.forEach(function(n){ if(n.nodeType===3) pre+=n.textContent; if(n===span) return; });
