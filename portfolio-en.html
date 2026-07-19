@@ -110,7 +110,7 @@ footer a:hover{color:var(--pink2)}
 .feat.on .cap{opacity:1}
 .feat .cap b{display:block;font-size:17px;font-weight:600}
 .feat .cap span{display:block;font-size:13px;color:#9a9aa2;font-weight:300;margin-top:2px}
-.arr{position:absolute;top:50%;transform:translateY(-70%);z-index:6;width:48px;height:48px;border-radius:50%;
+.arr{position:absolute;top:calc(6px + (min(66vw,860px) * 9 / 32));transform:translateY(-50%);z-index:6;width:48px;height:48px;border-radius:50%;
   border:1px solid rgba(255,255,255,.35);background:rgba(10,10,12,.55);color:#fff;font-size:19px;cursor:pointer;
   backdrop-filter:blur(4px);transition:.15s;display:flex;align-items:center;justify-content:center}
 .arr:hover{border-color:var(--pink2);color:var(--pink2)}
@@ -126,9 +126,9 @@ footer a:hover{color:var(--pink2)}
 .reel .play{position:absolute;z-index:3;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
 .reel .play svg{width:17px;height:17px;fill:#fff;margin-left:2px}
-@media (max-width:700px){.feat{flex-basis:86vw}.strip{padding:6px calc(50% - 43vw)}.arr{width:32px;height:32px;font-size:13px;background:rgba(10,10,12,.62)}.arr.left{left:8px}.arr.right{right:8px}.reel{flex-basis:160px}}
+@media (max-width:700px){.feat{flex-basis:86vw}.strip{padding:6px calc(50% - 43vw)}.arr{width:32px;height:32px;font-size:13px;background:rgba(10,10,12,.62);top:calc(6px + (86vw * 9 / 32))}.arr.left{left:8px}.arr.right{right:8px}.reel{flex-basis:160px}}
 
-/* reels: JS marquee + arrows */
+/* reels: JS marquee */
 .reelstrip{scroll-snap-type:none !important}
 .reelstrip .reel{scroll-snap-align:none !important}
 
@@ -136,11 +136,6 @@ footer a:hover{color:var(--pink2)}
 .reelstrip{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding:0 28px;
   mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent)}
 .reelstrip::-webkit-scrollbar{display:none}
-.rarr{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:40px;height:40px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.35);background:rgba(10,10,12,.6);color:#fff;font-size:16px;cursor:pointer;
-  backdrop-filter:blur(4px);transition:.15s;display:flex;align-items:center;justify-content:center}
-.rarr:hover{border-color:var(--pink2);color:var(--pink2)}
-.rarr.left{left:6px}.rarr.right{right:6px}
 
 @media (max-width:700px){}
 /* image lightbox */
@@ -267,8 +262,6 @@ footer a:hover{color:var(--pink2)}
 
   <div class="band" style="max-width:1264px;margin-left:auto;margin-right:auto"><h2>Reels</h2><span class="stag">Made to stop the scroll</span></div>
   <div class="reelwrap">
-    <button class="rarr left" id="rprev" aria-label="&#8592;">&#8592;</button>
-    <button class="rarr right" id="rnext" aria-label="&#8594;">&#8594;</button>
     <div class="reelstrip" id="reelstrip">
       <div class="reel" data-id="UGYX9ExLo04" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/UGYX9ExLo04/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
 <div class="reel" data-id="qnAD9OzUb6o" role="button" tabindex="0" aria-label="Play"><img src="https://i.ytimg.com/vi/qnAD9OzUb6o/hqdefault.jpg" alt="" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5.5v13l11-6.5z"/></svg></span></div>
@@ -326,8 +319,6 @@ footer a:hover{color:var(--pink2)}
   s.addEventListener('pointerdown',function(){down=true});
   window.addEventListener('pointerup',function(){down=false});
   s.addEventListener('scroll',wrap,{passive:true});
-  document.getElementById('rprev').onclick=function(){s.scrollBy({left:-3*214,behavior:'smooth'})};
-  document.getElementById('rnext').onclick=function(){s.scrollBy({left:3*214,behavior:'smooth'})};
   var pos=null;
   function tick(){
     if(!paused && !down && seq){
