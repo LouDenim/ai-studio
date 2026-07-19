@@ -149,6 +149,15 @@ footer a:hover{color:var(--pink2)}
 .imgstrip .im:hover{border-color:var(--pink2);transform:translateY(-2px)}
 .imgstrip .im img{height:100%;width:auto;display:block}
 @media (max-width:700px){.imgstrip .im{height:200px}}
+/* image lightbox */
+#ilb{position:fixed;inset:0;background:rgba(6,6,8,.96);z-index:998;display:none;align-items:center;justify-content:center}
+#ilb.on{display:flex}
+#ilb img{max-width:92vw;max-height:90vh;border-radius:10px}
+#ilb .ix{position:fixed;top:18px;right:22px;width:46px;height:46px;border-radius:999px;border:0;cursor:pointer;background:rgba(255,255,255,.14);color:#fff;font-size:24px;line-height:1}
+#ilb .ix:hover{background:var(--pink)}
+#ilb .inav{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(10,10,12,.55);color:#fff;font-size:18px;cursor:pointer}
+#ilb .inav:hover{border-color:var(--pink2);color:var(--pink2)}
+#ilb .iprev{left:18px}#ilb .inext{right:18px}
 </style>
 </head>
 <body>
@@ -317,12 +326,18 @@ footer a:hover{color:var(--pink2)}
 })();
 </script>
 
-  <div class="band" style="max-width:1264px;margin-left:auto;margin-right:auto"><h2>Images</h2><span class="stag">S&eacute;ries &amp; visuels IA</span></div>
+  <div class="band" style="max-width:1264px;margin-left:auto;margin-right:auto"><h2>Images</h2><span class="stag">La m&ecirc;me &eacute;nergie, sur papier</span></div>
   <div class="imgstrip">
-    <div class="im"><img src="img/poster-milenis.jpg" alt=""></div>
-    <div class="im"><img src="img/poster-gardel.jpg" alt=""></div>
-    <div class="im"><img src="img/poster-morning-shift.jpg" alt=""></div>
-    <div class="im"><img src="img/poster-out-of-the-office.jpg" alt=""></div>
+    <div class="im" data-i="0"><img src="img/photos/photo-01.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="1"><img src="img/photos/photo-02.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="2"><img src="img/photos/photo-03.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="3"><img src="img/photos/photo-04.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="4"><img src="img/photos/photo-05.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="5"><img src="img/photos/photo-06.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="6"><img src="img/photos/photo-07.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="7"><img src="img/photos/photo-08.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="8"><img src="img/photos/photo-09.jpg" alt="" loading="lazy"></div>
+    <div class="im" data-i="9"><img src="img/photos/photo-10.jpg" alt="" loading="lazy"></div>
   </div>
 </section>
 
@@ -383,6 +398,30 @@ footer a:hover{color:var(--pink2)}
   requestAnimationFrame(function(){
     strip.scrollTo({left:centerOf(feats[1]),behavior:'auto'});
     mark(); playActive();
+  });
+})();
+</script>
+<div id="ilb"><button class="ix" aria-label="Fermer">&times;</button>
+<button class="inav iprev" aria-label="&#8592;">&#8592;</button>
+<button class="inav inext" aria-label="&#8594;">&#8594;</button>
+<img src="" alt=""></div>
+<script>
+(function(){
+  var srcs=[]; for(var i=1;i<=10;i++){srcs.push('img/photos/photo-'+String(i).padStart(2,'0')+'.jpg');}
+  var lb=document.getElementById('ilb'), img=lb.querySelector('img'), cur=0;
+  function open(i){cur=(i+srcs.length)%srcs.length; img.src=srcs[cur]; lb.classList.add('on');}
+  document.querySelectorAll('.imgstrip .im').forEach(function(el){
+    el.addEventListener('click',function(){open(parseInt(el.dataset.i,10))});
+  });
+  lb.querySelector('.ix').onclick=function(){lb.classList.remove('on')};
+  lb.querySelector('.iprev').onclick=function(){open(cur-1)};
+  lb.querySelector('.inext').onclick=function(){open(cur+1)};
+  lb.addEventListener('click',function(e){if(e.target===lb)lb.classList.remove('on')});
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('on'))return;
+    if(e.key==='Escape')lb.classList.remove('on');
+    if(e.key==='ArrowLeft')open(cur-1);
+    if(e.key==='ArrowRight')open(cur+1);
   });
 })();
 </script>
