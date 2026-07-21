@@ -412,6 +412,12 @@ footer a:hover{color:var(--pink2)}
     strip.scrollTo({left:centerOf(feats[1]),behavior:'auto'});
     mark(); playActive();
   });
+  /* hooks for the reel lightbox: one sound at a time */
+  window.stopCarouselSound=function(){
+    soundOn=false; applySoundIcons();
+    feats.forEach(function(f){ var v=f.querySelector('video'); if(v){ v.pause(); v.muted=true; } });
+  };
+  window.resumeCarousel=function(){ playActive(); };
 })();
 </script>
 <div id="ilb"><button class="ix" aria-label="Fermer">&times;</button>
@@ -452,8 +458,8 @@ footer a:hover{color:var(--pink2)}
 <script>
 function ytIframe(id){return '<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1" title="Lou Denim" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';}
 var lb=document.getElementById('lb'), lbInner=document.getElementById('lbInner');
-function openLB(id,vertical){lbInner.className='lb-inner'+(vertical?'':' land');lbInner.innerHTML=ytIframe(id);lb.classList.add('on');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function closeLB(){lb.classList.remove('on');lb.setAttribute('aria-hidden','true');lbInner.innerHTML='';document.body.style.overflow='';}
+function openLB(id,vertical){if(window.stopCarouselSound)window.stopCarouselSound();lbInner.className='lb-inner'+(vertical?'':' land');lbInner.innerHTML=ytIframe(id);lb.classList.add('on');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+function closeLB(){lb.classList.remove('on');lb.setAttribute('aria-hidden','true');lbInner.innerHTML='';document.body.style.overflow='';if(window.resumeCarousel)window.resumeCarousel();}
 document.getElementById('lbx').addEventListener('click',closeLB);
 lb.addEventListener('click',function(e){if(e.target===lb)closeLB();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLB();});
