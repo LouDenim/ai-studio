@@ -188,8 +188,10 @@ footer a:hover{color:var(--pink2)}
 .howgrid .hstep:nth-child(4){grid-column:2/4}
 .howgrid .hstep:nth-child(5){grid-column:4/6}
 @media (max-width:1020px){.howgrid{grid-template-columns:repeat(2,1fr)}
-  .howgrid .hstep,.howgrid .hstep:nth-child(4),.howgrid .hstep:nth-child(5){grid-column:auto}}
-@media (max-width:640px){.howgrid{grid-template-columns:1fr}}
+  .howgrid .hstep,.howgrid .hstep:nth-child(4),.howgrid .hstep:nth-child(5){grid-column:auto}
+  .howgrid .hstep:nth-child(5){grid-column:1/-1;justify-self:center;width:calc(50% - 9px)}}
+@media (max-width:640px){.howgrid{grid-template-columns:1fr}
+  .howgrid .hstep:nth-child(5){grid-column:auto;justify-self:stretch;width:auto}}
 .hstep{position:relative;border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:34px 26px 28px;background:rgba(255,255,255,.02);transition:.15s}
 .hstep:hover{border-color:var(--pink2);transform:translateY(-2px)}
 .hstep .hnum{position:absolute;top:-17px;left:24px;width:34px;height:34px;border-radius:50%;background:var(--pink);color:#fff;
