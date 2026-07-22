@@ -95,12 +95,12 @@ footer a:hover{color:var(--pink2)}
 
 
 /* about page */
-.aboutwrap{max-width:920px;margin:44px auto 0;padding:0 28px;display:grid;grid-template-columns:256px 1fr;gap:40px;align-items:start;text-align:left}
+.aboutwrap{max-width:920px;margin:44px auto 0;padding:0 28px;display:grid;grid-template-columns:320px 1fr;gap:44px;align-items:start;text-align:left}
 @media (max-width:860px){.aboutwrap{grid-template-columns:1fr;gap:30px}}
-.portrait{position:relative;aspect-ratio:3/4;border:1px dashed rgba(255,127,192,.5);border-radius:16px;
+.portrait{position:relative;aspect-ratio:3/4;border:1px solid rgba(255,255,255,.12);border-radius:16px;
   background:rgba(255,255,255,.02);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .portrait svg{width:70%;height:auto;opacity:.85}
-.abtext p{font-size:16px;color:#e4e4e8;font-weight:300;line-height:1.75;margin-bottom:18px}
+.abtext p{font-size:16px;color:#e4e4e8;font-weight:300;line-height:1.75;margin-bottom:26px}
 .abtext .portlink{font-size:14px;color:#c7c7ce}
 .abtext .portlink a{color:var(--pink2);border-bottom:1px solid rgba(255,127,192,.4)}
 .abcta{margin:46px auto 0;display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap}
@@ -141,20 +141,7 @@ footer a:hover{color:var(--pink2)}
 </div>
 <section style="max-width:1180px">
   <div class="aboutwrap">
-    <div class="portrait"><svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" fill="none">
-  <g stroke="#8a8a92" stroke-width="2.5" stroke-linecap="round">
-    <!-- cap -->
-    <path d="M105 118 Q150 88 195 118 L199 128 Q150 108 101 128 Z" fill="rgba(255,127,192,.14)" stroke="#ff7fc0"/>
-    <path d="M195 118 L228 112 Q232 118 226 124 L199 128" stroke="#ff7fc0"/>
-    <!-- head -->
-    <path d="M112 140 Q108 210 150 218 Q192 210 188 140 Q170 122 150 124 Q130 122 112 140 Z"/>
-    <!-- shoulders -->
-    <path d="M70 330 Q78 258 150 252 Q222 258 230 330"/>
-    <!-- collar -->
-    <path d="M136 252 L150 270 L164 252"/>
-  </g>
-  <text x="150" y="368" text-anchor="middle" font-family="Jost, sans-serif" font-size="17" letter-spacing="4" fill="#ff7fc0">IMAGE TO COME</text>
-</svg></div>
+    <div class="portrait"><video src="videos/about-portrait.mp4" poster="img/about-portrait-poster.jpg" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit"></video></div>
     <div class="abtext">
       <p>I&rsquo;m a photographer by trade and built most of my career in London, UK, in the editorial and advertising industry, before relocating to the French West Indies.</p>
       <p>I&rsquo;ve worked with a diverse range of celebrities, from film stars like Liv Tyler and Sean Bean to musicians like Robbie Williams, as well as comedians, TV presenters and sports stars. On the advertising side, I&rsquo;ve had the opportunity to work for brands such as H&amp;M, Rimmel London or L&rsquo;Or&eacute;al, to name a few.</p>
