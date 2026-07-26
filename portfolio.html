@@ -399,11 +399,12 @@ footer a:hover{color:var(--pink2)}
     var bi=activeIndex();
     feats.forEach(function(f,i){f.classList.toggle('on',i===bi)});
   }
-  var soundOn=false, lastActive=null;
+  var soundOn=false, lastActive=null, fsV=null;
   function applySoundIcons(){
     document.querySelectorAll('.snd').forEach(function(b){ b.dataset.on=soundOn?'1':'0'; b.innerHTML=soundOn?ON:OFF; });
   }
   function playActive(){
+    if(fsV){ return; } /* fullscreen owns the sound: don't re-mute or pause */
     var bi=activeIndex();
     feats.forEach(function(f,i){
       var v=f.querySelector('video'); if(!v) { return; }
@@ -444,9 +445,10 @@ footer a:hover{color:var(--pink2)}
   });
   function enterFull(v){
     if(window.stopCarouselSound) window.stopCarouselSound();
+    fsV=v;
     v.muted=false;
     if(v.webkitEnterFullscreen){
-      v.addEventListener('webkitendfullscreen',function(){ v.muted=true; playActive(); },{once:true});
+      v.addEventListener('webkitendfullscreen',function(){ fsV=null; v.muted=true; playActive(); },{once:true});
       var pr=v.play(); if(pr&&pr.then){ pr.then(function(){v.webkitEnterFullscreen();}).catch(function(){v.webkitEnterFullscreen();}); } else { v.webkitEnterFullscreen(); }
       return;
     }
@@ -457,14 +459,15 @@ footer a:hover{color:var(--pink2)}
   document.querySelectorAll('.full').forEach(function(btn){
     btn.addEventListener('click',function(e){ e.stopPropagation(); var v=btn.closest('.feat').querySelector('video'); if(v) enterFull(v); });
   });
-  function onFsExit(){
-    if(!document.fullscreenElement && !document.webkitFullscreenElement){
-      feats.forEach(function(f){ var v=f.querySelector('video'); if(v){ v.removeAttribute('controls'); v.muted=true; } });
-      playActive();
-    }
+  function onFsChange(){
+    var fe=document.fullscreenElement||document.webkitFullscreenElement;
+    if(fe && fe.tagName==='VIDEO'){ fe.muted=false; fe.play().catch(function(){}); return; }
+    fsV=null;
+    feats.forEach(function(f){ var v=f.querySelector('video'); if(v){ v.removeAttribute('controls'); v.muted=true; } });
+    playActive();
   }
-  document.addEventListener('fullscreenchange',onFsExit);
-  document.addEventListener('webkitfullscreenchange',onFsExit);
+  document.addEventListener('fullscreenchange',onFsChange);
+  document.addEventListener('webkitfullscreenchange',onFsChange);
   // init: center the real first card, no animation
   requestAnimationFrame(function(){
     strip.scrollTo({left:centerOf(feats[1]),behavior:'auto'});
