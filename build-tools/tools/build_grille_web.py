@@ -125,7 +125,7 @@ footer a{{color:#000}}
 
 <div class="chips">
   <div class="chip"><b>HD 720p</b><span>inclus</span></div>
-  <div class="chip c2"><b>Full HD 1080p</b><span>+&nbsp;20&nbsp;%</span></div>
+  <div class="chip c2"><b>Full HD 1080p</b><span>+&nbsp;25&nbsp;%</span></div>
   <div class="chip c3"><b>4K Upscale</b><span>+&nbsp;50&nbsp;%</span></div>
 </div>
 
