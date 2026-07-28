@@ -123,6 +123,11 @@ footer a:hover{color:var(--pink2)}
   border:1px solid rgba(255,255,255,.35);background:rgba(10,10,12,.55);color:#fff;font-size:20px;cursor:pointer;transition:.15s}
 #vlb .vx:hover{border-color:var(--pink2);color:var(--pink2)}
 #vlb .vcap{position:absolute;top:22px;left:22px;z-index:122;color:#fff;font-size:14px;font-weight:600;letter-spacing:.02em;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+#vlb .pstate{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;
+  background:rgba(10,10,12,.6);border:1px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .25s;pointer-events:none;z-index:121}
+#vlb.touch.vpaused .pstate{opacity:1}
+#vlb .pstate svg{width:30px;height:30px;fill:#fff;margin-left:5px}
 @media (max-width:700px){#vlb .varr{width:38px;height:38px;font-size:15px}#vlb .varr.left{left:8px}#vlb .varr.right{right:8px}#vlb .vx{top:10px;right:10px}}
 .feat .cap{margin-top:12px;text-align:center;transition:opacity .35s;opacity:0}
 .feat.on .cap{opacity:1}
@@ -461,11 +466,16 @@ footer a:hover{color:var(--pink2)}
   var vlb=document.createElement('div'); vlb.id='vlb';
   vlb.innerHTML='<video playsinline controls controlslist="nodownload nofullscreen noplaybackrate noremoteplayback" disablepictureinpicture preload="auto"></video>'+
     '<div class="vcap"></div>'+
+    '<div class="pstate"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></div>'+
     '<button class="varr left" aria-label="Pr&eacute;c&eacute;dent">&#8592;</button>'+
     '<button class="varr right" aria-label="Suivant">&#8594;</button>'+
     '<button class="vx" aria-label="Fermer">&times;</button>';
   document.body.appendChild(vlb);
   var pv=vlb.querySelector('video'), vcap=vlb.querySelector('.vcap'), vcur=0;
+  var TOUCHDEV=('ontouchstart' in window)||window.matchMedia('(pointer: coarse)').matches;
+  if(TOUCHDEV){ pv.removeAttribute('controls'); vlb.classList.add('touch'); }
+  pv.addEventListener('play',function(){ vlb.classList.remove('vpaused'); });
+  pv.addEventListener('pause',function(){ vlb.classList.add('vpaused'); });
   var REALS=feats.filter(function(f){return !f.classList.contains('clone');});
   var FILMS=REALS.map(function(f){
     var v=f.querySelector('video'), b=f.querySelector('.cap b');
@@ -476,7 +486,7 @@ footer a:hover{color:var(--pink2)}
     var f=FILMS[vcur];
     pv.poster=f.poster; pv.src=f.src; pv.muted=false;
     vcap.textContent=f.title;
-    pv.play().catch(function(){});
+    pv.play().catch(function(){ vlb.classList.add('vpaused'); });
   }
   function openV(i){
     if(window.stopCarouselSound) window.stopCarouselSound();
@@ -516,13 +526,23 @@ footer a:hover{color:var(--pink2)}
   vlb.addEventListener('touchend',function(e){
     if(tx===null){ return; }
     var dx=e.changedTouches[0].clientX-tx; tx=null;
-    if(dx>60){ showFilm(vcur-1); } else if(dx<-60){ showFilm(vcur+1); }
+    if(dx>60){ showFilm(vcur-1); return; }
+    if(dx<-60){ showFilm(vcur+1); return; }
+    /* simple tap on the film: toggle play/pause (play icon only shows while paused) */
+    if(Math.abs(dx)<12 && !(e.target.closest && e.target.closest('.varr,.vx'))){
+      if(pv.paused){ pv.play().catch(function(){}); } else { pv.pause(); }
+    }
   },{passive:true});
   function onFsChange(){
     if(!(document.fullscreenElement||document.webkitFullscreenElement) && fsV){ closeV(); }
   }
   document.addEventListener('fullscreenchange',onFsChange);
   document.addEventListener('webkitfullscreenchange',onFsChange);
+  /* mobile: some browsers refuse the very first autoplay before data is ready — retry on canplay / first touch */
+  feats.forEach(function(f){ var v=f.querySelector('video'); if(!v){ return; }
+    v.addEventListener('canplay',function(){ if(!fsV && f.classList.contains('on') && v.paused){ playActive(); } });
+  });
+  document.addEventListener('touchstart',function(){ if(!fsV){ playActive(); } },{once:true,passive:true});
   // init: center the real first card, no animation
   requestAnimationFrame(function(){
     strip.scrollTo({left:centerOf(feats[1]),behavior:'auto'});
