@@ -42,9 +42,19 @@ quote simulator + video brief) · À propos/About · Contact.
    ladders 300/400/600 · 350/450/700 · 400/500/800 (15/20/30s, doubles with length to 60s);
    flat add-ons (char/env +150, product +75, face +50, FX 150, voix/musique 100, endcard 150,
    sous-titres 75, perso parlant 100, dialogue 200, exclusivité 300, storyboard 150, script 200);
-   immo 300/400/500; packs 1500-2000 (−15/−25%); **1080p +25%, 4K +50%**; révision 150 (2 incl.);
+   immo 300/400/500; **1080p +25%, 4K +50%**; révision 150 (2 incl.);
    rush +40%; **acompte 50% au-dessus de €1,000/£1,000**; **droits web & réseaux sociaux inclus**;
    TV/cinéma/affichage sur devis. No USD, no email gate, no licensing options (deliberate).
+   **26 Aug 2026 — ALL PACKS/DISCOUNTS REMOVED (Lou's decision, positioning not pricing):**
+   the simulator's Pack de 3 −15 % / Pack de 5 −25 % boxes, the rate-card "Pack campagne
+   complète 1 500–2 000 €", and the "Tarif dégressif à partir de 3 vidéos" / "Volume rate
+   from 3 videos" notes are gone from simulator*.html, services*.html, prices.json, the
+   grille-tarifaire templates, build_grille_web.py, make_devis_en.py, make_grille_en.py and
+   both rate-card PDFs. Rationale: Lou — "I think I'm cheapening myself. If someone wants a
+   retainer, they talk to me, I just don't want the discount appearing." The retainer /
+   "Agences : projets récurrents, volumes ? Parlons-en." routes stay — that is the only
+   remaining door to a volume price, and it goes through her. **Do not reintroduce a printed
+   discount without asking her.** Prices themselves are unchanged.
 5. **Models catalogue → 52 faces**: Femmes 18 · Hommes 16 · Ados 6 · Enfants 6 · Seniors 6.
    Added in August: Dave, Clive, Eva, Franck. Homepage says "52 visages IA / 52 AI faces".
 6. **Models pages REFACTORED** (the big one): modeles.html/models-en.html went from 9.6MB of

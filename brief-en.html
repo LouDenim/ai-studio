@@ -225,12 +225,14 @@ footer a:hover{color:var(--pink2)}
   <input type="text" name="action">
   <label>Who is it for? <em>age, profile, location, language</em></label>
   <input type="text" name="cible">
+  <label>Do you already have an idea? <em>however rough &mdash; describe it as it comes to you</em></label>
+  <textarea name="idee"></textarea>
 
   <div class="bband">4 &middot; The format</div>
   <label>Duration</label>
-  <div class="chips"><label><input type="radio" name="duree" value="15 s">15 s</label><label><input type="radio" name="duree" value="20 s">20 s</label><label><input type="radio" name="duree" value="30 s">30 s</label><label><input type="radio" name="duree" value="40 s et +">40 s et +</label><label><input type="radio" name="duree" value="&Agrave; d&eacute;finir">To be decided</label></div>
+  <div class="chips"><label><input type="radio" name="duree" value="15 s" required>15 s</label><label><input type="radio" name="duree" value="20 s">20 s</label><label><input type="radio" name="duree" value="30 s">30 s</label><label><input type="radio" name="duree" value="40 s et +">40 s et +</label><label><input type="radio" name="duree" value="&Agrave; d&eacute;finir">To be decided</label></div>
   <label>Format</label>
-  <div class="chips"><label><input type="radio" name="format" value="16:9 landscape">16:9 landscape</label><label><input type="radio" name="format" value="9:16 vertical">9:16 vertical</label><label><input type="radio" name="format" value="1:1 square">1:1 square</label><label><input type="radio" name="format" value="&Agrave; d&eacute;finir">To be decided</label></div>
+  <div class="chips"><label><input type="radio" name="format" value="16:9 landscape" required>16:9 landscape</label><label><input type="radio" name="format" value="9:16 vertical">9:16 vertical</label><label><input type="radio" name="format" value="1:1 square">1:1 square</label><label><input type="radio" name="format" value="&Agrave; d&eacute;finir">To be decided</label></div>
   <label>Where will the video run?</label>
   <div class="chips"><label><input type="checkbox" name="diffusion" value="Instagram">Instagram</label><label><input type="checkbox" name="diffusion" value="TikTok">TikTok</label><label><input type="checkbox" name="diffusion" value="YouTube">YouTube</label><label><input type="checkbox" name="diffusion" value="Facebook">Facebook</label><label><input type="checkbox" name="diffusion" value="Site web">Website</label><label><input type="checkbox" name="diffusion" value="TV">TV</label><label><input type="checkbox" name="diffusion" value="Cin&eacute;ma">Cinema</label><label><input type="checkbox" name="diffusion" value="Autre">Other</label></div>
 
@@ -273,23 +275,6 @@ document.getElementById('bf').addEventListener('submit', async function(e){
     <a href="https://www.youtube.com/@loudenim" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.4 3.5 12 3.5 12 3.5s-7.4 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c2 .6 9.4.6 9.4.6s7.4 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg></a>
     <a href="https://www.tiktok.com/@loudenim" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.6 5.82c-.86-.9-1.34-2.07-1.34-3.32h-3.02v13.44c0 1.5-1.22 2.72-2.72 2.72-1.5 0-2.72-1.22-2.72-2.72 0-1.5 1.22-2.72 2.72-2.72.28 0 .55.04.8.12V10.3a5.7 5.7 0 0 0-.8-.06 5.74 5.74 0 1 0 5.74 5.74V8.86a8.3 8.3 0 0 0 4.86 1.56V7.4a5.34 5.34 0 0 1-3.52-1.58z"/></svg></a>
   </div></footer>
-<script>
-function ytIframe(id){return '<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1" title="Lou Denim" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';}
-var lb=document.getElementById('lb'), lbInner=document.getElementById('lbInner');
-function openLB(id,vertical){lbInner.className='lb-inner'+(vertical?'':' land');lbInner.innerHTML=ytIframe(id);lb.classList.add('on');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function closeLB(){lb.classList.remove('on');lb.setAttribute('aria-hidden','true');lbInner.innerHTML='';document.body.style.overflow='';}
-document.getElementById('lbx').addEventListener('click',closeLB);
-lb.addEventListener('click',function(e){if(e.target===lb)closeLB();});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLB();});
-document.querySelectorAll('.vid,.reel').forEach(function(v){
-  function go(){
-    var id=v.dataset.id;
-    openLB(id, v.classList.contains('v916'));   /* both formats open centred, sized to their own aspect ratio */
-  }
-  v.addEventListener('click',go);
-  v.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
-});
-</script>
 <script>
 (function(){
 var p=document.querySelector('.pagehead p'); if(!p) return;

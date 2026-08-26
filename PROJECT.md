@@ -382,6 +382,8 @@ source files/prompts/workflows NOT delivered (Lou's property) · **image rights 
 defined to suit your needs** · 50% deposit before starting · no work without a validated brief + signed agreement.
 
 ### Quote-simulator upsell (Lou loves this — keep it)
+> **SUPERSEDED 26 Aug 2026 — the packs were removed from the simulator entirely. The paragraph below describes the retired behaviour.**
+
 Under the live estimate, two boxes always show once a video is configured: **Pack of 3 videos −15%**
 and **Pack of 5 videos −25%**, showing the discounted per-video price + pack total. Discount applies
 to the video subtotal only (not image lots / real-estate). Savings shown in black (pink is hover-only).

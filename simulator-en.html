@@ -50,13 +50,33 @@
   .resetbtn{background:none;border:1.5px solid #E7549F;color:#E7549F;font-family:inherit;font-size:11.5px;letter-spacing:.08em;
     font-weight:600;padding:5px 14px;border-radius:999px;cursor:pointer;transition:.15s;}
   .resetbtn:hover{background:#E7549F;color:#fff;}
+  .opt .prv{font-weight:600;margin-left:6px;}
+  .opt .prx{opacity:.7;font-size:12px;margin-left:5px;}
+  .stepper{display:flex;align-items:center;gap:3px;flex:0 0 auto;}
+  .stepper .stp{width:38px;height:38px;border:1px solid #000;background:#fff;border-radius:9px;color:#000;
+    font-family:inherit;font-size:19px;line-height:1;cursor:pointer;padding:0;
+    display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;
+    flex:0 0 auto;user-select:none;}
+  @media (hover:hover){.stepper .stp:hover{background:#E7549F;color:#fff;border-color:#E7549F;}}
+  .stepper input[type=number]{width:46px;margin:0;-moz-appearance:textfield;}
+  .stepper input[type=number]::-webkit-outer-spin-button,
+  .stepper input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  @media (max-width:760px){
+    .stepper .stp{width:44px;height:44px;font-size:21px;}
+    .stepper input[type=number]{width:50px;}
+    .qtyrow{padding:8px 10px;}
+  }
   .mobilebar{display:none;}
   @media (max-width:760px){
-    .mobilebar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#fff;border-top:1px solid #eee;
-      box-shadow:0 -6px 24px rgba(0,0,0,.10);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
-    .mobilebar .mtot{font-size:13px;letter-spacing:.06em;color:#555;}
-    .mobilebar .mtot b{font-size:19px;color:#000;font-weight:600;margin-left:6px;}
-    body{padding-bottom:62px;}
+    .mobilebar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#141416;border-top:1px solid #eee;
+      box-shadow:0 -8px 28px rgba(0,0,0,.5);padding:12px 18px 0;display:block;}
+    .mobilebar .mbtop{display:flex;justify-content:space-between;align-items:center;padding-bottom:11px;cursor:pointer;}
+    .mobilebar .mtot{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9a9aa2;}
+    .mobilebar .mtot b{font-size:24px;color:#fff;font-weight:600;margin-left:9px;letter-spacing:0;text-transform:none;}
+    .mobilebar .mbgo{text-align:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#fff;
+      font-weight:500;cursor:pointer;padding:11px 0;
+      border-top:1px solid rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.5);}
+    body{padding-bottom:114px;}
   }
   #lines{font-size:14px;}
   #lines .li{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dotted var(--hair);}
@@ -66,18 +86,6 @@
   .total b{font-size:13.5px;letter-spacing:.12em;text-transform:uppercase;}
   .total .amt{font-size:29px;font-weight:500;}
   .est{font-size:11.5px;color:var(--mute);margin-top:8px;line-height:1.5;}
-  .packlab{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-align:center;margin:14px 0 8px;}
-  .pkgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-  .pk{border-radius:12px;padding:11px 8px 12px;text-align:center;border:1px solid transparent;transition:.12s;}
-  .pk.a{background:var(--blush2);} .pk.b{background:var(--blush3);}
-  .pk:hover{border-color:#E7549F;}
-  .pk .t{font-size:11px;letter-spacing:.05em;text-transform:uppercase;font-weight:500;line-height:1.25;}
-  .pk .s{font-size:12px;font-weight:600;margin-top:2px;}
-  .pk .pv{margin-top:7px;font-size:21px;font-weight:600;line-height:1;}
-  .pk .pv small{font-size:10.5px;font-weight:400;color:var(--mute);}
-  .pk .tt{margin-top:5px;font-size:11.5px;color:#444;}
-  .packnote{font-size:11px;color:var(--mute);text-align:center;margin-top:8px;line-height:1.45;font-style:italic;}
-  .packhint{font-size:12px;color:var(--mute);text-align:center;margin:12px 0 2px;font-style:italic;}
   .btn{display:block;width:100%;margin-top:12px;background:#000;color:#fff;border:none;padding:12px;border-radius:999px;
     font-family:inherit;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;}
   .btn.alt{background:#fff;color:#000;border:1px solid #000;margin-top:8px;}
@@ -129,6 +137,17 @@
 .durticks span:nth-child(5){left:calc(8px + 4*((100% - 16px)/5));}
 .durticks span:nth-child(6){left:calc(8px + 5*((100% - 16px)/5));}
 .durticks span.on{color:#E7549F;font-weight:700;}
+
+  .estwarn{margin:14px 0 2px;padding:14px 15px;border:1.5px solid #E7549F;border-radius:12px;}
+  .estwarn .hd{display:block;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:#ff7fc0;margin-bottom:6px;font-style:normal;}
+  .estwarn .bd{display:block;font-size:14px;font-weight:600;line-height:1.5;color:#fff;
+    text-transform:none;letter-spacing:0;font-style:normal;}
+  .estwarn .bd .nb{white-space:nowrap;}
+  .estwarn .bd2{display:block;margin-top:8px;font-size:14px;font-weight:600;line-height:1.5;
+    color:#ff9fce;text-transform:none;letter-spacing:0;font-style:normal;}
+  .estwarn .sub{display:block;font-size:12.5px;margin-top:9px;line-height:1.5;color:#9a9aa2;
+    font-weight:400;text-transform:none;letter-spacing:0;font-style:normal;}
 </style>
 <style>
 /* ===== DARK SIMULATOR (v3 mockup) ===== */
@@ -161,6 +180,8 @@ header img{filter:brightness(0) invert(1)}
 .opt.on{background:#E7549F !important;color:#fff !important;border-color:#E7549F !important}
 input,select,textarea{background:rgba(255,255,255,.05) !important;color:#fff !important;border-color:rgba(255,255,255,.18) !important}
 input:focus,select:focus,textarea:focus{border-color:#ff7fc0 !important}
+.stepper .stp{background:rgba(255,255,255,.05) !important;color:#fff !important;border-color:rgba(255,255,255,.18) !important}
+@media (hover:hover){.stepper .stp:hover{background:#E7549F !important;color:#fff !important;border-color:#E7549F !important}}
 input::placeholder,textarea::placeholder{color:#7a7a82}
 .total{border-top-color:rgba(255,255,255,.5) !important}
 .btn{background:#E7549F !important}
@@ -270,7 +291,7 @@ footer a:hover{color:#ff7fc0 !important}
 
       <h2 class="band">Real estate &amp; places <span style="font-weight:400;letter-spacing:.04em;font-size:11px;opacity:.7">— from your photos</span></h2>
       <div class="q"><div class="lab">Animated property tour</div><div class="opts" id="immo"></div>
-        <p class="hint">Every room comes alive: camera moves, transitions, edited to music.</p>
+        <p class="hint">Every room comes alive: camera moves, transitions, rhythmic edit.</p>
       </div>
       <div class="q"><div class="opts" id="immoperso"></div></div>
       <div id="immoqty"></div>
@@ -279,7 +300,7 @@ footer a:hover{color:#ff7fc0 !important}
       <h2 class="band">AI images <span style="font-weight:400;letter-spacing:.04em;font-size:11px;opacity:.7">— sets of 5 minimum</span></h2>
       <div id="images"></div>
 
-      <div class="socle">Every video is delivered finished: <b>colour-graded, edited, sound-designed</b> (library music and sound effects included) and exported in your platform's final format.</div>
+      <div class="socle">Every video is delivered <b>colour-graded, edited</b> and exported in your platform's final format.</div>
 
     </div>
 
@@ -290,10 +311,9 @@ footer a:hover{color:#ff7fc0 !important}
           <button type="button" class="resetbtn" onclick="resetAll()">&#8634; Reset</button>
         </div>
         <div id="lines"></div>
-        <div class="total"><b>Estimated total</b><span class="amt" id="amt">0 €</span></div>
-        <p class="inclusive" style="margin:10px 0 2px;font-size:13.5px;font-weight:500;color:#ff7fc0">&#10003; Web &amp; social media usage rights included</p>
-        <p class="est">Indicative estimate, excl. VAT. The final quote is set by Lou Denim based on brief complexity. TV, cinema, out-of-home: on request. 50% deposit above &pound;1,000.</p>
-        <div id="packs"></div>
+        <div class="total"><b>Estimated total excl. VAT</b><span class="amt" id="amt">0 €</span></div>
+        <p class="inclusive" style="margin:10px 0 2px;font-size:13.5px;font-weight:500;color:#ff7fc0">&#10003; Web &amp; social media usage rights included. <span style="opacity:.75;font-weight:400">Any other distribution requires a separate licence&nbsp;: press, print (catalogue, brochure), digital campaign, TV, cinema, 4&times;3 out-of-home, in-store screens. Territory and duration to be agreed with Lou&nbsp;Denim.</span></p>
+        <div class="estwarn"><span class="hd">This is an estimate</span><span class="bd">The final quote is set by <span class="nb">Lou Denim</span>.</span><span class="bd2">Production costs may be added depending on the complexity of the project and the volume of generations required.</span><span class="sub">Estimate excl. VAT. 50% deposit above &pound;1,000.</span></div>
         <button class="btn" id="sendBtn" onclick="send()">Send to Lou Denim</button>
         <button class="btn alt" onclick="copyRecap()">Copy the summary</button>
         <div class="dlrow">
@@ -317,13 +337,13 @@ const BASE_B=[350,450,700,900,1150,1400];   // product/service + 1 character
 const BASE_C=[400,500,800,1000,1300,1600];  // UGC — talking character + real location included
 const VDURS=['15s','20s','30s','40s','50s','60s'];
 const ENV_PRICE=150, PROD_PRICE=75, CHAR_PRICE=150, FACE_PRICE=50;
-const DURS=['≤ 15s','≤ 20s','30–40s'];
+const DURS=['≤ 15s','≤ 20s','≤ 30s'];
 const RES={ '720':{label:'HD 720p — included',mult:1.0}, '1080':{label:'Full HD 1080p — +25%',mult:1.25}, '4k':{label:'4K Upscale — +50%',mult:1.5} };
 const STYLES=['Photorealistic','3D animation','2D cartoon'];
 const FX={
   morphing:{label:'Morphing / transformation',price:150},
   decor:{label:'Set / season change',price:150},
-  lumiere:{label:'Relighting (day↔night, neon…)',price:150},
+  lumiere:{label:'Relighting (day ↔︎ night, neon…)',price:150},
   swap:{label:'Object / product-colour swap',price:150},
   motion:{label:'Motion design — animated titles, graphics',price:150},
 };
@@ -334,15 +354,15 @@ const SON={
   soustitres:{label:'Captions / subtitles',price:75},
 };
 const PERSO={
-  parlant:{label:'Character speaking to camera — voice + lip-sync',price:100,des:true},
+  parlant:{label:'Character speaking — voice + lip-sync',price:100,des:true},
   dialog2:{label:'2-character dialogue',price:200,des:true},
-  exclu:{label:'Custom-character exclusivity — reserved to your brand',price:300},
+  exclu:{label:'Character exclusivity — reserved to your brand',price:300},
 };
 const OPTS={
   storyboard:{label:'Storyboard — sign-off before production',price:150,des:true},
   script:{label:'Script / concept',price:200,des:true},
 };
-const IMMO={p:[300,400,500],perso:150,embellissement:25,staging:75};
+const IMMO={p:[300,400,500],imgs:[5,7,10],musique:50,perso:150,embellissement:25,staging:75};
 const IMAGES={
   prod:{label:'Product only (set of 5)',price:250},
   perso:{label:'1 character + product (set of 5)',price:380},
@@ -350,7 +370,7 @@ const IMAGES={
   lot10:{label:'Set of 10 — complex campaign',price:900},
 };
 const state={base:'A',envs:0,chars:0,faces:0,prodsExtra:0,dur:0,res:'720',style:null,fx:{},son:{},perso:{},opts:{},revision:0,urgence:false,
-             immoDur:null,immoPerso:false,immoEmb:0,immoStag:0,img:{}};
+             videoTouched:false,immoDur:null,immoPerso:false,immoMus:false,immoEmb:0,immoStag:0,img:{}};
 
 function eur(n){return '£'+n.toLocaleString('en-GB');}
 function chips(elId,obj,group){
@@ -381,9 +401,10 @@ document.getElementById('qtyopts').innerHTML=
 const ur=document.getElementById('urg');
 ur.insertAdjacentHTML('beforeend',`<label class="opt" data-g="urg" data-k="1"><input type="checkbox"> Rush — 48 h delivery <span class="pr">+40%</span></label>`);
 const imo=document.getElementById('immo');
-DURS.forEach((d,i)=>imo.insertAdjacentHTML('beforeend',`<label class="opt" data-g="immoDur" data-k="${i}"><input type="radio" name="immoDur">${d} <span class="pr">£${IMMO.p[i]}</span></label>`));
+DURS.forEach((d,i)=>imo.insertAdjacentHTML('beforeend',`<label class="opt" data-g="immoDur" data-k="${i}"><input type="radio" name="immoDur">${d} <b class="prv">£${IMMO.p[i]}</b><span class="prx">· max ${IMMO.imgs[i]} images</span></label>`));
 document.getElementById('immoperso').insertAdjacentHTML('beforeend',
-  `<label class="opt" data-g="immoPerso" data-k="1"><input type="checkbox"> Character added — bringing the place to life <span class="pr">+£${IMMO.perso}</span></label>`);
+  `<label class="opt" data-g="immoPerso" data-k="1"><input type="checkbox"> Character added — bringing the place to life <span class="pr">+£${IMMO.perso}</span></label>`+
+  `<label class="opt" data-g="immoMus" data-k="1"><input type="checkbox"> Music &amp; ambience <span class="pr">+£${IMMO.musique}</span></label>`);
 document.getElementById('immoqty').innerHTML=
   `<div class="qtyrow"><span>Photo enhancement <span class="pr">from £${IMMO.embellissement} / photo</span></span><input type="number" min="0" value="0" oninput="setImmoQty('immoEmb',this.value)"></div>`+
   `<div class="qtyrow"><span>Virtual home staging <span class="pr">from £${IMMO.staging} / photo</span></span><input type="number" min="0" value="0" oninput="setImmoQty('immoStag',this.value)"></div>`;
@@ -391,9 +412,26 @@ const im=document.getElementById('images');
 Object.entries(IMAGES).forEach(([k,v])=>im.insertAdjacentHTML('beforeend',
   `<div class="qtyrow"><span>${v.label} <span class="pr">£${v.price} / set</span></span><input type="number" min="0" value="0" data-img="${k}" oninput="setImg('${k}',this.value)"></div>`));
 
+function bump(box,d){const v=Math.max(0,(parseInt(box.value)||0)+d);box.value=v;box.dispatchEvent(new Event('input',{bubbles:true}));}
+function makeSteppers(){
+  document.querySelectorAll('.qtyrow input[type=number]').forEach(box=>{
+    if(box.parentElement&&box.parentElement.classList.contains('stepper'))return;
+    box.setAttribute('inputmode','numeric');
+    const w=document.createElement('div');w.className='stepper';
+    box.parentNode.insertBefore(w,box);
+    const m=document.createElement('button');m.type='button';m.className='stp';m.setAttribute('aria-label','-');m.textContent='\u2212';
+    const p=document.createElement('button');p.type='button';p.className='stp';p.setAttribute('aria-label','+');p.textContent='+';
+    w.appendChild(m);w.appendChild(box);w.appendChild(p);
+    m.addEventListener('click',()=>bump(box,-1));
+    p.addEventListener('click',()=>bump(box,1));
+  });
+}
+makeSteppers();
+
 document.querySelectorAll('label.opt').forEach(l=>{
   l.addEventListener('click',()=>{
     const g=l.dataset.g,k=l.dataset.k;
+    if(['base','res','style','fx','son','perso','opt','urg'].indexOf(g)>-1){state.videoTouched=true;}
     if(g==='base'){state.base=k;single('base',l);}
     if(g==='res'){state.res=k;single('res',l);}
     if(g==='style'){state.style=+k;single('style',l);}
@@ -403,17 +441,18 @@ document.querySelectorAll('label.opt').forEach(l=>{
       setTimeout(()=>{const bag=g==='opt'?'opts':g;state[bag][k]=box.checked;l.classList.toggle('on',box.checked);calc();},0);}
     if(g==='urg'){const box=l.querySelector('input');setTimeout(()=>{state.urgence=box.checked;l.classList.toggle('on',box.checked);calc();},0);}
     if(g==='immoPerso'){const box=l.querySelector('input');setTimeout(()=>{state.immoPerso=box.checked;l.classList.toggle('on',box.checked);calc();},0);}
+    if(g==='immoMus'){const box=l.querySelector('input');setTimeout(()=>{state.immoMus=box.checked;l.classList.toggle('on',box.checked);calc();},0);}
   });
 });
 function single(g,el){document.querySelectorAll(`label.opt[data-g="${g}"]`).forEach(x=>x.classList.remove('on'));el.classList.add('on');calc();}
-function setRev(v){state.revision=Math.max(0,parseInt(v)||0);calc();}
+function setRev(v){state.revision=Math.max(0,parseInt(v)||0);if(state.revision>0)state.videoTouched=true;calc();}
 function setImg(k,v){state.img[k]=Math.max(0,parseInt(v)||0);calc();}
-function setV(k,v){state[k]=Math.min(9,Math.max(0,parseInt(v)||0));calc();}
-function setDur(i){state.dur=+i;markDur();calc();}
+function setV(k,v){state[k]=Math.min(9,Math.max(0,parseInt(v)||0));if(state[k]>0)state.videoTouched=true;calc();}
+function setDur(i){state.dur=+i;state.videoTouched=true;markDur();calc();}
 function resetAll(){
   state.base='A';state.envs=0;state.chars=0;state.faces=0;state.prodsExtra=0;state.dur=0;state.res='720';state.style=null;
   state.fx={};state.son={};state.perso={};state.opts={};state.revision=0;state.urgence=false;
-  state.immoDur=null;state.immoPerso=false;state.immoEmb=0;state.immoStag=0;state.img={};
+  state.videoTouched=false;state.immoDur=null;state.immoPerso=false;state.immoMus=false;state.immoEmb=0;state.immoStag=0;state.img={};
   document.querySelectorAll('label.opt').forEach(l=>{l.classList.remove('on');const i=l.querySelector('input');if(i)i.checked=false;});
   const bA=document.querySelector('label.opt[data-g="base"][data-k="A"]');if(bA){bA.classList.add('on');const i=bA.querySelector('input');if(i)i.checked=true;}
   const r7=document.querySelector('label.opt[data-g="res"][data-k="720"]');if(r7){r7.classList.add('on');const i=r7.querySelector('input');if(i)i.checked=true;}
@@ -425,7 +464,7 @@ function setImmoQty(k,v){state[k]=Math.max(0,parseInt(v)||0);calc();}
 
 function calc(){
   const lines=[]; let total=0; let vt=0;
-  if(state.dur!==null){
+  if(state.dur!==null && (state.immoDur===null || state.videoTouched)){
     const rm=RES[state.res].mult;
     const base=(state.base==='C'?BASE_C:state.base==='B'?BASE_B:BASE_A)[state.dur];
     const extraProd=state.prodsExtra*PROD_PRICE;
@@ -452,6 +491,7 @@ function calc(){
   if(state.revision>0){const r=state.revision*150;lines.push([`Extra revisions × ${state.revision}`,r]);total+=r;vt+=r;}
   if(state.immoDur!==null){const p=IMMO.p[state.immoDur];lines.push([`Animated property tour · ${DURS[state.immoDur]}`,p]);total+=p;}
   if(state.immoPerso){lines.push(['Real estate: character added',IMMO.perso]);total+=IMMO.perso;}
+  if(state.immoMus){lines.push(['Real estate: music & ambience',IMMO.musique]);total+=IMMO.musique;}
   if(state.immoEmb>0){const s=state.immoEmb*IMMO.embellissement;lines.push([`Photo enhancement × ${state.immoEmb}`,s]);total+=s;}
   if(state.immoStag>0){const s=state.immoStag*IMMO.staging;lines.push([`Virtual home staging × ${state.immoStag}`,s]);total+=s;}
   Object.keys(IMAGES).forEach(k=>{const q=state.img[k]||0;if(q>0){const s=q*IMAGES[k].price;lines.push([`${IMAGES[k].label} × ${q}`,s]);total+=s;}});
@@ -462,20 +502,6 @@ function calc(){
   document.getElementById('amt').textContent=eur(total);
   const a2=document.getElementById('amt2');if(a2)a2.textContent=eur(total);
   window._total=total;window._lines=lines;window._videoTotal=vt;
-  renderPacks();
-}
-function renderPacks(){
-  const el=document.getElementById('packs');if(!el)return;
-  const vt=window._videoTotal||0;
-  if(vt<=0){el.innerHTML='<p class="packhint">Configure a video to see pack rates (3 or 5 videos).</p>';return;}
-  const p3=Math.round(vt*0.85), p5=Math.round(vt*0.75);
-  el.innerHTML=
-    '<div class="packlab">Ordering several&nbsp;?</div>'+
-    '<div class="pkgrid">'+
-      '<div class="pk a"><div class="t">Pack of 3 videos</div><div class="s">−15%</div><div class="pv">'+eur(p3)+'<small> / video</small></div><div class="tt">3 videos: '+eur(p3*3)+'</div></div>'+
-      '<div class="pk b"><div class="t">Pack of 5 videos</div><div class="s">−25%</div><div class="pv">'+eur(p5)+'<small> / video</small></div><div class="tt">5 videos: '+eur(p5*5)+'</div></div>'+
-    '</div>'+
-    '<p class="packnote">Indicative rates for similar videos, adjusted to your needs.</p>';
 }
 const WEB3_KEY='fbddfe3a-fa8b-49d4-bbe3-5b329a81dd67';
 function buildText(){
@@ -580,7 +606,7 @@ function draw(now){
 requestAnimationFrame(draw);
 })();
 </script>
-<div class="mobilebar"><span class="mtot">Estimated total<b id="amt2">0 £</b></span><button type="button" class="resetbtn" onclick="resetAll()">&#8634; Reset</button></div>
+<div class="mobilebar"><div class="mbtop" onclick="document.getElementById('lines').scrollIntoView({behavior:'smooth',block:'center'})"><span class="mtot">Estimated total excl. VAT<b id="amt2">0 &pound;</b></span><button type="button" class="resetbtn" onclick="event.stopPropagation();resetAll()">&#8634; Reset</button></div><div class="mbgo" onclick="document.getElementById('lines').scrollIntoView({behavior:'smooth',block:'center'})">See the breakdown &#8595;</div></div>
 <script>if(typeof calc==='function')calc();</script>
 </body>
 </html>
