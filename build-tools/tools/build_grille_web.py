@@ -129,7 +129,6 @@ footer a{{color:#000}}
   <div class="chip c3"><b>4K Upscale</b><span>+&nbsp;50&nbsp;%</span></div>
 </div>
 
-<div class="pack"><b>Pack campagne complète</b><span class="desc">3 vidéos sur le même concept (Reel / Story / Feed)</span><span class="price">1&nbsp;500&nbsp;€&nbsp;–&nbsp;2&nbsp;000&nbsp;€</span></div>
 
 <h2 class="band">Effets &amp; transformations</h2>
 <table><tbody>{effets_rows}</tbody></table>
@@ -148,7 +147,7 @@ footer a{{color:#000}}
 <p class="note">{im["note_shoot"]}</p>
 
 <div class="pack"><b>Demande particulière</b><span class="desc">Toute demande hors grille&nbsp;: sur devis, après échange avec le créatif.</span><span class="price" style="font-size:15.5px;font-weight:bold">Sur devis</span></div>
-<p class="note"><strong>Commandes régulières&nbsp;?</strong> Un forfait mensuel (retainer) peut être mis en place pour plusieurs vidéos par mois&nbsp;: tarif dégressif, priorité de production, à discuter avec le créatif.</p>
+<p class="note"><strong>Commandes régulières&nbsp;?</strong> Un forfait mensuel (retainer) peut être mis en place pour plusieurs vidéos par mois&nbsp;: priorité de production, à discuter avec le créatif.</p>
 
 <div class="socle">{P["socle"]}</div>
 
@@ -157,7 +156,8 @@ footer a{{color:#000}}
   <p><strong>2 révisions incluses</strong> dans chaque prestation — au-delà, facturation selon le barème. · Délai standard : <strong>7 à 10 jours ouvrés</strong>.</p>
   <p>Le <strong>storyboard validé</strong> fixe le point de départ de la production : toute modification d'un élément déjà validé constitue un tour de révision facturé.</p>
   <p>Tarifs valables pour une diffusion <strong>réseaux sociaux</strong> — TV, affichage ou écran point de vente : sur devis.</p>
-  <p>Fichiers sources, prompts et workflows non livrés — <strong>propriété de Lou Denim</strong>. · Devis final selon brief.</p>
+  <p>Fichiers sources, prompts et workflows non livrés — <strong>propriété de Lou Denim</strong>.</p>
+  <p><strong>Les tarifs de cette grille sont une base d'estimation. Le devis final est établi par Lou Denim.</strong> Des frais de production peuvent s'ajouter selon la complexité du projet et le volume de générations nécessaires.</p>
   <p><strong>Droit à l'image et licence&nbsp;: à définir selon vos besoins.</strong></p>
   <p><strong>Acompte de 50&nbsp;%</strong> avant démarrage. · Aucun travail sans brief validé et accord signé.</p>
 </div>

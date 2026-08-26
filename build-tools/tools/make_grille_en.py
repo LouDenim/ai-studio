@@ -47,11 +47,6 @@ REP = [
  ('<strong>Style visuel — même tarif :</strong> Photoréaliste · Animation 3D · Dessin animé 2D.',
   '<strong>Visual style — same rate:</strong> Photorealistic · 3D animation · 2D cartoon.'),
  ('<b>HD 720p</b><span>inclus</span>', '<b>HD 720p</b><span>included</span>'),
- # campaign pack
- ('<b>Pack campagne complète</b>', '<b>Full campaign pack</b>'),
- ('3 vidéos sur le même concept (Reel / Story / Feed)', '3 videos on the same concept (Reel / Story / Feed)'),
- ('<span class="price">1&nbsp;500&nbsp;€&nbsp;–&nbsp;2&nbsp;000&nbsp;€</span>',
-  '<span class="price">£1,500 – £2,000</span>'),
  # effets
  ('Effets &amp; transformations', 'Effects &amp; transformations'),
  ('Morphing / transformation — le produit se transforme, apparaît, se reconstruit',
@@ -66,7 +61,7 @@ REP = [
  # son
  ('Son &amp; finitions', 'Sound &amp; finishing'),
  ('Voix off IA (FR / EN / ES)', 'AI voice-over (FR / EN / ES)'),
- ('Musique originale & sound design sur mesure', 'Custom music & sound design'),
+ ('Musique originale & sound design', 'Custom music & sound design'),
  ('Carte de fin — logo animé + signature sonore', 'End card: animated logo + audio signature'),
  ('<td>Sous-titres</td>', '<td>Captions / subtitles</td>'),
  # personnages
@@ -99,8 +94,8 @@ REP = [
  ('Toute demande hors grille&nbsp;: sur devis, après échange avec le créatif.',
   'Anything outside this list&nbsp;: on quote, after a chat with the creative.'),
  ('>Sur devis</span>', '>On quote</span>'),
- ('<strong>Commandes régulières&nbsp;?</strong> Un forfait mensuel (retainer) peut être mis en place pour plusieurs vidéos par mois&nbsp;: tarif dégressif, priorité de production, à discuter avec le créatif.',
-  '<strong>Regular orders&nbsp;?</strong> A monthly retainer can be arranged for several videos a month&nbsp;: volume rate, production priority, discussed with the creative.'),
+ ('<strong>Commandes régulières&nbsp;?</strong> Un forfait mensuel (retainer) peut être mis en place pour plusieurs vidéos par mois&nbsp;: priorité de production, à discuter avec le créatif.',
+  '<strong>Regular orders&nbsp;?</strong> A monthly retainer can be arranged for several videos a month&nbsp;: production priority, discussed with the creative.'),
  # socle
  ("Chaque vidéo est livrée finie : étalonnée, montée, sonorisée (musique d'illustration et effets sonores inclus) et exportée au format final de votre plateforme.",
   "Every video is delivered finished: colour-graded, edited, sound-designed (library music and sound effects included) and exported in your platform's final format."),
