@@ -175,7 +175,11 @@ footer{border-top:1px solid var(--line)}
 .band{display:grid;gap:10px;grid-auto-flow:column;grid-template-rows:1fr 1fr;aspect-ratio:3.49}
 .band.a{grid-template-columns:.5625fr .889fr .5625fr .889fr .5625fr}
 .band.b{grid-template-columns:.889fr .5625fr .5625fr .889fr .5625fr}
-.mo{position:relative;overflow:hidden;background:#111;cursor:pointer;display:block}
+.mo{position:relative;overflow:hidden;background:#111 center/cover no-repeat;cursor:pointer;display:block}
+/* jamais de carre noir : l'image fixe du film reste affichee en fond, et la video
+   ne se montre qu'une fois qu'elle a vraiment de quoi jouer. */
+.mo video{opacity:0;transition:opacity .4s ease}
+.mo.pret video{opacity:1}
 .mo.v{grid-row:span 2}
 .mo video{width:100%;height:100%;object-fit:cover;display:block}
 .reelsec .ctas{margin-top:18px}
@@ -385,6 +389,21 @@ footer{border-top:1px solid var(--line)}
   </div>
 </footer>
 <script>
+/* --- filet : l'image fixe en fond de chaque tuile ------------------------- */
+(function(){
+  [].forEach.call(document.querySelectorAll('.mo'),function(a){
+    var v=a.querySelector('video'); if(!v) return;
+    var p=v.getAttribute('poster');
+    if(p) a.style.backgroundImage='url("'+p+'")';
+    function pret(){ if(v.readyState>=2) a.classList.add('pret'); }
+    v.addEventListener('loadeddata',pret);
+    v.addEventListener('playing',pret);
+    v.addEventListener('error',function(){ a.classList.remove('pret'); });
+    v.addEventListener('stalled',function(){ if(v.readyState<2) a.classList.remove('pret'); });
+    pret();
+  });
+})();
+
 /* --- vidéos à la demande --- */
 (function(){
   var vids=[].slice.call(document.querySelectorAll('video[data-src]'));
