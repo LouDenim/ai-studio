@@ -235,8 +235,18 @@ footer{border-top:1px solid var(--line)}
 </header>
 
 <section class="hero" id="top">
-  <video class="bg" src="https://ai.loudenim.com/hero.mp4" poster="https://ai.loudenim.com/hero-poster.jpg"
+  <video class="bg" data-hsrc="https://ai.loudenim.com/hero.mp4" data-hmsrc="https://ai.loudenim.com/videos/m/hero.mp4" poster="https://ai.loudenim.com/hero-poster.jpg"
          muted loop playsinline autoplay preload="auto"></video>
+  <script>
+  /* Telephone : le hero passe de 17 Mo a 3 Mo. On choisit la source AVANT que le
+     navigateur ne commence a telecharger, d'ou l'absence d'attribut src dans le HTML. */
+  (function(){
+    var v=document.querySelector('.hero video[data-hsrc]'); if(!v) return;
+    var petit = window.matchMedia && matchMedia('(max-width:760px)').matches;
+    v.src = (petit && v.dataset.hmsrc) ? v.dataset.hmsrc : v.dataset.hsrc;
+    v.play().catch(function(){});
+  })();
+  </script>
   <div class="scrim"></div>
   <div class="heroin">
     <div>
@@ -378,11 +388,20 @@ footer{border-top:1px solid var(--line)}
 /* --- vidéos à la demande --- */
 (function(){
   var vids=[].slice.call(document.querySelectorAll('video[data-src]'));
+  /* Telephone : versions legeres, deja rognees tete et queue au montage.
+     Chaque tuile passe de 8-22 Mo a moins de 1 Mo. Les reperes data-head et
+     data-tail n'ont plus lieu d'etre : la coupe est dans le fichier. */
+  var petit = window.matchMedia && matchMedia('(max-width:760px)').matches;
+  if(petit){ vids.forEach(function(v){
+    var n=v.dataset.src.split('/').pop();
+    v.dataset.src='https://ai.loudenim.com/videos/m/'+n;
+    v.removeAttribute('data-head'); v.removeAttribute('data-tail');
+  }); }
   if(!('IntersectionObserver' in window)){vids.forEach(function(v){v.src=v.dataset.src;v.play()});}
   else{
     var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
       if(e.isIntersecting){if(!v.src){v.src=v.dataset.src}v.play().catch(function(){})}else{v.pause()}})},
-      {rootMargin:'250px 0px',threshold:.12});
+      {rootMargin:petit?'500px 0px':'250px 0px',threshold:.12});
     vids.forEach(function(v){io.observe(v)});
   }
 })();

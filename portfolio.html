@@ -222,6 +222,14 @@ footer a:hover{color:var(--pink2)}
  header .hbar>nav a.on{color:#fff}
  header .hbar>nav a.on:after{display:none}
 }
+
+/* Telephone : la barre de lecture s'efface pendant qu'on regarde le film, et
+   revient des qu'un doigt touche l'image ou qu'on fait defiler la page.
+   Elle reste visible quand le film est en pause : l'arret est volontaire. */
+@media(hover:none),(pointer:coarse){
+ .film .fr .ctrl{transition:opacity .5s ease}
+ .film .fr.idle .ctrl{opacity:0}
+}
 </style></head><body>
 <header>
   <div class="hbar">
@@ -850,6 +858,36 @@ footer a:hover{color:var(--pink2)}
     if(e.key==='ArrowLeft'){ e.preventDefault(); show(idx-1); }
     if(e.key==='ArrowRight'){ e.preventDefault(); show(idx+1); }
   });
+})();
+</script>
+
+<script>
+/* --- telephone : la barre de lecture s'efface toute seule ------------------ */
+(function(){
+  if(!(window.matchMedia && matchMedia('(hover:none),(pointer:coarse)').matches)) return;
+  var DELAI=2800, frs=[].slice.call(document.querySelectorAll('.film .fr'));
+  frs.forEach(function(fr){
+    var v=fr.querySelector('video'), t=null, sortiDeVeille=false;
+    function endors(){ if(v && v.paused) return; fr.classList.add('idle'); }
+    function reveille(){ fr.classList.remove('idle'); clearTimeout(t); t=setTimeout(endors,DELAI); }
+    fr.__reveille=reveille;
+    /* le premier appui ne sert qu'a rappeler la barre : il ne met pas en pause
+       et ne deplace pas la tete de lecture */
+    fr.addEventListener('pointerdown',function(e){
+      if(fr.classList.contains('idle')){ sortiDeVeille=true; e.stopPropagation(); }
+      reveille();
+    },true);
+    fr.addEventListener('click',function(e){
+      if(sortiDeVeille){ sortiDeVeille=false; e.stopPropagation(); e.preventDefault(); }
+    },true);
+    if(v){ v.addEventListener('pause',reveille); v.addEventListener('play',reveille); }
+    reveille();
+  });
+  var st=null;
+  addEventListener('scroll',function(){
+    if(st) return;
+    st=setTimeout(function(){ st=null; frs.forEach(function(fr){ fr.__reveille(); }); },150);
+  },{passive:true});
 })();
 </script>
 </body></html>

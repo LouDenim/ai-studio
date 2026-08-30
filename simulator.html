@@ -305,6 +305,7 @@ label.opt.on input{accent-color:#0a0a0c}
  .summary{display:block !important;position:static !important;background:#fff !important;
   border:1px solid #000 !important;margin-top:24px;padding:16px;break-inside:avoid}
  .summary h3{color:#000 !important}
+ details.more>summary,details.more>summary:before{color:#000 !important}
  .summary > div:first-child{display:block !important}
  #lines,#lines .li span:last-child{color:#000 !important}
  #lines .li{border-bottom:1px solid #ddd !important}
@@ -329,9 +330,9 @@ label.opt.on input{accent-color:#0a0a0c}
 .pane{display:none}
 .pane.on{display:block}
 details.more{margin-top:30px;border-top:1px solid var(--line);padding-top:6px}
-details.more>summary{list-style:none;cursor:pointer;padding:18px 0;color:var(--pink2);
+details.more>summary{list-style:none;cursor:pointer;padding:18px 0;color:#fff;
  font-size:15px;font-weight:500;display:flex;align-items:center;gap:10px;transition:.16s}
-details.more>summary:hover{color:#fff}
+details.more>summary:hover:before{color:#fff}
 details.more>summary::-webkit-details-marker{display:none}
 details.more>summary:before{content:'+';font-size:19px;line-height:1;color:var(--pink2);width:16px;text-align:center}
 details.more[open]>summary:before{content:'\2013'}
