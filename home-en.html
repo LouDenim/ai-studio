@@ -215,23 +215,30 @@ footer{}
 
 @media(max-width:900px){
  header{position:fixed}
- header:before{display:none}
- header .hbar{background:rgba(8,8,10,.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
- header .brand .eyebrow{display:block;position:static;width:auto;min-width:0;text-align:left;
-  padding-left:0;margin-top:6px;font-size:8px;letter-spacing:.17em}
- header .brand img{width:112px}
- header .hbar{padding:11px 16px}
+ /* pas de bandeau opaque pose sur le film : un degrade court, le bloc logo reste
+    lisible et l'image continue de passer au travers. */
+ header:before{display:block;height:180px;
+  background:linear-gradient(180deg,rgba(6,6,8,.82) 0%,rgba(6,6,8,.42) 48%,transparent 100%)}
+ header .hbar{background:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:12px 16px}
+ /* la baseline se comporte comme sur grand ecran : centree sous le logo et plus
+    etroite que lui. Logo et baseline forment un seul bloc, jamais deux elements. */
+ header .brand img{width:168px}
+ header .brand .eyebrow{display:block;margin-top:9px;font-size:8px;letter-spacing:.15em}
 }
-/* ecran couche, ou tout ecran bas : la barre ne doit pas manger le film */
+/* ecran couche, ou tout ecran bas */
 @media(max-width:900px) and (max-height:540px){
- header .hbar{padding:5px 14px;gap:10px}
- header .brand img{width:72px}
- header .brand .eyebrow{font-size:6.5px;letter-spacing:.12em;margin-top:3px}
+ header:before{height:130px}
+ header .hbar{padding:8px 14px;gap:10px}
+ header .brand img{width:124px}
+ header .brand .eyebrow{margin-top:6px;font-size:6px;letter-spacing:.12em}
  header .langs{font-size:9px;gap:12px}
  header .burger{width:24px;height:20px;gap:4px}
  header .burger span{width:22px}
  header .hbar>nav a{padding:10px 14px;font-size:14px}
 }
+
+/* telephone : la phrase de la section Films et reels passe a la ligne au point */
+@media(max-width:760px){.sechead p .l2{display:block}}
 </style></head><body>
 <header id="hd">
   <div class="hbar">
@@ -348,7 +355,7 @@ footer{}
   <div class="sechead">
     <span class="k">Take a look</span>
     <h2>Films and reels</h2>
-    <p>Films in landscape, reels in vertical. All generated, all made to measure.</p>
+    <p>Films in landscape, reels in vertical. <span class="l2">All generated, all made to measure.</span></p>
   </div>
   <div class="mosaic">
     <div class="band a">
