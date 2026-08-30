@@ -2,6 +2,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LOU DENIM — Home</title>
+<meta name="description" content="Generative AI for brands. Editorial and advertising photographer for 25+ years. Now with AI superpowers.">
+<link rel="canonical" href="https://ai.loudenim.com/home-en.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lou Denim">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://ai.loudenim.com/home-en.html">
+<meta property="og:title" content="LOU DENIM — Home">
+<meta property="og:description" content="Generative AI for brands. Editorial and advertising photographer for 25+ years. Now with AI superpowers.">
+<meta property="og:image" content="https://ai.loudenim.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lou Denim">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ai.loudenim.com/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -239,6 +253,13 @@ footer{}
 
 /* telephone : la phrase de la section Films et reels passe a la ligne au point */
 @media(max-width:760px){.sechead p .l2{display:block}}
+
+/* Le bloc logo s'efface quand le titre du hero arrive a sa hauteur : sinon il se
+   pose sur le texte et on ne lit plus rien. Il revient des qu'on remonte. */
+@media(max-width:900px){
+ header{transition:opacity .35s ease,transform .35s ease}
+ header.efface{opacity:0;transform:translateY(-10px);pointer-events:none}
+}
 </style></head><body>
 <header id="hd">
   <div class="hbar">
@@ -504,6 +525,26 @@ footer{}
     })},{rootMargin:'150px 0px',threshold:.15});
     tiles.forEach(function(v){io.observe(v)});
   } else { tiles.forEach(function(v){load(v);v.play().catch(function(){})}); }
+})();
+</script>
+
+<script>
+/* --- telephone : le bloc logo se retire devant le titre --------------------- */
+(function(){
+  if(!(window.matchMedia && matchMedia('(max-width:900px)').matches)) return;
+  var hd=document.getElementById('hd'), h1=document.querySelector('.hero h1'),
+      tog=document.getElementById('navtoggle');
+  if(!hd||!h1) return;
+  var dernier=window.scrollY, raf=null;
+  function maj(){
+    raf=null;
+    var y=window.scrollY, monte = y < dernier - 2; dernier=y;
+    if(tog && tog.checked){ hd.classList.remove('efface'); return; }   /* menu ouvert : on ne touche a rien */
+    if(monte || y < 30){ hd.classList.remove('efface'); return; }
+    if(h1.getBoundingClientRect().top < hd.offsetHeight + 16) hd.classList.add('efface');
+  }
+  addEventListener('scroll',function(){ if(!raf) raf=requestAnimationFrame(maj); },{passive:true});
+  maj();
 })();
 </script>
 </body></html>
