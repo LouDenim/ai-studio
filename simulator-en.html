@@ -353,6 +353,84 @@ details.more[open]>summary:before{content:'\2013'}
 .morein{padding-bottom:8px}
 @media(max-width:640px){.tab{padding:11px 12px;font-size:11.5px;letter-spacing:.1em}}
 </style>
+
+<style>
+.stepnote{font-size:12.5px;color:var(--dim);margin:0 0 12px}
+
+/* ---- la barre du haut : toujours ouverte, jamais un menu deroulant ---- */
+.top1{border:1px solid var(--line);background:#101015;padding:18px 18px 6px;margin:0 0 18px}
+.top1 .q{padding-top:0;border-top:none}
+.top1 .q+.q{border-top:1px solid var(--line);padding-top:16px;margin-top:14px}
+
+/* ---- volets ---- */
+.steps{margin:0 0 20px}
+.st{border:1px solid var(--line);border-bottom:none;background:transparent;
+ transition:background .18s}
+.st:last-child{border-bottom:1px solid var(--line)}
+.st>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;
+ padding:15px 18px;transition:background .16s}
+.st>summary::-webkit-details-marker{display:none}
+.st>summary:hover{background:rgba(255,255,255,.045)}
+.st .n{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0;
+ color:#8d8d95;flex:none;width:24px;height:24px;line-height:22px;text-align:center;
+ border:1px solid rgba(255,255,255,.28);transition:.2s}
+.st .t{font-size:15.5px;font-weight:500;color:#fff;flex:none}
+.st .r{margin-left:auto;font-size:12.5px;color:var(--dim);text-align:right;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:44%}
+.st .chev{flex:none;width:10px;height:10px;border-right:1.4px solid var(--pink2);
+ border-bottom:1.4px solid var(--pink2);transform:rotate(45deg) translate(-2px,-2px);
+ transition:transform .22s;margin-left:12px}
+.st[open] .chev{transform:rotate(-135deg) translate(-2px,-2px)}
+.stin{padding:2px 18px 18px}
+.stin>.q:first-child{padding-top:0;border-top:none}
+
+/* ---- rempli : le numero passe dans un carre rose plein ---- */
+.st.vu .n{color:#0b0b0e;font-weight:600;background:var(--pink);border-color:var(--pink)}
+.st.vu .r{color:#d8d8de}
+.st.vu .r:before{content:'';display:inline-block;width:5px;height:5px;
+ background:var(--pink);margin-right:8px;vertical-align:middle}
+.st.vu>summary{background:rgba(231,84,159,.055)}
+
+/* ---- le volet ouvert se detache vraiment du fond de page (#08080a) ---- */
+.st[open]{background:#15151b;box-shadow:inset 3px 0 0 var(--pink);
+ border-color:rgba(231,84,159,.34);border-bottom:1px solid rgba(231,84,159,.34)}
+.st[open]+.st{border-top:none}
+.st[open]>summary{position:sticky;top:var(--navh,0px);z-index:6;
+ background:#1d1d25;border-bottom:1px solid rgba(231,84,159,.34)}
+.st[open]>summary:hover{background:#23232c}
+.st[open] .n{color:#fff;border-color:var(--pink2)}
+.st[open].vu .n{color:#0b0b0e}
+
+/* ---- ce que le format choisi comprend deja ---- */
+.opt.incl{opacity:.45;cursor:default}
+.opt.incl .pr{color:var(--pink2)}
+
+@media(max-width:640px){
+ /* la barre du haut doit rester courte : sinon elle repousse les volets
+    sous la ligne de flottaison, exactement le defaut qu'on corrige */
+ .top1{padding:12px 14px 12px;margin-bottom:12px}
+ .top1 .lab{font-size:13px}
+ .top1 .hint{font-size:11px;margin-top:6px}
+ .top1 .q+.q{padding-top:12px;margin-top:10px}
+ .top1 .durticks{font-size:11px}
+ .top1 #style{display:flex;gap:6px}
+ .top1 #style .opt{flex:1;padding:9px 4px;font-size:11.5px;text-align:center;
+  justify-content:center;gap:0}
+ .top1 #style .opt input{display:none}
+ .st>summary{padding:13px 14px;gap:11px}
+ .st .t{font-size:14px}
+ .st .n{width:22px;height:22px;line-height:20px;font-size:11px}
+ .st .r{font-size:11.5px;max-width:36%}
+ .stin{padding:2px 14px 16px}
+ .pagehead{margin-bottom:14px !important}
+ .pagehead h1{font-size:34px !important;line-height:1.05 !important}
+ .pagehead .k{font-size:9px}
+ .pagehead p{display:none}
+ .tabs{margin-bottom:14px}
+ .steps{margin-bottom:14px}
+ .stepnote{margin-bottom:10px}
+}
+</style>
 </head>
 <body>
 <header class="top">
@@ -383,50 +461,13 @@ details.more[open]>summary:before{content:'\2013'}
       </div>
 
 <div class="pane on" id="pane-video">
-      <div class="q"><div class="lab">1 · Video length</div>
-        <div class="durwrap">
+      <p class="stepnote">Five steps, in whatever order you like. The total updates as you go.</p><div class="top1"><div class="q"><div class="lab">Video length</div><div class="durwrap">
           <input type="range" min="0" max="4" step="1" value="0" id="durslider" oninput="setDur(this.value)">
           <div class="durticks"><span>15s</span><span>20s</span><span>30s</span><span>40s</span><span>50s</span></div>
         </div>
-        <p class="hint">Beyond 50&nbsp;s: on quote.</p>
-      </div>
-      <div class="q"><div class="lab">2 · What does your video show?</div>
-        <div class="opts cards" id="base"></div>
-        <p class="hint">This is not about what you sell, it is about what is on screen:
-        <b>if there is an object to sell on screen, it is a product; if not, it is a brand film.</b> <b>UGC</b>: 1 character speaking to camera (voice + lip sync) and 1 real location <b>included</b>.</p>
-      </div>
-      <div class="q"><div class="lab">3 · Add to your scene</div>
-        <div id="vbuild"></div>
-        <p class="hint">Character: casting, wardrobe &amp; staging <b>included</b>. To reserve a face for your brand, see <b>Exclusivity</b> in the Characters section.</p>
-      </div>
-      <div class="q"><div class="lab">Pace of the film</div><div class="opts cards" id="pace"></div>
-        <p class="hint">Not sure yet? Keep &ldquo;standard&rdquo;. We&rsquo;ll talk it through, and the quote is adjusted
-        if the film ends up at a different pace.</p>
-      </div>
-      <details class="more">
-        <summary>4 &middot; Refine &mdash; resolution, style, effects, sound, options</summary>
-        <div class="morein">
-      <div class="q"><div class="lab">Resolution</div><div class="opts" id="res"></div></div>
-      <div class="q"><div class="lab">Visual style <span class="pr" style="font-weight:400">— same rate</span></div><div class="opts" id="style"></div></div>
-
-      <div class="sect"><h2>Effects &amp; transformations </h2><div class="rule"></div></div>
-      <div class="q"><div class="opts" id="fx"></div></div>
-
-      <div class="sect"><h2>Sound &amp; finishing </h2><div class="rule"></div></div>
-      <div class="q"><div class="opts" id="son"></div></div>
-
-      <div class="sect"><h2>Characters </h2><div class="rule"></div></div>
-      <div class="q"><div class="opts" id="perso"></div></div>
-
-      <div class="sect"><h2>Other options </h2><div class="rule"></div></div>
-      <div class="q"><div class="opts" id="opts"></div></div>
-      <div id="qtyopts"></div>
-      <div class="q"><div class="opts" id="urg"></div>
-        <p class="hint">Rush: 48-hour delivery, +40% on the video (estimate).</p>
-      </div>
-
-        </div>
-      </details>
+        <p class="hint">Beyond 50&nbsp;s: on quote.</p></div><div class="q"><div class="lab">Visual style <span class="pr" style="font-weight:400">— same rate</span></div><div class="opts" id="style"></div></div></div><div class="steps"><details class="st" id="st1"><summary><span class="n">1</span><span class="t">The film format</span><span class="r" id="r1">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="opts cards" id="base"></div><p class="hint">This is not about what you sell, it is about what is on screen:
+        <b>if there is an object to sell on screen, it is a product; if not, it is a brand film.</b> <b>UGC</b>: 1 character speaking to camera (voice + lip sync) and 1 real location <b>included</b>.</p></div><div class="q"><div class="lab">What needs creating</div><div class="opts" id="opts"></div><p class="hint">Already have the concept or the script? Leave these unticked — we start from what you bring. Rates apply up to 50s.</p></div></div></details><details class="st" id="st2"><summary><span class="n">2</span><span class="t">Characters &amp; sets</span><span class="r" id="r2">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div id="vbuild"></div><p class="hint" id="inclnote" hidden></p><p class="hint">Character: casting, wardrobe &amp; staging <b>included</b>. To reserve a face for your brand, see <b>Exclusivity</b> below.</p></div><div class="q"><div class="lab">Character options</div><div class="opts" id="perso"></div></div></div></details><details class="st" id="st3"><summary><span class="n">3</span><span class="t">Pace &amp; effects</span><span class="r" id="r3">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="lab">Pace</div><div class="opts cards" id="pace"></div><p class="hint">Not sure yet? Keep &ldquo;standard&rdquo;. We&rsquo;ll talk it through, and the quote is adjusted
+        if the film ends up at a different pace.</p></div><div class="q"><div class="lab">Effects &amp; transformations</div><div class="opts" id="fx"></div></div></div></details><details class="st" id="st4"><summary><span class="n">4</span><span class="t">Sound &amp; finishing</span><span class="r" id="r4">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="opts" id="son"></div></div></div></details><details class="st" id="st5"><summary><span class="n">5</span><span class="t">Production &amp; delivery</span><span class="r" id="r5">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="lab">Resolution</div><div class="opts" id="res"></div><p class="hint">The resolution surcharge applies to the video rate only.</p></div><div class="q"><div id="qtyopts"></div></div><div class="q"><div class="opts" id="urg"></div><p class="hint">Rush: 48-hour delivery, +40% on the video (estimate).</p></div></div></details></div>
 </div>
 
 <div class="pane" id="pane-images">
@@ -522,7 +563,8 @@ const PERSO={
 };
 const OPTS={
   storyboard:{label:'Storyboard — sign-off before production',price:150,des:true},
-  script:{label:'Script / concept',price:200,des:true},
+  concept:{label:'Concept \u2014 the idea for the film',price:200,des:true},
+  script:{label:'Script \u2014 the film written out, shot by shot',price:200,des:true},
 };
 const IMMO={p:[300,400,500],imgs:[5,7,10],musique:50,perso:150,embellissement:25,staging:75};
 const IMG_ENV=50;   // un environnement, pour un lot d'images
@@ -532,7 +574,7 @@ const IMAGES={
   multi:{label:'2–3 characters + product (set of 5)',price:600},
   lot10:{label:'Set of 10 — complex campaign',price:900},
 };
-const state={base:'A',pace:'std',envs:0,chars:0,faces:0,prodsExtra:0,imgEnvs:0,dur:0,res:'720',style:null,fx:{},son:{},perso:{},opts:{},revision:0,urgence:false,
+const state={base:null,pace:'std',envs:0,chars:0,faces:0,prodsExtra:0,imgEnvs:0,dur:0,res:'720',style:null,fx:{},son:{},perso:{},opts:{},revision:0,urgence:false,
              tab:'video',videoTouched:false,immoDur:null,immoPerso:false,immoMus:false,immoEmb:0,immoStag:0,img:{}};
 
 function eur(n){return '\u00a3'+n.toLocaleString('en-GB');}
@@ -544,7 +586,7 @@ function chips(elId,obj,group){
   });
 }
 document.getElementById('base').innerHTML=
-  `<label class="opt on" data-g="base" data-k="A"><input type="radio" name="base" checked><span><b>Product</b><span class="od">Your product on its own, showcased in studio or on a neutral background. No one on screen.</span></span></label>`+
+  `<label class="opt" data-g="base" data-k="A"><input type="radio" name="base"><span><b>Product</b><span class="od">Your product on its own, showcased in studio or on a neutral background. No one on screen.</span></span></label>`+
   `<label class="opt" data-g="base" data-k="B"><input type="radio" name="base"><span><b>Product + 1 character</b><span class="od">The classic ad format. Neutral background by default, add an environment at the next step.</span></span></label>`+
   `<label class="opt" data-g="base" data-k="C"><input type="radio" name="base"><span><b>UGC &mdash; to camera</b><span class="od">A character speaks to camera, unboxing and testing the product.</span></span></label>`+
   `<label class="opt" data-g="base" data-k="D"><input type="radio" name="base"><span><b>Brand film</b><span class="od">A film that tells a story, with no product to sell on screen. For a place, a service, a brand. One character included.</span></span></label>`;
@@ -563,7 +605,7 @@ const st=document.getElementById('style');
 STYLES.forEach((s,i)=>st.insertAdjacentHTML('beforeend',`<label class="opt" data-g="style" data-k="${i}"><input type="radio" name="style">${s}</label>`));
 chips('fx',FX,'fx'); chips('son',SON,'son'); chips('perso',PERSO,'perso'); chips('opts',OPTS,'opt');
 document.getElementById('qtyopts').innerHTML=
-  `<div class="qtyrow"><span>Additional revision round (beyond the 2 included) <span class="pr">£150 / round</span></span><input type="number" min="0" value="0" id="revq" oninput="setRev(this.value)"></div>`+
+  `<div class="qtyrow"><span>Additional revision round <span class="pr">£150 / round</span></span><input type="number" min="0" value="0" id="revq" oninput="setRev(this.value)"></div>`+
   `<div class="hint"><b>2 revisions included</b> in every project &mdash; beyond that, billed per the rates above.<br>
    A revision round = one set of feedback sent in a single go, on what has already been approved. Changing the concept,
    the story, the characters or the locations is not a revision but a new production.</div>`;
@@ -623,11 +665,11 @@ function setImg(k,v){state.img[k]=Math.max(0,parseInt(v)||0);calc();}
 function setV(k,v){state[k]=Math.min(9,Math.max(0,parseInt(v)||0));if(state[k]>0)state.videoTouched=true;calc();}
 function setDur(i){state.dur=+i;state.videoTouched=true;markDur();calc();}
 function resetAll(){
-  state.base='A';state.pace='std';state.envs=0;state.chars=0;state.faces=0;state.prodsExtra=0;state.imgEnvs=0;state.dur=0;state.res='720';state.style=null;
+  state.base=null;state.pace='std';state.envs=0;state.chars=0;state.faces=0;state.prodsExtra=0;state.imgEnvs=0;state.dur=0;state.res='720';state.style=null;
   state.fx={};state.son={};state.perso={};state.opts={};state.revision=0;state.urgence=false;
   state.videoTouched=false;state.immoDur=null;state.immoPerso=false;state.immoMus=false;state.immoEmb=0;state.immoStag=0;state.img={};
   document.querySelectorAll('label.opt').forEach(l=>{l.classList.remove('on');const i=l.querySelector('input');if(i)i.checked=false;});
-  const bA=document.querySelector('label.opt[data-g="base"][data-k="A"]');if(bA){bA.classList.add('on');const i=bA.querySelector('input');if(i)i.checked=true;}
+  
   const pS=document.querySelector('label.opt[data-g="pace"][data-k="std"]');if(pS){pS.classList.add('on');const i=pS.querySelector('input');if(i)i.checked=true;}
   const r7=document.querySelector('label.opt[data-g="res"][data-k="720"]');if(r7){r7.classList.add('on');const i=r7.querySelector('input');if(i)i.checked=true;}
   document.querySelectorAll('input[type=number]').forEach(n=>n.value=0);
@@ -638,7 +680,7 @@ function setImmoQty(k,v){state[k]=Math.max(0,parseInt(v)||0);calc();}
 
 function calc(){
   const lines=[]; let total=0; let vt=0;
-  if(state.tab==='video' && state.dur!==null){
+  if(state.tab==='video' && state.dur!==null && state.base!==null){
     const rm=RES[state.res].mult;
     const base=(state.base==='D'?BASE_D:state.base==='C'?BASE_C:state.base==='B'?BASE_B:BASE_A)[state.dur];
     const extraProd=state.prodsExtra*PROD_PRICE;
@@ -793,7 +835,134 @@ requestAnimationFrame(draw);
 })();
 </script>
 <div class="mobilebar"><div class="mbtop" onclick="document.getElementById('lines').scrollIntoView({behavior:'smooth',block:'center'})"><span class="mtot">Estimated total, excl. VAT<b id="amt2">£0</b></span><button type="button" class="resetbtn" onclick="event.stopPropagation();resetAll()">&#8634; Reset</button></div><div class="mbgo" onclick="document.getElementById('lines').scrollIntoView({behavior:'smooth',block:'center'})">See the breakdown &#8595;</div></div>
-<script>if(typeof calc==='function')calc();</script>
+<script>if(typeof calc==='function')calc();</script><script>window.__MOTS__={"pl": "s", "inclus": "included", "base": {"A": "Product", "B": "Product + 1 character", "C": "UGC — to camera", "D": "Brand film"}, "incl": {"B": "This format includes <b>one character</b>. Only count what comes on top here.", "C": "UGC: <b>one character speaking and one real location are already included.</b> Only count what comes on top here.", "D": "The brand film includes <b>one character</b>. Only count what comes on top here."}, "env": "environment", "perso": "character", "visage": "face", "produit": "product", "option": "option", "effet": "effect", "revision": "revision", "fondNeutre": "neutral background", "aucunSon": "no sound added", "aChoisir": "to choose", "aPartirDe": "From", "choisirFormat": "Choose a format to price your film", "rapide": "fast pace", "classique": "standard pace", "urgence": "48h rush", "standard": "standard settings"};</script>
+<script>
+(function(){
+  var M=window.__MOTS__, sts=[].slice.call(document.querySelectorAll('.st'));
+  function nb(n,m){ return n+' '+m+(n>1?M.pl:''); }
+  function plus(n,m){ return '+'+nb(n,m); }
+
+  /* --- ce que le format choisi comprend deja : on grise et on bloque --- */
+  function majInclus(){
+    var ugc = state.base==='C';
+    var l = document.querySelector('#perso .opt[data-k="parlant"]');
+    if(l){
+      var box=l.querySelector('input'), pr=l.querySelector('.pr');
+      l.classList.toggle('incl',ugc);
+      if(ugc){ box.checked=false; state.perso.parlant=false; l.classList.remove('on'); }
+      box.disabled=ugc;
+      if(pr){ if(!pr.dataset.orig) pr.dataset.orig=pr.textContent;
+              pr.textContent = ugc ? M.inclus : pr.dataset.orig; }
+    }
+    var note=document.getElementById('inclnote');
+    if(note){ var t=M.incl[state.base]||''; note.innerHTML=t; note.hidden=!t; }
+  }
+
+  /* --- resumes des volets fermes --- */
+  function rDepart(){
+    var p=[];
+    if(state.base) p.push(M.base[state.base]);
+    var a=['storyboard','concept','script'].filter(function(k){return state.opts[k]});
+    if(a.length) p.push(a.join(', '));
+    return p.length? p.join(' · ') : M.aChoisir;
+  }
+  function rScene(){
+    var p=[];
+    if(state.envs)      p.push(plus(state.envs,M.env));
+    if(state.chars)     p.push(plus(state.chars,M.perso));
+    if(state.faces)     p.push(plus(state.faces,M.visage));
+    if(state.prodsExtra)p.push(plus(state.prodsExtra,M.produit));
+    var n=Object.keys(state.perso||{}).filter(function(k){return state.perso[k]}).length;
+    if(n) p.push(plus(n,M.option));
+    return p.length? p.join(' · ') : M.fondNeutre;
+  }
+  function rRythme(){
+    var p=[state.pace==='fast'?M.rapide:M.classique];
+    var n=Object.keys(state.fx||{}).filter(function(k){return state.fx[k]}).length;
+    if(n) p.push(nb(n,M.effet));
+    return p.join(' · ');
+  }
+  function rSon(){
+    var n=Object.keys(state.son||{}).filter(function(k){return state.son[k]}).length;
+    return n? nb(n,M.option) : M.aucunSon;
+  }
+  function rProd(){
+    var p=[];
+    if(state.res!=='720') p.push(state.res==='4k'?'4K':'1080p');
+    if(state.revision) p.push(nb(state.revision,M.revision));
+    if(state.urgence) p.push(M.urgence);
+    return p.length? p.join(' · ') : M.standard;
+  }
+  /* --- Tant qu'aucun format n'est choisi, le total ne peut pas exister : le prix
+         depend de la duree ET du format. On affiche donc le plancher reel de la
+         grille pour cette duree, qui bouge des qu'on touche le curseur.
+         Aucun prix invente. --- */
+  var labTot=document.querySelector('.total b'),
+      labMob=document.querySelector('.mobilebar .mtot'),
+      texteTot=labTot?labTot.textContent:'',
+      texteMob=(labMob&&labMob.childNodes[0])?labMob.childNodes[0].nodeValue:'';
+  function majPlancher(){
+    var vide = (state.base===null && state.tab==='video');
+    if(labTot) labTot.textContent = vide? M.aPartirDe : texteTot;
+    if(labMob && labMob.childNodes[0])
+      labMob.childNodes[0].nodeValue = vide? M.aPartirDe : texteMob;
+    if(!vide) return;
+    var t = eur(BASE_A[state.dur]);   // le moins cher des quatre formats
+    var a=document.getElementById('amt');  if(a)  a.textContent=t;
+    var a2=document.getElementById('amt2'); if(a2) a2.textContent=t;
+    var box=document.getElementById('lines');
+    if(box) box.innerHTML='<div class="li muted"><span>'+M.choisirFormat+'</span><span>—</span></div>';
+  }
+
+  function maj(){
+    var f=[rDepart,rScene,rRythme,rSon,rProd];
+    for(var i=0;i<f.length;i++){
+      var e=document.getElementById('r'+(i+1));
+      if(e) e.textContent=f[i]();
+    }
+    try{majPlancher()}catch(e){}
+  }
+
+  /* --- un volet est « rempli » des qu'on y touche ou qu'il quitte le defaut --- */
+  function defauts(){
+    if(state.base) sts[0].classList.add('vu'); else sts[0].classList.remove('vu');
+    if(state.envs||state.chars||state.faces||state.prodsExtra||
+       Object.keys(state.perso||{}).some(function(k){return state.perso[k]}))
+      sts[1].classList.add('vu');
+    if(state.pace!=='std'||Object.keys(state.fx||{}).some(function(k){return state.fx[k]}))
+      sts[2].classList.add('vu');
+    if(Object.keys(state.son||{}).some(function(k){return state.son[k]}))
+      sts[3].classList.add('vu');
+    if(state.res!=='720'||state.revision||state.urgence)
+      sts[4].classList.add('vu');
+  }
+  sts.forEach(function(d){
+    var corps=d.querySelector('.stin'); if(!corps) return;
+    ['click','input'].forEach(function(ev){
+      corps.addEventListener(ev,function(){ d.classList.add('vu'); },true);
+    });
+  });
+
+  var _c=window.calc;
+  window.calc=function(){ try{majInclus()}catch(e){} var v=_c.apply(this,arguments);
+                          try{maj();defauts()}catch(e){} return v; };
+  majInclus(); maj(); defauts();
+
+  /* --- Reinitialiser : le bouton d'origine remet l'etat a zero mais ignore
+         nos marqueurs et nos volets ouverts. On complete. --- */
+  var _r=window.resetAll;
+  window.resetAll=function(){
+    var v=_r.apply(this,arguments);
+    sts.forEach(function(d){ d.classList.remove('vu'); d.open=false; });
+    try{maj()}catch(e){}
+    window.scrollTo({top:0,behavior:'smooth'});
+    return v;
+  };
+
+  /* aucune ouverture automatique : un volet n'obeit qu'au clic */
+})();
+</script>
+
 
 
 <script>
