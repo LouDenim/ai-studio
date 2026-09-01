@@ -98,6 +98,10 @@ footer.site .socials svg{width:16px;height:16px;fill:currentColor}
 
 @media(max-width:900px){
  header.top .hbar{grid-template-columns:auto 1fr auto;padding:14px 18px;gap:14px;position:relative}
+ /* l'entete etait a 62 % d'opacite avec une saturation : une carte rose qui
+    defile dessous ressortait en grosse tache magenta. On l'opacifie sur telephone. */
+ header.top{background:rgba(8,8,10,.94);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
  header.top nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
   background:rgba(8,8,10,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line2);display:none}
  header.top .navtoggle:checked ~ nav{display:flex}
@@ -467,7 +471,7 @@ details.more[open]>summary:before{content:'\2013'}
         </div>
         <p class="hint">Beyond 50&nbsp;s: on quote.</p></div><div class="q"><div class="lab">Visual style <span class="pr" style="font-weight:400">— same rate</span></div><div class="opts" id="style"></div></div></div><div class="steps"><details class="st" id="st1"><summary><span class="n">1</span><span class="t">The film format</span><span class="r" id="r1">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="opts cards" id="base"></div><p class="hint">This is not about what you sell, it is about what is on screen:
         <b>if there is an object to sell on screen, it is a product; if not, it is a brand film.</b> <b>UGC</b>: 1 character speaking to camera (voice + lip sync) and 1 real location <b>included</b>.</p></div><div class="q"><div class="lab">What needs creating</div><div class="opts" id="opts"></div><p class="hint">Already have the concept or the script? Leave these unticked — we start from what you bring. Rates apply up to 50s.</p></div></div></details><details class="st" id="st2"><summary><span class="n">2</span><span class="t">Characters &amp; sets</span><span class="r" id="r2">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div id="vbuild"></div><p class="hint" id="inclnote" hidden></p><p class="hint">Character: casting, wardrobe &amp; staging <b>included</b>. To reserve a face for your brand, see <b>Exclusivity</b> below.</p></div><div class="q"><div class="lab">Character options</div><div class="opts" id="perso"></div></div></div></details><details class="st" id="st3"><summary><span class="n">3</span><span class="t">Pace &amp; effects</span><span class="r" id="r3">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="lab">Pace</div><div class="opts cards" id="pace"></div><p class="hint">Not sure yet? Keep &ldquo;standard&rdquo;. We&rsquo;ll talk it through, and the quote is adjusted
-        if the film ends up at a different pace.</p></div><div class="q"><div class="lab">Effects &amp; transformations</div><div class="opts" id="fx"></div></div></div></details><details class="st" id="st4"><summary><span class="n">4</span><span class="t">Sound &amp; finishing</span><span class="r" id="r4">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="opts" id="son"></div></div></div></details><details class="st" id="st5"><summary><span class="n">5</span><span class="t">Production &amp; delivery</span><span class="r" id="r5">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="lab">Resolution</div><div class="opts" id="res"></div><p class="hint">The resolution surcharge applies to the video rate only.</p></div><div class="q"><div id="qtyopts"></div></div><div class="q"><div class="opts" id="urg"></div><p class="hint">Rush: 48-hour delivery, +40% on the video (estimate).</p></div></div></details></div>
+        if the film ends up at a different pace.</p></div><div class="q"><div class="lab">Effects &amp; transformations</div><div class="opts" id="fx"></div><p class="hint"><b>Motion transfer</b>: you supply the source video and the movement is transferred onto the AI character or set. Filming not included.</p></div></div></details><details class="st" id="st4"><summary><span class="n">4</span><span class="t">Sound &amp; finishing</span><span class="r" id="r4">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="opts" id="son"></div></div></div></details><details class="st" id="st5"><summary><span class="n">5</span><span class="t">Production &amp; delivery</span><span class="r" id="r5">—</span><span class="chev"></span></summary><div class="stin"><div class="q"><div class="lab">Resolution</div><div class="opts" id="res"></div><p class="hint">The resolution surcharge applies to the video rate only.</p></div><div class="q"><div id="qtyopts"></div></div><div class="q"><div class="opts" id="urg"></div><p class="hint">Rush: 72-hour delivery, +40% on the video (estimate).</p></div></div></details></div>
 </div>
 
 <div class="pane" id="pane-images">
@@ -549,6 +553,7 @@ const FX={
   lumiere:{label:'Relighting (day ↔︎ night, neon…)',price:150},
   swap:{label:'Object / product-colour swap',price:150},
   motion:{label:'Motion design — animated titles, graphics',price:150},
+  transfert:{label:'Motion transfer from your own footage',price:150,des:true},
 };
 const SON={
   voix:{label:'AI voice-over (FR/EN/ES)',price:100,des:true},
@@ -610,7 +615,7 @@ document.getElementById('qtyopts').innerHTML=
    A revision round = one set of feedback sent in a single go, on what has already been approved. Changing the concept,
    the story, the characters or the locations is not a revision but a new production.</div>`;
 const ur=document.getElementById('urg');
-ur.insertAdjacentHTML('beforeend',`<label class="opt" data-g="urg" data-k="1"><input type="checkbox"> Rush — 48-hour delivery <span class="pr">+40%</span></label>`);
+ur.insertAdjacentHTML('beforeend',`<label class="opt" data-g="urg" data-k="1"><input type="checkbox"> Rush — 72-hour delivery <span class="pr">+40%</span></label>`);
 const imo=document.getElementById('immo');
 DURS.forEach((d,i)=>imo.insertAdjacentHTML('beforeend',`<label class="opt" data-g="immoDur" data-k="${i}"><input type="radio" name="immoDur">${d} <b class="prv">£${IMMO.p[i]}</b><span class="prx">· up to ${IMMO.imgs[i]} images</span></label>`));
 document.getElementById('immoperso').insertAdjacentHTML('beforeend',
@@ -835,7 +840,7 @@ requestAnimationFrame(draw);
 })();
 </script>
 <div class="mobilebar"><div class="mbtop" onclick="document.getElementById('lines').scrollIntoView({behavior:'smooth',block:'center'})"><span class="mtot">Estimated total, excl. VAT<b id="amt2">£0</b></span><button type="button" class="resetbtn" onclick="event.stopPropagation();resetAll()">&#8634; Reset</button></div><div class="mbgo" onclick="document.getElementById('lines').scrollIntoView({behavior:'smooth',block:'center'})">See the breakdown &#8595;</div></div>
-<script>if(typeof calc==='function')calc();</script><script>window.__MOTS__={"pl": "s", "inclus": "included", "base": {"A": "Product", "B": "Product + 1 character", "C": "UGC — to camera", "D": "Brand film"}, "incl": {"B": "This format includes <b>one character</b>. Only count what comes on top here.", "C": "UGC: <b>one character speaking and one real location are already included.</b> Only count what comes on top here.", "D": "The brand film includes <b>one character</b>. Only count what comes on top here."}, "env": "environment", "perso": "character", "visage": "face", "produit": "product", "option": "option", "effet": "effect", "revision": "revision", "fondNeutre": "neutral background", "aucunSon": "no sound added", "aChoisir": "to choose", "aPartirDe": "From", "choisirFormat": "Choose a format to price your film", "rapide": "fast pace", "classique": "standard pace", "urgence": "48h rush", "standard": "standard settings"};</script>
+<script>if(typeof calc==='function')calc();</script><script>window.__MOTS__={"pl": "s", "inclus": "included", "base": {"A": "Product", "B": "Product + 1 character", "C": "UGC — to camera", "D": "Brand film"}, "incl": {"B": "This format includes <b>one character</b>. Only count what comes on top here.", "C": "UGC: <b>one character speaking and one real location are already included.</b> Only count what comes on top here.", "D": "The brand film includes <b>one character</b>. Only count what comes on top here."}, "env": "environment", "perso": "character", "visage": "face", "produit": "product", "option": "option", "effet": "effect", "revision": "revision", "fondNeutre": "neutral background", "aucunSon": "no sound added", "aChoisir": "to choose", "aPartirDe": "From", "choisirFormat": "Choose a format to price your film", "rapide": "fast pace", "classique": "standard pace", "urgence": "72h rush", "standard": "standard settings"};</script>
 <script>
 (function(){
   var M=window.__MOTS__, sts=[].slice.call(document.querySelectorAll('.st'));
