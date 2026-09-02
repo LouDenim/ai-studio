@@ -391,6 +391,9 @@ details.more[open]>summary:before{content:'\2013'}
 /* ---- rempli : le numero passe dans un carre rose plein ---- */
 .st.vu .n{color:#0b0b0e;font-weight:600;background:var(--pink);border-color:var(--pink)}
 .st.vu .r{color:#d8d8de}
+/* volet 1 : seul volet sans reglage par defaut valable — on le signale */
+.st .r.req{color:var(--pink2)}
+.st .r.req:before{display:none}
 .st.vu .r:before{content:'';display:inline-block;width:5px;height:5px;
  background:var(--pink);margin-right:8px;vertical-align:middle}
 .st.vu>summary{background:rgba(231,84,159,.055)}
@@ -841,7 +844,7 @@ requestAnimationFrame(draw);
 })();
 </script>
 <div class="mobilebar"><div class="mbtop" onclick="document.getElementById('lines').scrollIntoView({behavior:'smooth',block:'center'})"><span class="mtot">Total estim&eacute; HT<b id="amt2">0 &euro;</b></span><button type="button" class="resetbtn" onclick="event.stopPropagation();resetAll()">&#8634; R&eacute;initialiser</button></div><div class="mbgo" onclick="document.getElementById('lines').scrollIntoView({behavior:'smooth',block:'center'})">Voir le d&eacute;tail &#8595;</div></div>
-<script>if(typeof calc==='function')calc();</script><script>window.__MOTS__={"pl": "s", "inclus": "inclus", "base": {"A": "Produit", "B": "Produit + 1 personnage", "C": "UGC — face caméra", "D": "Film de marque"}, "incl": {"B": "Ce format comprend <b>un personnage</b>. Ne comptez ici que ce qui vient en plus.", "C": "UGC : <b>un personnage qui parle et un lieu réel sont déjà compris.</b> Ne comptez ici que ce qui vient en plus.", "D": "Le film de marque comprend <b>un personnage</b>. Ne comptez ici que ce qui vient en plus."}, "env": "environnement", "perso": "personnage", "visage": "visage", "produit": "produit", "option": "option", "effet": "effet", "revision": "révision", "fondNeutre": "fond neutre", "aucunSon": "aucun son ajouté", "aChoisir": "à choisir", "aPartirDe": "À partir de", "choisirFormat": "Choisissez un format pour chiffrer votre film", "rapide": "rythme rapide", "classique": "rythme classique", "urgence": "urgence 72 h", "standard": "réglages standard"};</script>
+<script>if(typeof calc==='function')calc();</script><script>window.__MOTS__={"pl": "s", "inclus": "inclus", "base": {"A": "Produit", "B": "Produit + 1 personnage", "C": "UGC — face caméra", "D": "Film de marque"}, "incl": {"B": "Ce format comprend <b>un personnage</b>. Ne comptez ici que ce qui vient en plus.", "C": "UGC : <b>un personnage qui parle et un lieu réel sont déjà compris.</b> Ne comptez ici que ce qui vient en plus.", "D": "Le film de marque comprend <b>un personnage</b>. Ne comptez ici que ce qui vient en plus."}, "env": "environnement", "perso": "personnage", "visage": "visage", "produit": "produit", "option": "option", "effet": "effet", "revision": "révision", "fondNeutre": "fond neutre", "aucunSon": "aucun son ajouté", "aChoisir": "obligatoire", "aPartirDe": "À partir de", "choisirFormat": "Choisissez un format pour chiffrer votre film", "rapide": "rythme rapide", "classique": "rythme classique", "urgence": "urgence 72 h", "standard": "réglages standard"};</script>
 <script>
 (function(){
   var M=window.__MOTS__, sts=[].slice.call(document.querySelectorAll('.st'));
@@ -924,7 +927,8 @@ requestAnimationFrame(draw);
     var f=[rDepart,rScene,rRythme,rSon,rProd];
     for(var i=0;i<f.length;i++){
       var e=document.getElementById('r'+(i+1));
-      if(e) e.textContent=f[i]();
+      if(e){ e.textContent=f[i]();
+             if(i===0) e.classList.toggle('req', state.base===null); }
     }
     try{majPlancher()}catch(e){}
   }
