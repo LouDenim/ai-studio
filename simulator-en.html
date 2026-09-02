@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lou Denim &mdash; Quote simulator</title>
-<meta name="description" content="Generative AI for brands. Editorial and advertising photographer for 25+ years. Now with AI superpowers.">
+<meta name="description" content="Build your video project piece by piece — format, duration, options. The estimate updates live, in five steps, in whatever order you like.">
 <link rel="canonical" href="https://ai.loudenim.com/simulator-en.html">
 <link rel="alternate" hreflang="fr" href="https://ai.loudenim.com/simulator.html">
 <link rel="alternate" hreflang="en" href="https://ai.loudenim.com/simulator-en.html">
@@ -517,7 +517,7 @@ details.more[open]>summary:before{content:'\2013'}
         <div id="lines"></div>
         <div class="total"><b>Estimated total, excl. VAT</b><span class="amt" id="amt">£0</span></div>
         <p class="inclusive" style="margin:10px 0 2px;font-size:13.5px;font-weight:500;color:#ff7fc0">&#10003; Web &amp; social media usage rights included. <span style="opacity:.75;font-weight:400">Any other use is licensed separately: press, print (catalogue, brochure), digital campaign, TV, cinema, billboard, in-store screen. Territory and duration to be agreed with Lou&nbsp;Denim.</span></p>
-        <div class="estwarn"><span class="hd">This is an estimate</span><span class="bd">The final quote is set by <span class="nb">Lou Denim</span>.</span><span class="bd2">Production costs may be added depending on how complex the project is and how many generations it takes.</span><span class="sub">Estimate excl. VAT. 50&nbsp;% deposit above £1,000.</span></div>
+        <div class="estwarn"><span class="hd">This is an estimate</span><span class="bd">The final quote is set by <span class="nb">Lou Denim</span>.</span><span class="bd2">Production costs may be added depending on how complex the project is and how many generations it takes.</span><span class="sub">Estimate excl. VAT. 50% deposit above £1,000.</span></div>
         <button class="b pk" id="sendBtn" onclick="send()">Send to Lou Denim</button>
         <button class="b" onclick="copyRecap()">Copy the summary</button>
         <div class="dlrow">
@@ -709,8 +709,8 @@ function calc(){
     if(state.style!==null) lines.push([`Style: ${STYLES[state.style]}`,0]);
     const pm=PACE[state.pace].mult;
     if(pm!==1){ const before=vid; vid=Math.round(vid*pm);
-      lines.push([`Pace : ${PACE[state.pace].label}`, vid-before]); }
-    else lines.push([`Pace : ${PACE[state.pace].label}`, 0]);
+      lines.push([`Pace: ${PACE[state.pace].label}`, vid-before]); }
+    else lines.push([`Pace: ${PACE[state.pace].label}`, 0]);
     let vidSub=vid;
     if(state.urgence){const u=Math.round(vid*0.4);lines.push(['Rush +40%',u]);vidSub+=u;}
     total+=vidSub; vt+=vidSub;
