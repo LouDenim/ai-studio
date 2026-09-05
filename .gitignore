@@ -4,3 +4,6 @@ build-tools/
 
 # Banga retire du site le 05/09/2026 en attendant le lancement produit
 _banga-offline/
+
+# Anciennes versions remplacees, gardees en local
+_retires/
