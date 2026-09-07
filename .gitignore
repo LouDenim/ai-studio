@@ -7,3 +7,6 @@ _banga-offline/
 
 # Anciennes versions remplacees, gardees en local
 _retires/
+
+# Fichiers deposes par l app Claude, jamais publies
+Claude outputs/
