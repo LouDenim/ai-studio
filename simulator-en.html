@@ -605,9 +605,8 @@ document.getElementById('pace').innerHTML=Object.entries(PACE).map(([k,v])=>
   `<label class="opt${k==='std'?' on':''}" data-g="pace" data-k="${k}"><input type="radio" name="pace" ${k==='std'?'checked':''}><span><b>${v.label}</b><span class="od">${v.des}</span></span></label>`).join('');
 document.getElementById('vbuild').innerHTML=
   `<div class="qtyrow"><span>Environments <span class="pr">+£${ENV_PRICE} / environment</span></span><input type="number" min="0" value="0" oninput="setV('envs',this.value)"></div>`+
-  `<div class="qtyrow"><span>Extra characters <span class="pr">+£${CHAR_PRICE} / character</span></span><input type="number" min="0" value="0" oninput="setV('chars',this.value)"></div>`+
-  `<div class="qtyrow"><span>Face outside the catalogue <span class="pr">+£${FACE_PRICE} / face — 2 options included</span></span><input type="number" min="0" value="0" oninput="setV('faces',this.value)"></div>`+
-  `<div class="qtyrow"><span>Extra products / services <span class="pr">+£${PROD_PRICE} / unit</span></span><input type="number" min="0" value="0" oninput="setV('prodsExtra',this.value)"></div>`;
+  `<div class="qtyrow"><span>Extra characters from the catalogue <span class="pr">+£${CHAR_PRICE} / character</span></span><input type="number" min="0" value="0" oninput="setV('chars',this.value)"></div>`+
+    `<div class="qtyrow"><span>Extra products / services <span class="pr">+£${PROD_PRICE} / unit</span></span><input type="number" min="0" value="0" oninput="setV('prodsExtra',this.value)"></div>`;
 markDur();
 const re=document.getElementById('res');
 Object.entries(RES).forEach(([k,v])=>re.insertAdjacentHTML('beforeend',`<label class="opt${k==='720'?' on':''}" data-g="res" data-k="${k}"><input type="radio" name="res" ${k==='720'?'checked':''}>${v.label}</label>`));
@@ -989,5 +988,6 @@ requestAnimationFrame(draw);
   });});
 })();
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "593e60bc674f4be5b7ba0b3554b716af"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

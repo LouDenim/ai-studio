@@ -449,15 +449,17 @@ footer{}
 /* --- vidéos à la demande --- */
 (function(){
   var vids=[].slice.call(document.querySelectorAll('video[data-src]'));
-  /* Telephone : versions legeres, deja rognees tete et queue au montage.
-     Chaque tuile passe de 8-22 Mo a moins de 1 Mo. Les reperes data-head et
-     data-tail n'ont plus lieu d'etre : la coupe est dans le fichier. */
+  /* TOUS LES ECRANS : versions legeres, deja rognees tete et queue au montage.
+     La mosaique passe de 175 Mo a 15,4 Mo. A 640x360 pour une tuile affichee
+     a ~322 px, c'est encore 2x la taille ecran : aucune perte visible.
+     Les reperes data-head et data-tail n'ont plus lieu d'etre : la coupe est
+     dans le fichier. */
   var petit = window.matchMedia && matchMedia('(max-width:760px)').matches;
-  if(petit){ vids.forEach(function(v){
+  vids.forEach(function(v){
     var n=v.dataset.src.split('/').pop();
     v.dataset.src='https://ai.loudenim.com/videos/m/'+n;
     v.removeAttribute('data-head'); v.removeAttribute('data-tail');
-  }); }
+  });
   if(!('IntersectionObserver' in window)){vids.forEach(function(v){v.src=v.dataset.src;v.play()});}
   else{
     var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
@@ -550,4 +552,5 @@ footer{}
   maj();
 })();
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "593e60bc674f4be5b7ba0b3554b716af"}'></script><!-- End Cloudflare Web Analytics -->
 </body></html>
