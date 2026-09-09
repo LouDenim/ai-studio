@@ -571,7 +571,7 @@ const SON={
 const PERSO={
   parlant:{label:'Personnage qui parle — voix + synchro labiale',price:100,des:true},
   dialog2:{label:'Dialogue entre 2 personnages',price:200,des:true},
-  exclu:{label:'Exclusivité personnage — réservé à votre marque',price:300},
+  exclu:{label:'Exclusivité du mannequin — réservé à votre marque, 12 mois',price:500},
 };
 const OPTS={
   storyboard:{label:'Storyboard — validation avant production',price:150,des:true},
@@ -607,8 +607,7 @@ document.getElementById('pace').innerHTML=Object.entries(PACE).map(([k,v])=>
 document.getElementById('vbuild').innerHTML=
   `<div class="qtyrow"><span>Environnements <span class="pr">+${ENV_PRICE} € / environnement</span></span><input type="number" min="0" value="0" oninput="setV('envs',this.value)"></div>`+
   `<div class="qtyrow"><span>Personnages suppl&eacute;mentaires <span class="pr">+${CHAR_PRICE} € / personnage</span></span><input type="number" min="0" value="0" oninput="setV('chars',this.value)"></div>`+
-  `<div class="qtyrow"><span>Visages sur mesure <span class="pr">+${FACE_PRICE} € / visage — 2 propositions incluses</span></span><input type="number" min="0" value="0" oninput="setV('faces',this.value)"></div>`+
-  `<div class="hint">Visage choisi dans le <a href="modeles.html" target="_blank">catalogue de mod&egrave;les</a> : inclus.</div>`+
+  `<div class="qtyrow"><span>Visage hors catalogue <span class="pr">+${FACE_PRICE} € / visage — 2 propositions incluses</span></span><input type="number" min="0" value="0" oninput="setV('faces',this.value)"></div>`+
   `<div class="qtyrow"><span>Produits / services en plus <span class="pr">+${PROD_PRICE} € / unité</span></span><input type="number" min="0" value="0" oninput="setV('prodsExtra',this.value)"></div>`;
 markDur();
 const re=document.getElementById('res');
@@ -704,7 +703,7 @@ function calc(){
     lines.push([(state.base==='D'?`Film de marque · ${VDURS[state.dur]}`:state.base==='C'?`UGC — face caméra · ${VDURS[state.dur]}`:state.base==='B'?`Produit + un personnage · ${VDURS[state.dur]}`:`Produit · ${VDURS[state.dur]}`),base]);
     if(envc>0) lines.push([`Environnements × ${state.envs}`,envc]);
     if(charc>0) lines.push([`Personnages suppl\u00e9mentaires × ${state.chars}`,charc]);
-    if(facec>0) lines.push([`Visages sur mesure × ${state.faces}`,facec]);
+    if(facec>0) lines.push([`Visage hors catalogue × ${state.faces}`,facec]);
     if(extraProd>0) lines.push([`Produits / services en plus × ${state.prodsExtra}`,extraProd]);
     if(rm!==1) lines.push([`Résolution ${RES[state.res].label.split('—')[0].trim()}`,vid-sub]);
     if(state.style!==null) lines.push([`Style : ${STYLES[state.style]}`,0]);

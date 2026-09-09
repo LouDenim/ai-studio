@@ -570,7 +570,7 @@ const SON={
 const PERSO={
   parlant:{label:'Character speaking to camera — voice + lip-sync',price:100,des:true},
   dialog2:{label:'2-character dialogue',price:200,des:true},
-  exclu:{label:'Character exclusivity — reserved to your brand',price:300},
+  exclu:{label:'Model exclusivity — reserved to your brand, 12 months',price:500},
 };
 const OPTS={
   storyboard:{label:'Storyboard — sign-off before production',price:150,des:true},
@@ -606,8 +606,7 @@ document.getElementById('pace').innerHTML=Object.entries(PACE).map(([k,v])=>
 document.getElementById('vbuild').innerHTML=
   `<div class="qtyrow"><span>Environments <span class="pr">+£${ENV_PRICE} / environment</span></span><input type="number" min="0" value="0" oninput="setV('envs',this.value)"></div>`+
   `<div class="qtyrow"><span>Extra characters <span class="pr">+£${CHAR_PRICE} / character</span></span><input type="number" min="0" value="0" oninput="setV('chars',this.value)"></div>`+
-  `<div class="qtyrow"><span>Custom faces <span class="pr">+£${FACE_PRICE} / face — 2 options included</span></span><input type="number" min="0" value="0" oninput="setV('faces',this.value)"></div>`+
-  `<div class="hint">A face picked from the <a href="models-en.html" target="_blank">model catalogue</a>: included.</div>`+
+  `<div class="qtyrow"><span>Face outside the catalogue <span class="pr">+£${FACE_PRICE} / face — 2 options included</span></span><input type="number" min="0" value="0" oninput="setV('faces',this.value)"></div>`+
   `<div class="qtyrow"><span>Extra products / services <span class="pr">+£${PROD_PRICE} / unit</span></span><input type="number" min="0" value="0" oninput="setV('prodsExtra',this.value)"></div>`;
 markDur();
 const re=document.getElementById('res');
@@ -703,7 +702,7 @@ function calc(){
     lines.push([(state.base==='D'?`Brand film · ${VDURS[state.dur]}`:state.base==='C'?`UGC — to camera · ${VDURS[state.dur]}`:state.base==='B'?`Product + 1 character · ${VDURS[state.dur]}`:`Product · ${VDURS[state.dur]}`),base]);
     if(envc>0) lines.push([`Environments × ${state.envs}`,envc]);
     if(charc>0) lines.push([`Extra characters × ${state.chars}`,charc]);
-    if(facec>0) lines.push([`Custom faces × ${state.faces}`,facec]);
+    if(facec>0) lines.push([`Face outside the catalogue × ${state.faces}`,facec]);
     if(extraProd>0) lines.push([`Extra products / services × ${state.prodsExtra}`,extraProd]);
     if(rm!==1) lines.push([`Resolution ${RES[state.res].label.split('—')[0].trim()}`,vid-sub]);
     if(state.style!==null) lines.push([`Style: ${STYLES[state.style]}`,0]);
