@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>Grille tarifaire</title><style>
+@font-face{font-family:'Jost';src:url('fonts/jost-latin-300-normal.woff2')format('woff2');font-weight:300}
+@font-face{font-family:'Jost';src:url('fonts/jost-latin-400-normal.woff2')format('woff2');font-weight:400}
+@font-face{font-family:'Jost';src:url('fonts/jost-latin-500-normal.woff2')format('woff2');font-weight:500}
+@font-face{font-family:'JBMono';src:url('fonts/JetBrainsMono-Regular.ttf')format('truetype');font-weight:400}
+@font-face{font-family:'JBMono';src:url('fonts/JetBrainsMono-Medium.ttf')format('truetype');font-weight:500}
+
+@page{
+  size:A4; margin:15mm 16mm 13mm 16mm;
+  @bottom-left{ content:"LOU DENIM — AI.LOUDENIM.COM"; font-family:'JBMono'; font-size:6pt;
+    letter-spacing:.14em; color:#0B0B0D; vertical-align:top; padding-top:11pt; }
+  @bottom-right{ content:counter(page)" / "counter(pages); font-family:'JBMono'; font-size:6pt;
+    letter-spacing:.10em; color:#0B0B0D; vertical-align:top; padding-top:11pt; }
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Jost';color:#0B0B0D;-weasy-hyphens:none}
+h2,h3,p,table{margin:0}
+.brand{text-align:center;margin:0 0 0 0}
+.brand img{width:58mm;display:block;margin:2mm auto 0}
+.brand .rule{width:32mm;height:1pt;background:#E7549F;margin:4.79mm auto 4.8mm}
+.brand .kick{font-family:'JBMono';font-size:6.6pt;letter-spacing:.34em;text-indent:.34em;color:#E7549F;
+  text-transform:uppercase;margin-bottom:7.2mm}
+.tband{background:#0B0B0D;color:#fff;text-align:center;height:76.5pt;padding:19.5pt 6mm 0}
+.tband h1{margin:0;font-weight:300;font-size:18.5pt;letter-spacing:.30em;text-indent:.30em;text-transform:uppercase;line-height:1}
+.tband .sub{font-family:'JBMono';font-size:6.5pt;letter-spacing:.28em;text-indent:.28em;color:#E7549F;
+  text-transform:uppercase;margin-top:9.5pt}
+.intro{font-weight:300;font-size:9.3pt;line-height:1.5;color:#3A3A42;margin:7.58mm 0 7.13mm;max-width:440pt}
+section{break-inside:avoid;margin-bottom:6.4mm}
+.band{background:#0B0B0D;color:#fff;height:31.5pt;display:flex;align-items:center;
+  justify-content:space-between;padding:0 5mm}
+.band h2{font-weight:400;font-size:10pt;letter-spacing:.20em;text-transform:uppercase}
+.band .tag{font-family:'JBMono';font-size:6pt;letter-spacing:.20em;color:#E7549F;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;table-layout:fixed;
+  border:.5pt solid #E4E4E8;border-top:none}
+thead th{background:#FBEAF2;color:#8B3F66;font-family:'JBMono';font-weight:500;font-size:6.1pt;
+  letter-spacing:.16em;text-transform:uppercase;text-align:right;padding:6.2pt 4.988mm;height:22.7pt}
+thead th:first-child{text-align:left}
+tbody td{border-bottom:.5pt solid #E4E4E8;padding:8.4pt 4.988mm 7.47pt;vertical-align:top;text-align:right}
+tbody tr:last-child td{border-bottom:none}
+tbody td.l{text-align:left}
+.nm{font-weight:400;font-size:9.5pt;line-height:1.15}
+.ds{font-weight:300;font-size:7.6pt;line-height:1.4145;color:#77777F;margin-top:1.55pt}
+.pr{display:block;font-weight:400;font-size:9.5pt;line-height:1.15;white-space:nowrap}
+.wrap{border:.5pt solid #E4E4E8;border-top:none}
+.chips{display:flex;border:.5pt solid #E4E4E8;border-top:none}
+.chip{flex:1;text-align:center;padding:4.89mm 2mm 5.48mm;border-left:.5pt solid #E4E4E8}
+.chip:first-child{border-left:none}
+.chip.c2{background:#FBEAF2}
+.chip.c3{background:#F6DBE8}
+.chip b{display:block;font-weight:400;font-size:9.6pt;text-transform:uppercase;letter-spacing:.142em}
+.chip span{display:block;font-family:'JBMono';font-size:8.2pt;color:#E7549F;margin-top:2.6mm;
+  letter-spacing:.162em;text-transform:uppercase}
+.mid{border:.5pt solid #E4E4E8;border-top:none;text-align:center;padding:4.87mm 4mm}
+.mid p{font-size:10.4pt;font-weight:400;letter-spacing:.06em}
+.plain{border:.5pt solid #E4E4E8;border-top:none;padding:3.91mm 5.2mm}
+.plain p{font-weight:300;font-size:9.2pt;line-height:1.5;color:#3A3A42}
+.note{font-weight:300;font-size:7.8pt;line-height:1.4;color:#77777F;padding:2.6mm 0 0 .49mm}
+.terms{border:.5pt solid #E4E4E8;border-top:none;padding:3.69mm 4.988mm 4.8mm}
+.terms p{font-size:8.1pt;line-height:1.48;margin:0 0 4.94mm}
+.terms p:last-child{margin-bottom:0}
+.terms b{font-weight:500;color:#0B0B0D}
+.terms span{font-weight:300;color:#3A3A42}
+.pagebreak{break-before:page}
+</style></head><body>
+<div class="brand"><img src="assets/lou-denim-logo.svg" alt="Lou Denim"><div class="rule"></div><div class="kick">Directeur artistique IA</div></div>
+<div class="tband"><h1>Grille tarifaire</h1><div class="sub">Services créatifs IA · 2026</div></div>
+<p class="intro">Les tarifs de cette grille correspondent exactement au simulateur de devis en ligne. Le prix s’additionne : votre format, selon la durée, plus vos options.</p>
+<section class="">
+<div class="band"><h2>Production vidéo par IA</h2><span class="tag">Produit / service</span></div>
+<table><colgroup><col style="width:35.292%"><col style="width:12.921%"><col style="width:12.921%"><col style="width:12.921%"><col style="width:12.921%"><col style="width:12.921%"></colgroup><thead><tr><th>Que montre votre vidéo ?</th><th>15s</th><th>20s</th><th>30s</th><th>40s</th><th>50s</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Le produit seul</div><div class="ds">Votre produit mis en avant en studio ou sur fond neutre. Personne à l’écran.</div></td><td><span class="pr">300 €</span></td><td><span class="pr">400 €</span></td><td><span class="pr">600 €</span></td><td><span class="pr">800 €</span></td><td><span class="pr">1 000 €</span></td></tr>
+<tr><td class="l"><div class="nm">Le produit + un personnage</div><div class="ds">Format publicitaire classique. Fond neutre par défaut.</div></td><td><span class="pr">350 €</span></td><td><span class="pr">450 €</span></td><td><span class="pr">700 €</span></td><td><span class="pr">900 €</span></td><td><span class="pr">1 150 €</span></td></tr>
+<tr><td class="l"><div class="nm">UGC — face caméra</div><div class="ds">Un personnage parle au spectateur, teste ou présente le produit. Lieu réel inclus.</div></td><td><span class="pr">400 €</span></td><td><span class="pr">500 €</span></td><td><span class="pr">800 €</span></td><td><span class="pr">1 000 €</span></td><td><span class="pr">1 300 €</span></td></tr>
+<tr><td class="l"><div class="nm">Film de marque</div><div class="ds">Un film qui raconte une histoire, sans produit à vendre à l’écran. Un personnage inclus.</div></td><td><span class="pr">350 €</span></td><td><span class="pr">450 €</span></td><td><span class="pr">700 €</span></td><td><span class="pr">900 €</span></td><td><span class="pr">1 150 €</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Rythme du film</h2><span class="tag">Par film</span></div>
+<table><colgroup><col><col style="width:15.337%"></colgroup><thead><tr><th>Option</th><th>Supplément</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Classique</div><div class="ds">Du plan qui dure au rythme d’une publicité ordinaire.</div></td><td><span class="pr">inclus</span></td></tr>
+<tr><td class="l"><div class="nm">Rapide</div><div class="ds">Ça enchaîne, une image nouvelle toutes les deux secondes.</div></td><td><span class="pr">+ 20 %</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Résolution</h2><span class="tag">Supplément</span></div>
+<div class="chips"><div class="chip c1"><b>HD 720p</b><span>inclus</span></div><div class="chip c2"><b>Full HD 1080p</b><span>+ 25 %</span></div><div class="chip c3"><b>4K upscale</b><span>+ 50 %</span></div></div>
+<p class="note">Supplément de résolution appliqué au tarif vidéo uniquement.</p>
+</section>
+<section class="">
+<div class="band"><h2>Style visuel — même tarif</h2></div>
+<div class="mid"><p>Photoréaliste · Animation 3D · Dessin animé 2D</p></div>
+</section>
+<section class="">
+<div class="band"><h2>Ajouts à la scène</h2><span class="tag">Tarif</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Livrable</th><th>Tarif</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Environnement</div><div class="ds">chaque lieu supplémentaire</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Personnage supplémentaire</div><div class="ds">casting, tenue et mise en scène inclus</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Visage hors catalogue</div><div class="ds">2 propositions incluses</div></td><td><span class="pr">50 €</span></td></tr>
+<tr><td class="l"><div class="nm">Produit ou service en plus</div></td><td><span class="pr">75 €</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Effets &amp; transformations</h2><span class="tag">Tarif</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Livrable</th><th>Tarif</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Morphing / transformation</div><div class="ds">le produit se transforme, apparaît, se reconstruit</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Changement de décor ou de saison</div><div class="ds">même scène, autre lieu, autre ambiance</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Changement de lumière</div><div class="ds">jour ou nuit, néon, golden hour</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Remplacement d’objet ou de couleur produit</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Motion design</div><div class="ds">titres animés, typographie, habillage graphique</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Motion transfer</div><div class="ds">à partir de votre vidéo source — prise de vue non incluse</div></td><td><span class="pr">150 €</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Son &amp; finitions</h2><span class="tag">Tarif</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Livrable</th><th>Tarif</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Voix off IA</div><div class="ds">français, anglais, espagnol</div></td><td><span class="pr">100 €</span></td></tr>
+<tr><td class="l"><div class="nm">Musique &amp; sound design</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Carte de fin</div><div class="ds">logo animé + signature sonore</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Sous-titres</div></td><td><span class="pr">75 €</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Personnages</h2><span class="tag">Tarif</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Livrable</th><th>Tarif</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Personnage qui parle</div><div class="ds">voix + synchronisation labiale</div></td><td><span class="pr">100 €</span></td></tr>
+<tr><td class="l"><div class="nm">Dialogue entre deux personnages</div></td><td><span class="pr">200 €</span></td></tr>
+<tr><td class="l"><div class="nm">Exclusivité du mannequin</div><div class="ds">réservé à votre marque, 12 mois</div></td><td><span class="pr">500 €</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Autres options</h2><span class="tag">Tarif</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Livrable</th><th>Tarif</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Storyboard</div><div class="ds">validation avant production</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Concept</div><div class="ds">l’idée du film, avant écriture — jusqu’à 50 s</div></td><td><span class="pr">200 €</span></td></tr>
+<tr><td class="l"><div class="nm">Script</div><div class="ds">le film écrit, plan par plan — jusqu’à 50 s</div></td><td><span class="pr">200 €</span></td></tr>
+<tr><td class="l"><div class="nm">Tour de révision supplémentaire</div><div class="ds">au-delà des 2 inclus</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Supplément urgence</div><div class="ds">livraison sous 72 h</div></td><td><span class="pr">+ 40 %</span></td></tr>
+</tbody></table>
+</section>
+<section class="pagebreak">
+<div class="band"><h2>Images par IA</h2><span class="tag">Lot de 5 images minimum</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Livrable</th><th>Tarif</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Produit seul</div><div class="ds">lot de 5</div></td><td><span class="pr">250 €</span></td></tr>
+<tr><td class="l"><div class="nm">1 personnage + produit</div><div class="ds">lot de 5</div></td><td><span class="pr">380 €</span></td></tr>
+<tr><td class="l"><div class="nm">2 à 3 personnages + produit</div><div class="ds">lot de 5</div></td><td><span class="pr">600 €</span></td></tr>
+<tr><td class="l"><div class="nm">Campagne complexe</div><div class="ds">lot de 10</div></td><td><span class="pr">900 €</span></td></tr>
+<tr><td class="l"><div class="nm">Environnement</div><div class="ds">par environnement, pour un lot</div></td><td><span class="pr">50 €</span></td></tr>
+</tbody></table>
+<p class="note">Vendues par lots. Tarif à l’unité sur demande.</p>
+</section>
+<section class="">
+<div class="band"><h2>Immobilier &amp; lieux</h2><span class="tag">Tarif</span></div>
+<table><colgroup><col><col style="width:17.837%"></colgroup><thead><tr><th>Livrable</th><th>Tarif</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Visite animée du bien</div><div class="ds">jusqu’à 15 s, maxi 5 images</div></td><td><span class="pr">300 €</span></td></tr>
+<tr><td class="l"><div class="nm">Visite animée du bien</div><div class="ds">jusqu’à 20 s, maxi 7 images</div></td><td><span class="pr">400 €</span></td></tr>
+<tr><td class="l"><div class="nm">Visite animée du bien</div><div class="ds">jusqu’à 30 s, maxi 10 images</div></td><td><span class="pr">500 €</span></td></tr>
+<tr><td class="l"><div class="nm">Musique &amp; ambiance sonore</div></td><td><span class="pr">50 €</span></td></tr>
+<tr><td class="l"><div class="nm">Personnage ajouté</div><div class="ds">mise en vie du lieu</div></td><td><span class="pr">150 €</span></td></tr>
+<tr><td class="l"><div class="nm">Embellissement photo</div><div class="ds">ciel, lumière, pelouse, désencombrement</div></td><td><span class="pr">25 € / photo</span></td></tr>
+<tr><td class="l"><div class="nm">Home staging virtuel</div><div class="ds">meubler une pièce vide ou relooker la déco</div></td><td><span class="pr">75 € / photo</span></td></tr>
+</tbody></table>
+<p class="note">À partir de vos photos. Mouvements de caméra, transitions, montage rythmé.</p>
+</section>
+<section class="">
+<div class="band"><h2>Demande particulière</h2><span class="tag">Sur devis</span></div>
+<div class="plain"><p>Pour toute demande hors grille tarifaire, un devis est établi après échange avec le créatif.</p></div>
+</section>
+<section class="pagebreak">
+<div class="band"><h2>Livraison</h2></div>
+<div class="plain"><p>Chaque vidéo est livrée étalonnée, montée et exportée au format final de votre plateforme.</p></div>
+</section>
+<section class="">
+<div class="band"><h2>Conditions</h2></div>
+<div class="terms">
+<p><b>Tous les prix s’entendent hors taxes</b><span> — la TVA applicable est ajoutée au devis.</span></p>
+<p><b>2 révisions incluses</b><span> dans chaque prestation — au-delà, facturation selon le barème ci-dessus. · Délai de livraison standard : </span><b>7 à 10 jours ouvrés</b><span> selon projet.</span></p>
+<p><span>Le </span><b>storyboard validé</b><span> fixe le point de départ de la production : toute modification d’un élément déjà validé (storyboard, script, plan) constitue un tour de révision facturé.</span></p>
+<p><span>Fichiers sources, prompts et workflows non livrés — </span><b>propriété de Lou Denim</b><span>.</span></p>
+<p><b>Les tarifs de cette grille sont une base d’estimation. Le devis final est établi par Lou Denim.</b><span> Des frais de production peuvent s’ajouter selon la complexité du projet et le volume de générations nécessaires.</span></p>
+<p><b>Droits d’utilisation web &amp; réseaux sociaux : inclus.</b><span> Toute autre diffusion fait l’objet d’une cession : presse, édition (catalogue, brochure), campagne digitale, TV, cinéma, affichage 4×3, écran PLV. </span><b>Territoire et durée à définir avec Lou Denim.</b></p>
+<p><b>Acompte de 50 % au-delà de 1 000 €</b><span>, requis avant démarrage. · Aucun travail sans brief validé et accord signé.</span></p>
+</div>
+</section>
+</body></html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Rate card</title><style>
+@font-face{font-family:'Jost';src:url('fonts/jost-latin-300-normal.woff2')format('woff2');font-weight:300}
+@font-face{font-family:'Jost';src:url('fonts/jost-latin-400-normal.woff2')format('woff2');font-weight:400}
+@font-face{font-family:'Jost';src:url('fonts/jost-latin-500-normal.woff2')format('woff2');font-weight:500}
+@font-face{font-family:'JBMono';src:url('fonts/JetBrainsMono-Regular.ttf')format('truetype');font-weight:400}
+@font-face{font-family:'JBMono';src:url('fonts/JetBrainsMono-Medium.ttf')format('truetype');font-weight:500}
+
+@page{
+  size:A4; margin:15mm 16mm 13mm 16mm;
+  @bottom-left{ content:"LOU DENIM — AI.LOUDENIM.COM"; font-family:'JBMono'; font-size:6pt;
+    letter-spacing:.14em; color:#0B0B0D; vertical-align:top; padding-top:11pt; }
+  @bottom-right{ content:counter(page)" / "counter(pages); font-family:'JBMono'; font-size:6pt;
+    letter-spacing:.10em; color:#0B0B0D; vertical-align:top; padding-top:11pt; }
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Jost';color:#0B0B0D;-weasy-hyphens:none}
+h2,h3,p,table{margin:0}
+.brand{text-align:center;margin:0 0 0 0}
+.brand img{width:58mm;display:block;margin:2mm auto 0}
+.brand .rule{width:32mm;height:1pt;background:#E7549F;margin:4.79mm auto 4.8mm}
+.brand .kick{font-family:'JBMono';font-size:6.6pt;letter-spacing:.34em;text-indent:.34em;color:#E7549F;
+  text-transform:uppercase;margin-bottom:7.2mm}
+.tband{background:#0B0B0D;color:#fff;text-align:center;height:76.5pt;padding:19.5pt 6mm 0}
+.tband h1{margin:0;font-weight:300;font-size:18.5pt;letter-spacing:.30em;text-indent:.30em;text-transform:uppercase;line-height:1}
+.tband .sub{font-family:'JBMono';font-size:6.5pt;letter-spacing:.28em;text-indent:.28em;color:#E7549F;
+  text-transform:uppercase;margin-top:9.5pt}
+.intro{font-weight:300;font-size:9.3pt;line-height:1.5;color:#3A3A42;margin:7.58mm 0 7.13mm;max-width:440pt}
+section{break-inside:avoid;margin-bottom:6.4mm}
+.band{background:#0B0B0D;color:#fff;height:31.5pt;display:flex;align-items:center;
+  justify-content:space-between;padding:0 5mm}
+.band h2{font-weight:400;font-size:10pt;letter-spacing:.20em;text-transform:uppercase}
+.band .tag{font-family:'JBMono';font-size:6pt;letter-spacing:.20em;color:#E7549F;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;table-layout:fixed;
+  border:.5pt solid #E4E4E8;border-top:none}
+thead th{background:#FBEAF2;color:#8B3F66;font-family:'JBMono';font-weight:500;font-size:6.1pt;
+  letter-spacing:.16em;text-transform:uppercase;text-align:right;padding:6.2pt 4.988mm;height:22.7pt}
+thead th:first-child{text-align:left}
+tbody td{border-bottom:.5pt solid #E4E4E8;padding:8.4pt 4.988mm 7.47pt;vertical-align:top;text-align:right}
+tbody tr:last-child td{border-bottom:none}
+tbody td.l{text-align:left}
+.nm{font-weight:400;font-size:9.5pt;line-height:1.15}
+.ds{font-weight:300;font-size:7.6pt;line-height:1.4145;color:#77777F;margin-top:1.55pt}
+.pr{display:block;font-weight:400;font-size:9.5pt;line-height:1.15;white-space:nowrap}
+.wrap{border:.5pt solid #E4E4E8;border-top:none}
+.chips{display:flex;border:.5pt solid #E4E4E8;border-top:none}
+.chip{flex:1;text-align:center;padding:4.89mm 2mm 5.48mm;border-left:.5pt solid #E4E4E8}
+.chip:first-child{border-left:none}
+.chip.c2{background:#FBEAF2}
+.chip.c3{background:#F6DBE8}
+.chip b{display:block;font-weight:400;font-size:9.6pt;text-transform:uppercase;letter-spacing:.142em}
+.chip span{display:block;font-family:'JBMono';font-size:8.2pt;color:#E7549F;margin-top:2.6mm;
+  letter-spacing:.162em;text-transform:uppercase}
+.mid{border:.5pt solid #E4E4E8;border-top:none;text-align:center;padding:4.87mm 4mm}
+.mid p{font-size:10.4pt;font-weight:400;letter-spacing:.06em}
+.plain{border:.5pt solid #E4E4E8;border-top:none;padding:3.91mm 5.2mm}
+.plain p{font-weight:300;font-size:9.2pt;line-height:1.5;color:#3A3A42}
+.note{font-weight:300;font-size:7.8pt;line-height:1.4;color:#77777F;padding:2.6mm 0 0 .49mm}
+.terms{border:.5pt solid #E4E4E8;border-top:none;padding:3.69mm 4.988mm 4.8mm}
+.terms p{font-size:8.1pt;line-height:1.48;margin:0 0 4.94mm}
+.terms p:last-child{margin-bottom:0}
+.terms b{font-weight:500;color:#0B0B0D}
+.terms span{font-weight:300;color:#3A3A42}
+.pagebreak{break-before:page}
+</style></head><body>
+<div class="brand"><img src="assets/lou-denim-logo.svg" alt="Lou Denim"><div class="rule"></div><div class="kick">AI creative director</div></div>
+<div class="tband"><h1>Rate card</h1><div class="sub">AI creative services · 2026</div></div>
+<p class="intro">The rates on this card match the online quote simulator exactly. Prices add up: your format, by duration, plus your options.</p>
+<section class="">
+<div class="band"><h2>AI video production</h2><span class="tag">Product / service</span></div>
+<table><colgroup><col style="width:35.292%"><col style="width:12.921%"><col style="width:12.921%"><col style="width:12.921%"><col style="width:12.921%"><col style="width:12.921%"></colgroup><thead><tr><th>What does your video show?</th><th>15s</th><th>20s</th><th>30s</th><th>40s</th><th>50s</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">The product on its own</div><div class="ds">Your product showcased in studio or on a neutral background. No one on screen.</div></td><td><span class="pr">£300</span></td><td><span class="pr">£400</span></td><td><span class="pr">£600</span></td><td><span class="pr">£800</span></td><td><span class="pr">£1,000</span></td></tr>
+<tr><td class="l"><div class="nm">The product + one character</div><div class="ds">The classic ad format. Neutral background by default.</div></td><td><span class="pr">£350</span></td><td><span class="pr">£450</span></td><td><span class="pr">£700</span></td><td><span class="pr">£900</span></td><td><span class="pr">£1,150</span></td></tr>
+<tr><td class="l"><div class="nm">UGC — to camera</div><div class="ds">A character speaks to camera, tests or presents the product. One real location included.</div></td><td><span class="pr">£400</span></td><td><span class="pr">£500</span></td><td><span class="pr">£800</span></td><td><span class="pr">£1,000</span></td><td><span class="pr">£1,300</span></td></tr>
+<tr><td class="l"><div class="nm">Brand film</div><div class="ds">A film that tells a story, with no product to sell on screen. One character included.</div></td><td><span class="pr">£350</span></td><td><span class="pr">£450</span></td><td><span class="pr">£700</span></td><td><span class="pr">£900</span></td><td><span class="pr">£1,150</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Pace of the film</h2><span class="tag">Per film</span></div>
+<table><colgroup><col><col style="width:14.37%"></colgroup><thead><tr><th>Option</th><th>Surcharge</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Standard</div><div class="ds">From long takes to the pace of an ordinary commercial.</div></td><td><span class="pr">included</span></td></tr>
+<tr><td class="l"><div class="nm">Fast</div><div class="ds">Cut to cut, a new image every couple of seconds.</div></td><td><span class="pr">+ 20%</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Resolution</h2><span class="tag">Surcharge</span></div>
+<div class="chips"><div class="chip c1"><b>HD 720p</b><span>included</span></div><div class="chip c2"><b>Full HD 1080p</b><span>+ 25%</span></div><div class="chip c3"><b>4K upscale</b><span>+ 50%</span></div></div>
+<p class="note">Resolution surcharge applied to the video rate only.</p>
+</section>
+<section class="">
+<div class="band"><h2>Visual style — same rate</h2></div>
+<div class="mid"><p>Photorealistic · 3D animation · 2D cartoon</p></div>
+</section>
+<section class="">
+<div class="band"><h2>Added to the scene</h2><span class="tag">Rate</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Deliverable</th><th>Rate</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Environment</div><div class="ds">each additional location</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Extra character</div><div class="ds">casting, wardrobe and staging included</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Face outside the catalogue</div><div class="ds">2 options included</div></td><td><span class="pr">£50</span></td></tr>
+<tr><td class="l"><div class="nm">Extra product or service</div></td><td><span class="pr">£75</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Effects &amp; transformations</h2><span class="tag">Rate</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Deliverable</th><th>Rate</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Morphing / transformation</div><div class="ds">the product transforms, appears, rebuilds itself</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Set or season change</div><div class="ds">same scene, another place, another mood</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Relighting</div><div class="ds">day or night, neon, golden hour</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Object or product-colour swap</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Motion design</div><div class="ds">animated titles, typography, graphics</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Motion transfer</div><div class="ds">from your own source footage — filming not included</div></td><td><span class="pr">£150</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Sound &amp; finishing</h2><span class="tag">Rate</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Deliverable</th><th>Rate</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">AI voice-over</div><div class="ds">French, English, Spanish</div></td><td><span class="pr">£100</span></td></tr>
+<tr><td class="l"><div class="nm">Music &amp; sound design</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">End card</div><div class="ds">animated logo + audio signature</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Captions / subtitles</div></td><td><span class="pr">£75</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Characters</h2><span class="tag">Rate</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Deliverable</th><th>Rate</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Character speaking to camera</div><div class="ds">voice + lip-sync</div></td><td><span class="pr">£100</span></td></tr>
+<tr><td class="l"><div class="nm">Two-character dialogue</div></td><td><span class="pr">£200</span></td></tr>
+<tr><td class="l"><div class="nm">Model exclusivity</div><div class="ds">reserved to your brand, 12 months</div></td><td><span class="pr">£500</span></td></tr>
+</tbody></table>
+</section>
+<section class="">
+<div class="band"><h2>Other options</h2><span class="tag">Rate</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Deliverable</th><th>Rate</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Storyboard</div><div class="ds">sign-off before production</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Concept</div><div class="ds">the idea for the film, before writing — up to 50s</div></td><td><span class="pr">£200</span></td></tr>
+<tr><td class="l"><div class="nm">Script</div><div class="ds">the film written out, shot by shot — up to 50s</div></td><td><span class="pr">£200</span></td></tr>
+<tr><td class="l"><div class="nm">Additional revision round</div><div class="ds">beyond the 2 included</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Rush surcharge</div><div class="ds">delivery within 72 hours</div></td><td><span class="pr">+ 40%</span></td></tr>
+</tbody></table>
+</section>
+<section class="pagebreak">
+<div class="band"><h2>AI images</h2><span class="tag">Sets of 5 images minimum</span></div>
+<table><colgroup><col><col style="width:12.921%"></colgroup><thead><tr><th>Deliverable</th><th>Rate</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Product only</div><div class="ds">set of 5</div></td><td><span class="pr">£250</span></td></tr>
+<tr><td class="l"><div class="nm">1 character + product</div><div class="ds">set of 5</div></td><td><span class="pr">£380</span></td></tr>
+<tr><td class="l"><div class="nm">2 to 3 characters + product</div><div class="ds">set of 5</div></td><td><span class="pr">£600</span></td></tr>
+<tr><td class="l"><div class="nm">Complex campaign</div><div class="ds">set of 10</div></td><td><span class="pr">£900</span></td></tr>
+<tr><td class="l"><div class="nm">Environment</div><div class="ds">per environment, for a set</div></td><td><span class="pr">£50</span></td></tr>
+</tbody></table>
+<p class="note">Sold in sets. Unit rate on request.</p>
+</section>
+<section class="">
+<div class="band"><h2>Property &amp; places</h2><span class="tag">Rate</span></div>
+<table><colgroup><col><col style="width:17.308%"></colgroup><thead><tr><th>Deliverable</th><th>Rate</th></tr></thead><tbody>
+<tr><td class="l"><div class="nm">Animated property tour</div><div class="ds">up to 15s, max 5 images</div></td><td><span class="pr">£300</span></td></tr>
+<tr><td class="l"><div class="nm">Animated property tour</div><div class="ds">up to 20s, max 7 images</div></td><td><span class="pr">£400</span></td></tr>
+<tr><td class="l"><div class="nm">Animated property tour</div><div class="ds">up to 30s, max 10 images</div></td><td><span class="pr">£500</span></td></tr>
+<tr><td class="l"><div class="nm">Music &amp; ambience</div></td><td><span class="pr">£50</span></td></tr>
+<tr><td class="l"><div class="nm">Added character</div><div class="ds">bringing the place to life</div></td><td><span class="pr">£150</span></td></tr>
+<tr><td class="l"><div class="nm">Photo enhancement</div><div class="ds">sky, light, lawn, decluttering</div></td><td><span class="pr">£25 / photo</span></td></tr>
+<tr><td class="l"><div class="nm">Virtual home staging</div><div class="ds">furnish an empty room or restyle the decor</div></td><td><span class="pr">£75 / photo</span></td></tr>
+</tbody></table>
+<p class="note">From your own photos. Camera moves, transitions, rhythmic editing.</p>
+</section>
+<section class="">
+<div class="band"><h2>Anything else</h2><span class="tag">On request</span></div>
+<div class="plain"><p>For anything outside this rate card, a quote is issued after a conversation with the creative.</p></div>
+</section>
+<section class="pagebreak">
+<div class="band"><h2>Delivery</h2></div>
+<div class="plain"><p>Every video is delivered colour-graded, edited and exported in your platform’s final format.</p></div>
+</section>
+<section class="">
+<div class="band"><h2>Terms</h2></div>
+<div class="terms">
+<p><b>All prices exclude VAT</b><span> — applicable VAT is added to the quote.</span></p>
+<p><b>2 revisions included</b><span> in every project — beyond that, billed per the rates above. · Standard delivery: </span><b>7 to 10 business days</b><span> depending on the project.</span></p>
+<p><span>An </span><b>approved storyboard</b><span> sets the production starting point: any change to an already-approved element (storyboard, script, shot) counts as a billable revision round.</span></p>
+<p><span>Source files, prompts and workflows not delivered — </span><b>property of Lou Denim</b><span>.</span></p>
+<p><b>The rates in this card are a basis for estimation. The final quote is set by Lou Denim.</b><span> Production costs may be added depending on the complexity of the project and the volume of generations required.</span></p>
+<p><b>Web &amp; social-media usage rights: included.</b><span> Any other distribution requires a separate licence: press, print (catalogue, brochure), digital campaign, TV, cinema, 4×3 out-of-home, in-store screens. </span><b>Territory and duration to be agreed with Lou Denim.</b></p>
+<p><b>50% deposit above £1,000</b><span>, required before starting. · No work begins without a validated brief and a signed agreement.</span></p>
+</div>
+</section>
+</body></html>
