@@ -93,9 +93,8 @@ def data(lang):
              "chaque lieu supplémentaire" if fr else "each additional location", c("150")),
             ("Personnage supplémentaire" if fr else "Extra character",
              "casting, tenue et mise en scène inclus" if fr else "casting, wardrobe and staging included", c("150")),
-            # renomme le 9 septembre 2026 (etait « Visage sur mesure » / « Custom face »)
-            ("Visage hors catalogue" if fr else "Face outside the catalogue",
-             "2 propositions incluses" if fr else "2 options included", c("50")),
+            # ligne « Visage hors catalogue » (+50) retiree le 9 septembre 2026,
+            # en meme temps que sa suppression du simulateur.
             ("Produit ou service en plus" if fr else "Extra product or service", "", c("75")),
           ]),
         dict(kind='table',
