@@ -344,7 +344,7 @@ function render(){
   if(sc){ scHTML='<div class="lbscenes"><div class="shead">'+
       '<span class="lab">'+sc.titre+'</span></div>'+
       '<div class="grid4">'+sc.imgs.map(function(s){
-        return '<img src="'+SRC(s)+'" loading="lazy" draggable="false" alt="'+m.name+'">';
+        return '<img src="'+SRC(s)+'" draggable="false" alt="'+m.name+'">';
       }).join('')+'</div></div>'; }
   var facts=[];
   if(st.age) facts.push(['Age',st.age+'',false]);
