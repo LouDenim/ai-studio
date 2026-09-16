@@ -55,6 +55,22 @@
     <a href="home.html" style="color:#ff7fc0;text-decoration:none">Entrer — Français</a>
   </p>
 </noscript>
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "593e60bc674f4be5b7ba0b3554b716af"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Cloudflare Web Analytics -->
+<script>
+(function(){
+  try{
+    var p = new URLSearchParams(location.search);
+    if (p.has('nostats')) localStorage.setItem('ld-nostats','1');
+    if (p.has('stats'))   localStorage.removeItem('ld-nostats');
+    if (localStorage.getItem('ld-nostats') === '1') return;
+  }catch(e){}
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "593e60bc674f4be5b7ba0b3554b716af"}');
+  document.body.appendChild(s);
+})();
+</script>
+<!-- End Cloudflare Web Analytics -->
 </body>
 </html>
