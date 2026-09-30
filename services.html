@@ -334,6 +334,25 @@ footer a:hover{color:var(--pink2)}
       new IntersectionObserver(function(es){es.forEach(function(e){wake(i,e.isIntersecting);});},{threshold:.6}).observe(card);
     }
   });
+
+  /* arrivee : les trois cartes partent d'une pile et se distribuent a leur place (comme
+     "How it works" sur l'accueil), puis chacune montre brievement son animation, l'une
+     apres l'autre, pour montrer qu'elles s'animent. Un survol arrete l'apercu. */
+  var grid=cards[0].parentNode, touched=false, demo=[];
+  (function stack(){var g=grid.getBoundingClientRect(),cx=g.left+g.width/2,cy=g.top+g.height/2;
+    cards.forEach(function(c,i){var r=c.getBoundingClientRect();c.style.transition='none';c.style.opacity='0';
+      c.style.transform='translate('+(cx-(r.left+r.width/2))+'px,'+(cy-(r.top+r.height/2)+60)+'px) rotate('+((i-1)*6)+'deg) scale(.86)';});})();
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    cards.forEach(function(c,i){setTimeout(function(){
+      c.style.transition='transform 1s cubic-bezier(.2,.85,.2,1),opacity .5s';c.style.opacity='';c.style.transform='';
+      setTimeout(function(){c.style.transition='';},1100);},250+i*170);});
+    if(fine) [0,1,2].forEach(function(i){
+      demo.push(setTimeout(function(){ if(touched) return; wake(i,true);
+        demo.push(setTimeout(function(){ if(!touched) wake(i,false); },2400)); },1700+i*2600));
+    });
+  });});
+  cards.forEach(function(c){c.addEventListener('mouseenter',function(){ if(touched) return; touched=true;
+    demo.forEach(clearTimeout); cards.forEach(function(x,j){ if(x!==c) wake(j,false); }); });});
 })();
 </script>
 </body></html>
