@@ -238,7 +238,7 @@ footer a:hover{color:var(--pink2)}
   var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
   var cards=[].slice.call(document.querySelectorAll('.steps .step'));
   if(cards.length!==3) return;
-  var L={"pre": "£", "suf": "", "sep": ",", "pc": "%", "s": "s", "est": "ESTIMATE · EXCL. VAT", "menu": ["Product reveal", "UGC", "Storytelling", "Reels & Stories", "Promos & launches", "Product photos", "Campaign visuals", "Advertising", "Editorial", "Lifestyle", "Multi-format", "Voice & music"], "fields": ["BRAND", "AUDIENCE", "GOAL", "FORMAT", "DEADLINE"], "sent": "✓ BRIEF SENT", "briefs": [["Tropical juice brand", "18–34, Caribbean", "Launch the mango flavour", "20s · 9:16 + 1:1", "3 weeks"], ["Boutique hotel, Guadeloupe", "Couples, Europe", "Fill the low season", "30s · 16:9", "End of month"], ["Sneaker label", "Gen Z", "Drop-day hype", "15s · 9:16 × 3", "10 days"]]};
+  var L={"pre": "£", "suf": "", "sep": ",", "pc": "%", "s": "s", "est": "ESTIMATE · EXCL. VAT", "menu": ["Product reveal", "UGC", "Storytelling", "Reels & Stories", "Promos & launches", "Product photos", "Campaign visuals", "Advertising", "Editorial", "Lifestyle", "Multi-format", "Voice & music"], "fields": ["BRAND", "AUDIENCE", "GOAL", "FORMAT", "DEADLINE"], "sent": "✓ BRIEF SENT", "briefs": [["Tropical juice brand", "18–34", "Launch the mango flavour", "20s · 9:16 + 1:1", "3 weeks"], ["Boutique hotel", "Couples, 30–50", "Fill the low season", "30s · 16:9", "End of month"], ["Sneaker label", "Gen Z", "Drop-day hype", "15s · 9:16 × 3", "10 days"]]};
   var DPR=Math.min(2,devicePixelRatio||1);
   function fmt(n){return (n>=1000?Math.floor(n/1000)+L.sep+('00'+(n%1000)).slice(-3):''+n);}
   function money(n){return L.pre+fmt(n)+L.suf;}
