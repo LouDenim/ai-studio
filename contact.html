@@ -128,6 +128,22 @@ footer a:hover{color:var(--pink2)}
  header .hbar>nav a.on{color:#fff}
  header .hbar>nav a.on:after{display:none}
 }
+
+/* ---------- motion : contact ---------- */
+.ways .cm{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1),color .16s}
+.ways.in .cm{opacity:1;transform:none}
+.ways.in .cm:nth-child(2){transition-delay:.12s}.ways.in .cm:nth-child(3){transition-delay:.24s}
+.cm .val{position:relative;padding-bottom:3px}
+.cm .val:after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.cm:hover .val:after{transform:scaleX(1)}
+.cm .val:before{content:'\2192';position:absolute;right:-22px;top:0;color:var(--pink2);opacity:0;transform:translateX(-8px);transition:all .35s cubic-bezier(.2,.8,.2,1)}
+.cm:hover .val:before{opacity:1;transform:none}
+.okmsg{position:relative;animation:okin .7s cubic-bezier(.2,.8,.2,1)}
+@keyframes okin{from{opacity:0;transform:translateY(12px)}}
+.okmsg:before{content:attr(data-stamp);display:table;margin-bottom:18px;padding:6px 12px;border:1.5px solid var(--pink2);color:var(--pink2);
+ font:600 12px 'JetBrains Mono',monospace;letter-spacing:.14em;transform:rotate(-4deg);animation:stamp .5s cubic-bezier(.2,1.6,.4,1) .15s both}
+@keyframes stamp{from{opacity:0;transform:rotate(-4deg) scale(1.6)}}
+@media(prefers-reduced-motion:reduce){.ways .cm{opacity:1;transform:none}.okmsg,.okmsg:before{animation:none}}
 </style></head><body>
 <header>
   <div class="hbar">
@@ -166,7 +182,7 @@ footer a:hover{color:var(--pink2)}
       <button type="submit">Envoyer &agrave; Lou</button>
       <p class="note">Votre message arrive directement dans ma bo&icirc;te mail. Je r&eacute;ponds sous 48&nbsp;h.</p>
     </form>
-    <div class="okmsg" id="okmsg">Merci, votre message est parti. Je reviens vers vous rapidement.</div>
+    <div class="okmsg" id="okmsg" data-stamp="✓ MESSAGE ENVOYÉ">Merci, votre message est parti. Je reviens vers vous rapidement.</div>
   </div>
 </div>
 
@@ -211,4 +227,26 @@ document.getElementById('cf').addEventListener('submit', async function(e){
 })();
 </script>
 <!-- End Cloudflare Web Analytics -->
+<script>
+/* --- motion : contact ----------------------------------------------------------
+   Les trois canaux arrivent l'un apres l'autre ; le champ message ecrit tout seul
+   des exemples (comme le brief de la page Services) tant qu'on n'a pas clique
+   dedans ; une fois le message envoye, le tampon rose apparait. */
+(function(){
+  var ways=document.querySelector('.ways');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ if(ways) ways.classList.add('in'); return; }
+  if(ways) requestAnimationFrame(function(){ setTimeout(function(){ways.classList.add('in');},120); });
+  var ta=document.querySelector('#cf textarea'); if(!ta) return;
+  var base=ta.getAttribute('placeholder'), EX=["Un film de 30 secondes pour lancer un nouveau jus\u2026","Des visages IA pour la campagne d\u2019un h\u00f4tel, trois visuels\u2026","Pouvez-vous transformer mes photos produit en reels ?","Un film de marque avec un personnage qui parle\u2026"], i=0, c=0, dir=1, stop=false, t=null;
+  function tick(){
+    if(stop) return;
+    var s=EX[i];
+    if(dir>0){ c++; ta.setAttribute('placeholder',s.slice(0,c)+'\u258d'); if(c>=s.length){dir=-1; t=setTimeout(tick,1800); return;} t=setTimeout(tick,38); }
+    else { c-=2; if(c<=0){c=0;dir=1;i=(i+1)%EX.length; ta.setAttribute('placeholder',''); t=setTimeout(tick,500); return;} ta.setAttribute('placeholder',s.slice(0,c)); t=setTimeout(tick,14); }
+  }
+  function off(){ stop=true; clearTimeout(t); ta.setAttribute('placeholder',base); }
+  ta.addEventListener('focus',off); ta.addEventListener('input',off);
+  new IntersectionObserver(function(es,o){ if(es[0].isIntersecting){ o.disconnect(); t=setTimeout(tick,900); } }).observe(ta);
+})();
+</script>
 </body></html>
