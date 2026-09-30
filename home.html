@@ -263,6 +263,38 @@ footer{}
  header{transition:opacity .35s ease,transform .35s ease}
  header.efface{opacity:0;transform:translateY(-10px);pointer-events:none}
 }
+
+/* ---------- motion : les cinq visages vivants (boucles Seedance, meme cadrage 2:3) ---------- */
+.face .fr{position:relative}
+.face .fr video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease}
+.face.live .fr video{opacity:1}
+/* ---------- motion : les cinq etapes ---------- */
+.steps .ic{position:absolute;top:22px;right:20px;width:34px;height:34px;color:var(--pink2)}
+.steps .ic svg{width:100%;height:100%;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.steps b{padding-right:44px}
+.steps li{transition:transform 1s cubic-bezier(.2,.85,.2,1),opacity .5s,background .4s,border-color .4s,box-shadow .4s}
+/* 3B (par defaut) : distribuees comme des cartes, puis se soulevent au survol */
+.steps.dealt li:hover{background:rgba(231,84,159,.06);border-color:rgba(231,84,159,.45);box-shadow:0 20px 44px rgba(0,0,0,.45);transform:translateY(-4px)}
+/* 3A (apercu ?how=a) : s'allument une a une au defilement, puis restent allumees */
+.steps.seq li .n{transform:scale(0) rotate(-90deg);transition:transform .6s cubic-bezier(.2,1.6,.4,1) .15s}
+.steps.seq li .ct{opacity:.4;transform:translateY(10px);transition:opacity .8s .3s,transform .9s cubic-bezier(.2,.8,.2,1) .3s}
+.steps.seq li .ic{opacity:0;transition:opacity .6s .5s}
+.steps.seq li.on{background:rgba(231,84,159,.045);border-color:rgba(231,84,159,.32)}
+.steps.seq li.on .n{transform:none}.steps.seq li.on .ct{opacity:1;transform:none}.steps.seq li.on .ic{opacity:1}
+.run .dots circle{animation:dot 1.2s ease-in-out infinite}
+.run .dots circle:nth-child(2){animation-delay:.15s}.run .dots circle:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-3px)}}
+.dots circle,.rec{fill:currentColor;stroke:none}
+.run .shackle{animation:lock 2.6s cubic-bezier(.6,0,.2,1) infinite}
+@keyframes lock{0%,15%{transform:translateY(-5px)}35%,85%{transform:translateY(0)}100%{transform:translateY(-5px)}}
+.run .clap{transform-origin:5px 12px;animation:clap 2s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes clap{0%,40%,100%{transform:rotate(-24deg)}50%,60%{transform:rotate(0)}}
+.run .rec{animation:blink 1s steps(1) infinite}
+.run .spin{transform-origin:17px 17px;animation:spin 3.2s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.run .drop{animation:drop 1.8s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes drop{0%{transform:translateY(-8px);opacity:0}25%{opacity:1}70%{transform:translateY(2px);opacity:1}100%{transform:translateY(2px);opacity:0}}
+@media(prefers-reduced-motion:reduce){.run *{animation:none!important}.steps li{transition:none}}
 </style></head><body>
 <header id="hd">
   <div class="hbar">
@@ -363,11 +395,11 @@ footer{}
     <p>De votre produit à votre vidéo, en cinq étapes.</p>
   </div>
   <ol class="steps">
-    <li><span class="n">1</span><b>On échange sur votre produit</b><p>Un brief, un appel, ou un simple message : ce que vous vendez, à qui, et ce que vous voulez obtenir.</p></li>
-    <li><span class="n">2</span><b>Vous validez le concept</b><p>Je reviens avec une direction et un devis clair. Vous savez exactement ce que vous obtenez avant toute production.</p></li>
-    <li><span class="n">3</span><b>Je réalise la vidéo</b><p>Les visages, le décor, la lumière, le son : tout est fait sur mesure pour votre marque.</p></li>
-    <li><span class="n">4</span><b>Vous réagissez, j’affine</b><p>Vous recevez une première version à commenter. Deux tours de révisions sont inclus dans chaque prix.</p></li>
-    <li><span class="n">5</span><b>Vous recevez les fichiers finaux</b><p>Montés, étalonnés, exportés au format de votre plateforme.</p></li>
+    <li><span class="n">1</span><span class="ic" aria-hidden="true"><svg viewBox="0 0 34 34"><path d="M4 7a3 3 0 0 1 3-3h20a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H14l-6 5v-5H7a3 3 0 0 1-3-3z"/><g class="dots"><circle cx="11" cy="13.5" r="1.7"/><circle cx="17" cy="13.5" r="1.7"/><circle cx="23" cy="13.5" r="1.7"/></g></svg></span><div class="ct"><b>On échange sur votre produit</b><p>Un brief, un appel, ou un simple message : ce que vous vendez, à qui, et ce que vous voulez obtenir.</p></div></li>
+    <li><span class="n">2</span><span class="ic" aria-hidden="true"><svg viewBox="0 0 34 34"><rect x="7" y="15" width="20" height="15" rx="2"/><path class="shackle" d="M11 15V10a6 6 0 0 1 12 0v5"/><path d="M17 21v4"/></svg></span><div class="ct"><b>Vous validez le concept</b><p>Je reviens avec une direction et un devis clair. Vous savez exactement ce que vous obtenez avant toute production.</p></div></li>
+    <li><span class="n">3</span><span class="ic" aria-hidden="true"><svg viewBox="0 0 34 34"><rect x="5" y="12" width="24" height="17" rx="1.5"/><path class="clap" d="M5 12L27 6"/><path d="M11 12l3-3.6M17 12l3-3.6" style="opacity:.5"/><circle class="rec" cx="23" cy="20.5" r="2.2"/></svg></span><div class="ct"><b>Je réalise la vidéo</b><p>Les visages, le décor, la lumière, le son : tout est fait sur mesure pour votre marque.</p></div></li>
+    <li><span class="n">4</span><span class="ic" aria-hidden="true"><svg viewBox="0 0 34 34"><g class="spin"><path d="M28 17a11 11 0 1 1-3.2-7.8"/><path d="M26 4v6h-6"/></g><path d="M13 17.5l3 3 5.5-6"/></svg></span><div class="ct"><b>Vous réagissez, j’affine</b><p>Vous recevez une première version à commenter. Deux tours de révisions sont inclus dans chaque prix.</p></div></li>
+    <li><span class="n">5</span><span class="ic" aria-hidden="true"><svg viewBox="0 0 34 34"><path d="M5 22v5a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2v-5"/><g class="drop"><path d="M17 5v15"/><path d="M11 14l6 6 6-6"/></g></svg></span><div class="ct"><b>Vous recevez les fichiers finaux</b><p>Montés, étalonnés, exportés au format de votre plateforme.</p></div></li>
   </ol>
   <div class="ctas">
     <a class="btn pk" href="simulator.html">Estimer mon projet</a>
@@ -411,11 +443,11 @@ footer{}
     <p>Chacun avec son identité visuelle, cohérente d’une image à l’autre et réutilisable pour toutes vos campagnes.</p>
   </div>
   <div class="faces">
-    <div class="face"><img src="https://ai.loudenim.com/img/cat-femmes.jpg" alt=""><div class="cat">Femmes</div></div>
-    <div class="face"><img src="https://ai.loudenim.com/img/cat-hommes.jpg" alt=""><div class="cat">Hommes</div></div>
-    <div class="face"><img src="https://ai.loudenim.com/img/cat-ados.jpg" alt=""><div class="cat">Ados</div></div>
-    <div class="face"><img src="https://ai.loudenim.com/img/cat-enfants.jpg" alt=""><div class="cat">Enfants</div></div>
-    <div class="face"><img src="https://ai.loudenim.com/img/cat-seniors.jpg" alt=""><div class="cat">Seniors</div></div>
+    <div class="face" data-k="femmes"><div class="fr"><img src="https://ai.loudenim.com/img/cat-femmes.jpg" alt=""><video muted loop playsinline preload="none" data-face="videos/faces/femmes.mp4"></video></div><div class="cat">Femmes</div></div>
+    <div class="face" data-k="hommes"><div class="fr"><img src="https://ai.loudenim.com/img/cat-hommes.jpg" alt=""><video muted loop playsinline preload="none" data-face="videos/faces/hommes.mp4"></video></div><div class="cat">Hommes</div></div>
+    <div class="face" data-k="ados"><div class="fr"><img src="https://ai.loudenim.com/img/cat-ados.jpg" alt=""><video muted loop playsinline preload="none" data-face="videos/faces/ados.mp4"></video></div><div class="cat">Ados</div></div>
+    <div class="face" data-k="enfants"><div class="fr"><img src="https://ai.loudenim.com/img/cat-enfants.jpg" alt=""><video muted loop playsinline preload="none" data-face="videos/faces/enfants.mp4"></video></div><div class="cat">Enfants</div></div>
+    <div class="face" data-k="seniors"><div class="fr"><img src="https://ai.loudenim.com/img/cat-seniors.jpg" alt=""><video muted loop playsinline preload="none" data-face="videos/faces/seniors.mp4"></video></div><div class="cat">Seniors</div></div>
   </div>
   <div class="ctas"><a class="btn" href="modeles.html">Voir tous les modèles</a></div>
 </section>
@@ -569,4 +601,61 @@ footer{}
 })();
 </script>
 <!-- End Cloudflare Web Analytics -->
+<script>
+/* --- motion : les cinq visages vivants -------------------------------------
+   Chaque boucle commence et finit sur la photo : elle tourne sans a-coup.
+   Les videos ne se chargent qu'a l'approche de la section, et chaque visage
+   demarre a un moment different pour que les cinq ne bougent jamais ensemble. */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var faces=[].slice.call(document.querySelectorAll('.faces .face[data-k]'));
+  if(!faces.length) return;
+  function start(){
+    faces.forEach(function(f,i){
+      var v=f.querySelector('video'); if(v.src) return;
+      v.addEventListener('loadeddata',function(){
+        var p=v.play(); if(p) p.catch(function(){});
+        f.classList.add('live');
+      },{once:true});
+      /* depart decale : #t= fait demarrer chaque visage a un autre moment de sa boucle */
+      v.preload='auto'; v.src=v.dataset.face+'#t='+(i*1.37).toFixed(2); v.load();
+    });
+  }
+  var io=new IntersectionObserver(function(es){ if(es.some(function(e){return e.isIntersecting})){ io.disconnect(); start(); } },{rootMargin:'400px 0px'});
+  io.observe(document.querySelector('.faces'));
+})();
+
+/* --- motion : les cinq etapes ------------------------------------------------
+   Par defaut (3B) : les cartes partent d'une pile et se distribuent a leur place.
+   Apercu 3A (?how=a) : elles s'allument une a une au defilement et restent allumees. */
+(function(){
+  var ol=document.querySelector('#how .steps'); if(!ol) return;
+  var li=[].slice.call(ol.children);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(/[?&]how=a\b/.test(location.search)){
+    ol.classList.add('seq');
+    var tick=function(){
+      var r=ol.getBoundingClientRect(),vh=innerHeight;
+      var p=Math.max(0,Math.min(1,(vh*0.82-r.top)/(r.height+vh*0.35)));
+      li.forEach(function(l,i){ if(p>(i+0.35)/5.4 && !l.classList.contains('on')) l.classList.add('on','run'); });
+      if(li.some(function(l){return !l.classList.contains('on')})) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    return;
+  }
+  ol.classList.add('dealt');
+  function stack(){
+    var g=ol.getBoundingClientRect(),cx=g.left+g.width/2,cy=g.top+g.height/2;
+    li.forEach(function(l,i){
+      var r=l.getBoundingClientRect();
+      l.style.transition='none';l.style.opacity='0';
+      l.style.transform='translate('+(cx-(r.left+r.width/2))+'px,'+(cy-(r.top+r.height/2)+60)+'px) rotate('+((i-2)*5)+'deg) scale(.86)';
+    });
+  }
+  stack();
+  new IntersectionObserver(function(es,o){ if(!es[0].isIntersecting) return; o.disconnect();
+    li.forEach(function(l,i){ setTimeout(function(){ l.style.transition='';l.style.opacity='';l.style.transform='';l.classList.add('run'); },200+i*170); });
+  },{threshold:.3}).observe(ol);
+})();
+</script>
 </body></html>
