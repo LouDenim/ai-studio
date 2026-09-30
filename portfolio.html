@@ -248,7 +248,7 @@ footer a:hover{color:var(--pink2)}
  .film .fr.idle .ctrl{opacity:0}
 }
 
-/* ---------- motion : titre Films / Reels / Stills, les mots sont des fenetres sur les films ---------- */
+/* ---------- motion : titre Films / Reels / Stills (le mot actif en rose) ---------- */
 .ptitle{padding:56px 40px 10px;text-align:center}
 .ptitle .k{display:block;margin-bottom:26px}
 .pwords{display:flex;align-items:flex-start;justify-content:center;gap:1.6vw;user-select:none;-webkit-user-select:none}
@@ -258,18 +258,11 @@ footer a:hover{color:var(--pink2)}
 .pwords .rise{display:block;position:relative;isolation:isolate;overflow:hidden;transform:translateY(105%);transition:transform 1.2s cubic-bezier(.16,.8,.14,1)}
 .pwords.in .rise{transform:none}
 .pwords.in .item:nth-child(3) .rise{transition-delay:.16s}.pwords.in .item:nth-child(5) .rise{transition-delay:.32s}
-.pwords .rise video,.pwords .rise img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.4s .9s}
-.pwords.in .rise video,.pwords.in .rise img{opacity:1}
-.pwords .rise img{animation:ppan 16s ease-in-out infinite alternate}
-@keyframes ppan{from{transform:scale(1.15) translate(-4%,3%)}to{transform:scale(1.15) translate(4%,-3%)}}
-/* le texte clair laisse voir le film ; le fond redevient exactement la couleur de la page */
-.pwords .ink{position:relative;display:block;background:#08080a;color:#fff;mix-blend-mode:multiply;
- font-weight:800;font-size:clamp(54px,10.4vw,172px);letter-spacing:-.045em;transition:color .5s}
-.pwords .rise:after{content:'';position:absolute;inset:0;background:#08080a;mix-blend-mode:lighten;pointer-events:none}
-/* mots inactifs : nettement visibles (on doit comprendre qu'on peut cliquer), le mot actif en plein */
-.pwords .word:not(.act) .ink{color:#9c9ca8}
-.pwords .word:not(.act):hover .ink{color:#d6d6de}
-.pwords .amp{font-weight:200;font-size:clamp(40px,7vw,116px);color:var(--pink2);line-height:1.05;transform:scale(0) rotate(-120deg);transition:transform 1s cubic-bezier(.2,1.5,.4,1) .55s}
+/* le texte des mots : blanc, le mot actif en rose (comme le mot rose de chaque titre du site) */
+.pwords .ink{position:relative;display:block;color:#fff;font-weight:800;font-size:clamp(54px,10.4vw,172px);letter-spacing:-.045em;transition:color .45s}
+.pwords .word.act .ink{color:var(--pink2)}
+.pwords .word:not(.act):hover .ink{color:#ffd7ec}
+.pwords .amp{font-weight:200;font-size:clamp(40px,7vw,116px);color:#4a4a52;line-height:1.05;transform:scale(0) rotate(-120deg);transition:transform 1s cubic-bezier(.2,1.5,.4,1) .55s}
 .pwords .amp.b{transition-delay:.72s}
 .pwords.in .amp{transform:none}
 .pwords .lab2{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8d8d95;opacity:0;transition:opacity .8s 1.3s,color .3s}
@@ -308,7 +301,7 @@ footer a:hover{color:var(--pink2)}
  .pwords .amp,.pwords .lab2{display:none}
  .vseq{grid-template-columns:repeat(2,1fr);gap:10px!important;padding:0 18px!important}
 }
-@media(prefers-reduced-motion:reduce){.pwords .rise{transform:none;transition:none}.pwords .rise video,.pwords .rise img{opacity:1;transition:none;animation:none}}
+@media(prefers-reduced-motion:reduce){.pwords .rise{transform:none;transition:none}}
 </style></head><body>
 <header>
   <div class="hbar">
@@ -324,11 +317,11 @@ footer a:hover{color:var(--pink2)}
 <div class="ptitle" id="ptitle">
   <span class="k">Client &middot; Spec &middot; Concours</span>
   <div class="pwords" id="pwords">
-    <div class="item"><button class="word act" data-v="films"><span class="rise"><video src="https://ai.loudenim.com/videos/m/out-of-the-office.mp4" muted loop playsinline autoplay preload="auto"></video><span class="ink">Films</span></span></button><span class="lab2 act" data-v="films">Paysage &middot; 16:9</span></div>
+    <div class="item"><button class="word act" data-v="films"><span class="rise"><span class="ink">Films</span></span></button><span class="lab2 act" data-v="films">Paysage &middot; 16:9</span></div>
     <span class="amp">/</span>
-    <div class="item"><button class="word" data-v="reels"><span class="rise"><video src="https://ai.loudenim.com/videos/m/omega-6.mp4" muted loop playsinline autoplay preload="auto"></video><span class="ink">Reels</span></span></button><span class="lab2" data-v="reels">Vertical &middot; 9:16</span></div>
+    <div class="item"><button class="word" data-v="reels"><span class="rise"><span class="ink">Reels</span></span></button><span class="lab2" data-v="reels">Vertical &middot; 9:16</span></div>
     <span class="amp b">/</span>
-    <div class="item"><button class="word" data-v="stills"><span class="rise"><img src="https://ai.loudenim.com/img/photos/photo-06.jpg" alt=""><span class="ink">Images</span></span></button><span class="lab2" data-v="stills">Photographie</span></div>
+    <div class="item"><button class="word" data-v="stills"><span class="rise"><span class="ink">Images</span></span></button><span class="lab2" data-v="stills">Photographie</span></div>
   </div>
 </div>
 
@@ -1055,7 +1048,6 @@ footer a:hover{color:var(--pink2)}
   });
   var h=location.hash.replace('#','');
   if(h==='reels') pick('reels'); if(h==='stills'||h==='images') pick('stills');
-  words.querySelectorAll('video').forEach(function(v){var p=v.play();if(p)p.catch(function(){});});
   requestAnimationFrame(function(){setTimeout(function(){words.classList.add('in');},150);});
 })();
 </script>
