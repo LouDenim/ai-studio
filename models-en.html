@@ -242,28 +242,6 @@ footer a:hover{color:var(--pink2)}
 .card .hud .id span i{font-style:normal;color:var(--pink2)}
 .card.scan .hud .id b{opacity:1;transform:none}
 .card.scan .hud .id span{max-width:100%}
-/* ---------- motion : un visage, quatre campagnes ---------- */
-.consist{max-width:1300px;margin:0 auto;padding:10px 0 70px}
-.consist .ch{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:14px}
-.consist .ch h2{font-size:clamp(22px,2.4vw,32px);font-weight:600;letter-spacing:-.02em}
-.consist .ch h2 span{color:var(--pink2)}
-.consist .ch p{font-size:13.5px;font-weight:300;color:#a8a8b1}
-.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.flip{position:relative;cursor:pointer}
-.flip .st{position:relative;overflow:hidden;aspect-ratio:3/4;background:#111}
-.flip .st img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%;opacity:0;transform:scale(1.06);transition:opacity .5s ease,transform 1.6s cubic-bezier(.2,.7,.2,1)}
-.flip .st img.on{opacity:1;transform:scale(1)}
-.flip .bar{position:absolute;left:0;right:0;top:0;display:flex;gap:4px;padding:10px;z-index:2}
-.flip .bar i{flex:1;height:2px;background:rgba(255,255,255,.28);position:relative;overflow:hidden}
-.flip .bar i:after{content:'';position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
-.flip .bar i.done:after{transform:scaleX(1)}
-.flip .bar i.run:after{transform:scaleX(1);transition:transform var(--dur,1.4s) linear}
-.flip .cnt{position:absolute;right:10px;bottom:10px;z-index:2;font:500 10px 'JetBrains Mono',monospace;letter-spacing:.16em;background:rgba(8,8,10,.7);padding:4px 7px;color:#fff}
-.flip .cnt b{color:var(--pink2);font-weight:500}
-.flip .lb2{margin-top:10px;display:flex;justify-content:space-between;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-.flip .lb2 b{color:#fff;font-weight:500}
-.flip:hover .lb2 b{color:var(--pink2)}
-@media(max-width:900px){.consist{padding:0 18px 50px}.consist .ch{flex-direction:column;gap:6px}.cgrid{grid-template-columns:repeat(2,1fr);gap:10px}}
 @media(prefers-reduced-motion:reduce){.card .hud{display:none}}
 </style>
 </head><body>
@@ -475,11 +453,10 @@ addEventListener('keydown',e=>{
    1. Au survol d'un visage : ligne de scan, cadre qui se verrouille sur le visage,
       puis une fiche courte (prenom, taille, yeux, age quand on l'a). Donnees = STATS.
       Sur telephone : le scan part une fois quand la carte passe au milieu de l'ecran.
-   2. Un visage, quatre campagnes : les quatre histoires de LOOKS, jouees comme des
-      stories au survol (a l'ecran sur telephone). Un clic ouvre la fiche du modele. */
+   (Le bandeau Un visage, quatre campagnes a ete retire : la page va droit aux modeles.) */
 (function(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var T={age:' yrs', eyes:function(e){return e+' eyes';}, h2:'One face. <span>Four campaigns.</span>', p:'The same model, from one campaign to the next. Hover to play the story.'};
+  var T={age:' yrs', eyes:function(e){return e+' eyes';}};
   function slugOf(c){var m=(c.getAttribute('onclick')||'').match(/openLB\('([^']+)'\)/);return m?m[1]:null;}
   function line(st){
     var p=[]; if(st.age) p.push(st.age+T.age); if(st.h) p.push(tall(st.h));
@@ -505,31 +482,6 @@ addEventListener('keydown',e=>{
     cards.forEach(function(c){io.observe(c);});
   }
 
-  /* 2 */
-  var ORDER=['femmes-alex','hommes-mathias','femmes-meg','femmes-ella'];
-  var sec=document.createElement('section');sec.className='consist';
-  sec.innerHTML='<div class="ch"><h2>'+T.h2+'</h2><p>'+T.p+'</p></div><div class="cgrid"></div>';
-  var first=document.getElementById('femmes'); first.parentNode.insertBefore(sec,first);
-  var grid=sec.querySelector('.cgrid'), DUR=1400;
-  ORDER.forEach(function(slug){
-    var L=LOOKS[slug], m=FLAT.find(function(x){return x.slug===slug;}); if(!L||!m) return;
-    var f=document.createElement('div');f.className='flip';
-    f.innerHTML='<div class="st">'+L.imgs.map(function(u){return '<img loading="lazy" draggable="false" alt="'+m.name+'" src="'+SRC(u)+'">';}).join('')+
-      '<div class="bar">'+L.imgs.map(function(){return '<i></i>';}).join('')+'</div><div class="cnt"></div></div>'+
-      '<div class="lb2"><b>'+m.name+'</b><span>'+L.titre+'</span></div>';
-    grid.appendChild(f);
-    var imgs=[].slice.call(f.querySelectorAll('.st img')),ticks=[].slice.call(f.querySelectorAll('.bar i')),cnt=f.querySelector('.cnt'),k=0,timer=null;
-    function show(n){k=n;imgs.forEach(function(im,j){im.classList.toggle('on',j===n);});
-      ticks.forEach(function(t,j){t.className=j<n?'done':'';t.style.setProperty('--dur',DUR+'ms');});
-      void ticks[n].offsetWidth; if(timer) ticks[n].className='run';
-      cnt.innerHTML='<b>0'+(n+1)+'</b> / 0'+imgs.length;}
-    function play(){if(timer)return;timer=setInterval(function(){show((k+1)%imgs.length);},DUR);show(k);}
-    function stop(){clearInterval(timer);timer=null;show(k);}
-    show(0);
-    if(fine){f.addEventListener('mouseenter',play);f.addEventListener('mouseleave',stop);}
-    else new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?play():stop();});},{threshold:.6}).observe(f);
-    f.addEventListener('click',function(){openLB(slug);});
-  });
 })();
 </script>
 </body></html>
