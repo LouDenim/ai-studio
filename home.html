@@ -603,26 +603,30 @@ footer{}
 <!-- End Cloudflare Web Analytics -->
 <script>
 /* --- motion : les cinq visages vivants -------------------------------------
-   Chaque boucle commence et finit sur la photo : elle tourne sans a-coup.
-   Les videos ne se chargent qu'a l'approche de la section, et chaque visage
-   demarre a un moment different pour que les cinq ne bougent jamais ensemble. */
+   Chaque boucle commence et finit sur la photo, regard face a nous : elle tourne sans a-coup.
+   Quand la section apparait, les cinq sont d'abord droits comme sur les photos, puis
+   s'animent l'un apres l'autre : la femme et l'homme ensemble (elle lui fait un clin d'oeil),
+   puis l'ado, puis l'enfant et le grand-pere ensemble (ils se tournent l'un vers l'autre et rient).
+   Les videos se chargent a l'approche de la section ; les departs partent quand elle est a l'ecran. */
 (function(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var faces=[].slice.call(document.querySelectorAll('.faces .face[data-k]'));
   if(!faces.length) return;
-  function start(){
-    faces.forEach(function(f,i){
+  var DELAY={femmes:.6,hommes:.6,ados:2.2,enfants:3.8,seniors:3.8};
+  var shown=false, ready={};
+  function go(f){ var v=f.querySelector('video'); setTimeout(function(){ var p=v.play(); if(p) p.catch(function(){}); },(DELAY[f.dataset.k]||0)*1000); }
+  function load(){
+    faces.forEach(function(f){
       var v=f.querySelector('video'); if(v.src) return;
-      v.addEventListener('loadeddata',function(){
-        var p=v.play(); if(p) p.catch(function(){});
-        f.classList.add('live');
-      },{once:true});
-      /* depart decale : #t= fait demarrer chaque visage a un autre moment de sa boucle */
-      v.preload='auto'; v.src=v.dataset.face+'#t='+(i*1.37).toFixed(2); v.load();
+      v.addEventListener('loadeddata',function(){ f.classList.add('live'); ready[f.dataset.k]=true; if(shown) go(f); },{once:true});
+      v.preload='auto'; v.src=v.dataset.face; v.load();
     });
   }
-  var io=new IntersectionObserver(function(es){ if(es.some(function(e){return e.isIntersecting})){ io.disconnect(); start(); } },{rootMargin:'400px 0px'});
-  io.observe(document.querySelector('.faces'));
+  var near=new IntersectionObserver(function(es){ if(es.some(function(e){return e.isIntersecting})){ near.disconnect(); load(); } },{rootMargin:'400px 0px'});
+  near.observe(document.querySelector('.faces'));
+  var seen=new IntersectionObserver(function(es){ if(es.some(function(e){return e.isIntersecting})){ seen.disconnect(); shown=true;
+    faces.forEach(function(f){ if(ready[f.dataset.k]) go(f); }); } },{threshold:.35});
+  seen.observe(document.querySelector('.faces'));
 })();
 
 /* --- motion : les cinq etapes ------------------------------------------------
