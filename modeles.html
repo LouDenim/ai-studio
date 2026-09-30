@@ -392,6 +392,10 @@ function render(){
   if(fl){ var v=document.querySelector('#lb-imgs .rbox.film video'); v.muted=true; v.play().catch(function(){}); }
   document.getElementById('lb').scrollTop=0;
 }
+/* clic sur le fond de la fiche (hors visage, film, planche) : on ferme */
+document.getElementById('lb').addEventListener('click',function(e){
+  if(e.target===this || e.target.classList.contains('inner')) closeLB();
+});
 addEventListener('keydown',e=>{
   if(!document.getElementById('lb').classList.contains('on'))return;
   if(e.key==='Escape')closeLB();
