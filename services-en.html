@@ -227,54 +227,102 @@ footer a:hover{color:var(--pink2)}
 <!-- End Cloudflare Web Analytics -->
 <script>
 /* --- motion : les trois cartes ----------------------------------------------
-   Au survol (ordinateur) : la carte s'incline vers la souris et un fond s'anime :
-   1 = diaporama de photos de mode, 2 = tableau de prix qui defile, 3 = Just Be Cool.
-   Sur telephone (pas de survol) : le fond s'anime quand la carte est a l'ecran. */
+   Au survol (ordinateur), la carte s'incline vers la souris et un motion design
+   s'anime dans le bandeau du milieu, sous le texte :
+   1 = le menu (ce que je fais defile comme une machine a sous),
+   2 = le tableau de prix (le total roule d'une estimation a l'autre),
+   3 = le brief qui se remplit tout seul.
+   Sur telephone (pas de survol), l'animation part quand la carte est a l'ecran. */
 (function(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
   var cards=[].slice.call(document.querySelectorAll('.steps .step'));
   if(cards.length!==3) return;
-  var SLIDES=["img/models/mathias-01.jpg", "img/models/meg-01.jpg", "img/photos/photo-15.jpg", "img/models/ella-03.jpg", "img/models/mathias-02.jpg", "img/models/meg-02.jpg", "img/photos/photo-17.jpg", "img/models/ella-01.jpg"];
-  function bg(card,html,cls){var d=document.createElement('span');d.className='bg '+(cls||'');d.innerHTML=html;card.insertBefore(d,card.firstChild);
-    var g=document.createElement('span');g.className='glare';card.insertBefore(g,d.nextSibling);return d;}
-  // 1 : diaporama
-  var s=bg(cards[0],SLIDES.map(function(u){return '<img alt="" src="'+u+'" loading="lazy">'}).join(''),'slides');
-  var imgs=[].slice.call(s.querySelectorAll('img')),si=0,st=null;
-  // 2 : tableau de prix
-  var c=bg(cards[1],'<canvas></canvas>','num'),cv=c.querySelector('canvas'),cx=cv.getContext('2d'),numOn=false,numRaf=null;
-  // 3 : Just Be Cool
-  var j=bg(cards[2],'<video muted loop playsinline preload="none"></video>'),vid=j.querySelector('video');
+  var L={"pre": "£", "suf": "", "sep": ",", "pc": "%", "s": "s", "est": "ESTIMATE · EXCL. VAT", "menu": ["Product reveal", "UGC", "Storytelling", "Reels & Stories", "Promos & launches", "Product photos", "Campaign visuals", "Advertising", "Editorial", "Lifestyle", "Multi-format", "Voice & music"], "fields": ["BRAND", "AUDIENCE", "GOAL", "FORMAT", "DEADLINE"], "sent": "✓ BRIEF SENT", "briefs": [["Tropical juice brand", "18–34, Caribbean", "Launch the mango flavour", "20s · 9:16 + 1:1", "3 weeks"], ["Boutique hotel, Guadeloupe", "Couples, Europe", "Fill the low season", "30s · 16:9", "End of month"], ["Sneaker label", "Gen Z", "Drop-day hype", "15s · 9:16 × 3", "10 days"]]};
+  var DPR=Math.min(2,devicePixelRatio||1);
+  function fmt(n){return (n>=1000?Math.floor(n/1000)+L.sep+('00'+(n%1000)).slice(-3):''+n);}
+  function money(n){return L.pre+fmt(n)+L.suf;}
 
-  var CUR='£',LABEL='ESTIMATE · EXCL. VAT',SEP=',';
-  function fmt(n){return (n>=1000?Math.floor(n/1000)+SEP+('00'+(n%1000)).slice(-3):''+n);}
-  var VALS=[CUR+'300',CUR+'400',CUR+'600',CUR+'350',CUR+'450',CUR+'700',CUR+'500',CUR+'800','+150','+75','+50','+100','+200','+300','+25%','+50%','+40%','15s','20s','30s','40s','50s','1080p','4K',CUR+'150',CUR+'1'+SEP+'000'];
-  var TOT=[300,450,750,1050,1200,875,600,1350],ti=0,shown=300,target=300,last=0,cols=[],W=0,H=0,DPR=Math.min(2,devicePixelRatio||1);
-  function size(){var r=cards[1].getBoundingClientRect();W=r.width;H=r.height;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0);
-    cols=[];var n=Math.max(4,Math.round(W/62));
-    for(var i=0;i<n;i++){var it=[];for(var k=0;k<14;k++)it.push({t:VALS[(Math.random()*VALS.length)|0],hot:Math.random()<.07});cols.push({x:(i+.5)*W/n,off:Math.random()*400,sp:.14+Math.random()*.28,items:it});}}
-  function draw(now){
-    if(!numOn){numRaf=null;return;}
-    cx.clearRect(0,0,W,H);cx.textAlign='center';cx.textBaseline='middle';var LH=28;
-    cx.font='500 11px "JetBrains Mono", monospace';
+  function scene(card,draw){
+    var d=document.createElement('span');d.className='bg num';d.innerHTML='<canvas></canvas>';card.insertBefore(d,card.firstChild);
+    var g=document.createElement('span');g.className='glare';card.insertBefore(g,d.nextSibling);
+    var cv=d.querySelector('canvas'),cx=cv.getContext('2d'),S={on:false,raf:null,W:0,H:0,t0:0};
+    S.size=function(){var r=card.getBoundingClientRect();S.W=r.width;S.H=r.height;cv.width=S.W*DPR;cv.height=S.H*DPR;cx.setTransform(DPR,0,0,DPR,0,0);if(S.init)S.init();};
+    function loop(now){ if(!S.on){S.raf=null;return;} cx.clearRect(0,0,S.W,S.H); draw(cx,S,now); S.raf=requestAnimationFrame(loop); }
+    S.start=function(){S.on=true;S.size();if(!S.t0)S.t0=performance.now();if(!S.raf)S.raf=requestAnimationFrame(loop);};
+    S.stop=function(){S.on=false;};
+    return S;
+  }
+
+  // 1 : le menu
+  var menu=scene(cards[0],function(cx,S,now){
+    var W=S.W,H=S.H,y0=H*0.64,RH=46,n=L.menu.length;
+    var step=(now-S.t0)/1500,k=Math.floor(step),f=step-k;
+    var e=f<0.72?0:(f-0.72)/0.28; e=e*e*(3-2*e);          // pause, puis glisse vers la ligne suivante
+    var pos=k+e;
+    cx.textAlign='center';cx.textBaseline='middle';
+    for(var i=-4;i<=4;i++){
+      var idx=((Math.floor(pos)+i)%n+n)%n, y=y0+(i-(pos-Math.floor(pos)))*RH, dist=Math.abs(y-y0)/RH;
+      if(y<H*0.53||y>H*0.86) continue;
+      var a=Math.max(0,1-dist*0.42), big=dist<0.5;
+      cx.font=(big?'700 ':'600 ')+(big?32:26)+'px Jost, sans-serif';
+      cx.fillStyle=big?'rgba(255,127,192,'+a+')':'rgba(230,230,236,'+(a*0.45)+')';
+      cx.fillText(L.menu[idx],W/2,y);
+    }
+    cx.strokeStyle='rgba(255,127,192,.35)';cx.lineWidth=1;
+    cx.beginPath();cx.moveTo(W*0.18,y0-RH/2);cx.lineTo(W*0.82,y0-RH/2);cx.moveTo(W*0.18,y0+RH/2);cx.lineTo(W*0.82,y0+RH/2);cx.stroke();
+  });
+
+  // 2 : le tableau de prix
+  var VALS=[];[300,400,600,350,450,700,500,800,150,1000].forEach(function(v){VALS.push(money(v));});
+  VALS=VALS.concat(['+150','+75','+50','+100','+200','+300','+25'+L.pc,'+50'+L.pc,'+40'+L.pc,'15'+L.s,'20'+L.s,'30'+L.s,'40'+L.s,'50'+L.s,'1080p','4K']);
+  var TOT=[300,450,750,1050,1200,875,600,1350],ti=0,shown=300,target=300,last=0,cols=[];
+  var num=scene(cards[1],function(cx,S,now){
+    var W=S.W,H=S.H,LH=28;
+    cx.textAlign='center';cx.textBaseline='middle';cx.font='500 11px "JetBrains Mono", monospace';
     cols.forEach(function(col){col.off+=col.sp;var tot=col.items.length*LH;
       col.items.forEach(function(it,k){var y=((k*LH-col.off)%tot+tot)%tot-LH;var f=Math.min(1,Math.max(0,(y+LH)/90))*0.9;
         cx.fillStyle=it.hot?'rgba(255,127,192,'+(f*.95)+')':'rgba(200,200,210,'+(f*.22)+')';cx.fillText(it.t,col.x,y);
         if(y<-LH+2&&Math.random()<.3){it.t=VALS[(Math.random()*VALS.length)|0];it.hot=Math.random()<.07;}});});
     if(now-last>2600){last=now;ti=(ti+1)%TOT.length;target=TOT[ti];}
     shown+=(target-shown)*0.06;if(Math.abs(target-shown)<.5)shown=target;
-    var txt=CUR+fmt(Math.round(shown)),fs=Math.min(W*0.19,80),y0=H*0.61;
-    cx.font='700 '+fs+'px Jost, sans-serif';cx.fillStyle='rgba(8,8,10,.55)';cx.fillRect(0,y0-fs*0.62,W,fs*1.24);
-    cx.fillStyle='#fff';cx.fillText(txt,W/2,y0);
-    cx.font='500 9.5px "JetBrains Mono", monospace';cx.fillStyle='rgba(255,127,192,.9)';cx.fillText(LABEL,W/2,y0+fs*0.62+10);
-    numRaf=requestAnimationFrame(draw);
-  }
-  function wake(i,on){
-    var card=cards[i];card.classList.toggle('show',on);
-    if(i===0){ if(on&&!st){imgs[si].classList.add('on');st=setInterval(function(){imgs[si].classList.remove('on');si=(si+1)%imgs.length;imgs[si].classList.add('on');},1300);} if(!on&&st){clearInterval(st);st=null;} }
-    if(i===1){ numOn=on; if(on){size(); if(!numRaf) numRaf=requestAnimationFrame(draw);} }
-    if(i===2){ if(on){ if(!vid.src){vid.preload='auto';vid.src='videos/services/just-be-cool.mp4';} var p=vid.play(); if(p)p.catch(function(){}); } else vid.pause(); }
-  }
+    var fs=Math.min(W*0.19,80),y0=H*0.61;
+    cx.fillStyle='rgba(8,8,10,.55)';cx.fillRect(0,y0-fs*0.62,W,fs*1.24);
+    cx.font='700 '+fs+'px Jost, sans-serif';cx.fillStyle='#fff';cx.fillText(money(Math.round(shown)),W/2,y0);
+    cx.font='500 9.5px "JetBrains Mono", monospace';cx.fillStyle='rgba(255,127,192,.9)';cx.fillText(L.est,W/2,y0+fs*0.62+10);
+  });
+  num.init=function(){cols=[];var n=Math.max(4,Math.round(num.W/62));
+    for(var i=0;i<n;i++){var it=[];for(var k=0;k<14;k++)it.push({t:VALS[(Math.random()*VALS.length)|0],hot:Math.random()<.07});cols.push({x:(i+.5)*num.W/n,off:Math.random()*400,sp:.14+Math.random()*.28,items:it});}};
+
+  // 3 : le brief qui se remplit
+  var bi=0,bStart=0;
+  var brief=scene(cards[2],function(cx,S,now){
+    var W=S.W,H=S.H,x0=26,y0=H*0.47,LH=27,CH=34;                   // CH : vitesse de frappe (car./s)
+    if(!bStart)bStart=now;
+    var b=L.briefs[bi],t=(now-bStart)/1000,typed=t*CH,used=0,done=true;
+    cx.textBaseline='middle';cx.textAlign='left';
+    for(var r=0;r<L.fields.length;r++){
+      var y=y0+r*LH, val=b[r], show=Math.max(0,Math.min(val.length,typed-used));
+      cx.font='500 9.5px "JetBrains Mono", monospace';cx.fillStyle='rgba(160,160,170,.8)';cx.fillText(L.fields[r],x0,y);
+      cx.font='500 12.5px "JetBrains Mono", monospace';cx.fillStyle='#f2f2f5';
+      var s=val.slice(0,Math.floor(show));cx.fillText(s,x0+96,y);
+      if(show<val.length){done=false; if(Math.floor(now/400)%2===0){var w=cx.measureText(s).width;cx.fillStyle='#ff7fc0';cx.fillRect(x0+96+w+2,y-8,7,16);} break;}
+      used+=val.length+6;
+      cx.strokeStyle='rgba(255,255,255,.08)';cx.beginPath();cx.moveTo(x0,y+LH/2);cx.lineTo(W-x0,y+LH/2);cx.stroke();
+    }
+    if(done){
+      var since=t-(used/CH);
+      if(since>0.3){ var a=Math.min(1,(since-0.3)*3);
+        cx.save();cx.translate(W-x0-4,y0+LH*L.fields.length-4);cx.rotate(-0.08);
+        cx.font='600 12px "JetBrains Mono", monospace';cx.textAlign='right';
+        cx.strokeStyle='rgba(255,127,192,'+a+')';cx.fillStyle='rgba(255,127,192,'+a+')';
+        var tw=cx.measureText(L.sent).width;cx.lineWidth=1.5;cx.strokeRect(-tw-14,-14,tw+20,26);cx.fillText(L.sent,-4,0);cx.restore(); }
+      if(since>2.2){bi=(bi+1)%L.briefs.length;bStart=now;}
+    }
+  });
+
+  var S3=[menu,num,brief];
+  function wake(i,on){cards[i].classList.toggle('show',on); on?S3[i].start():S3[i].stop();}
   cards.forEach(function(card,i){
     if(fine){
       card.addEventListener('mouseenter',function(){card.classList.add('tilt');wake(i,true);});
