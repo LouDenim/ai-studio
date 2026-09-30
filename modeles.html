@@ -148,6 +148,10 @@ footer a:hover{color:var(--pink2)}
  header .hbar>nav a.on{color:#fff}
  header .hbar>nav a.on:after{display:none}
 }
+
+/* ---------- film du mannequin : remplace la planche quand il existe ---------- */
+.lbref .rbox.film{position:relative;background:#000}
+.lbref .rbox.film video{width:100%;height:100%;display:block;object-fit:cover}
 </style>
 <style>
 /* --- fiche mannequin : mode en haut, fiche sur une ligne, reference en bas --- */
@@ -324,6 +328,22 @@ const LOOKS = {
     imgs:["img/models/ella-01.jpg","img/models/ella-03.jpg",
           "img/models/ella-04.jpg","img/models/ella-02.jpg"] }
 };
+/* Films des mannequins : quand un film existe, il remplace la planche de reference
+   dans la fiche et tourne en boucle, sans son, des l'ouverture. Les autres gardent leur planche. */
+/* un navigateur coupe une video muette quand l'onglet est cache : on la relance au retour */
+document.addEventListener('visibilitychange',function(){
+  if(document.hidden) return;
+  var v=document.querySelector('#lb.on .rbox.film video'); if(v && v.paused) v.play().catch(function(){});
+});
+const FILMS = {
+  "hommes-mike":    { titre:"Oakley",      src:"videos/models/mike-oakley.mp4",      poster:"img/models/mike-oakley-poster.jpg" },
+  "hommes-dave":    { titre:"Last Orders", src:"videos/models/last-orders-dave.mp4", poster:"img/models/last-orders-dave-poster.jpg" },
+  "femmes-cyndie":  { titre:"Milenis",     src:"videos/models/milenis-cyndie.mp4",   poster:"img/models/milenis-cyndie-poster.jpg" },
+  "enfants-lea":    { titre:"Milenis",     src:"videos/models/milenis.mp4",          poster:"img/models/milenis-poster.jpg" },
+  "hommes-bill":    { titre:"Perfectly Me", src:"videos/models/bill-perfectly-me.mp4", poster:"img/models/bill-perfectly-me-poster.jpg" },
+  "seniors-marise": { titre:"Maravilla",   src:"videos/models/marise-maravilla.mp4", poster:"img/models/marise-maravilla-poster.jpg" },
+  "hommes-simon":   { titre:"Saserq",      src:"videos/models/simon-saserq.mp4",     poster:"img/models/simon-saserq-poster.jpg" }
+};
 const FLAT = [{"slug": "femmes-agatha", "name": "Agatha", "section": "Femmes", "sheet": "img/m-femmes-agatha-sheet.jpg", "face": "img/m-femmes-agatha-face.jpg"}, {"slug": "femmes-alex", "name": "Alex", "section": "Femmes", "sheet": "img/m-femmes-alex-sheet.jpg", "face": "img/m-femmes-alex-face.jpg"}, {"slug": "femmes-alice", "name": "Alice", "section": "Femmes", "sheet": "img/m-femmes-alice-sheet.jpg", "face": "img/m-femmes-alice-face.jpg"}, {"slug": "femmes-cyndie", "name": "Cyndie", "section": "Femmes", "sheet": "img/m-femmes-cyndie-sheet.jpg", "face": "img/m-femmes-cyndie-face.jpg"}, {"slug": "femmes-ella", "name": "Ella", "section": "Femmes", "sheet": "img/m-femmes-ella-sheet.jpg", "face": "img/m-femmes-ella-lbface.jpg"}, {"slug": "femmes-eva", "name": "Eva", "section": "Femmes", "sheet": "img/m-femmes-eva-sheet.jpg", "face": "img/m-femmes-eva-face.jpg"}, {"slug": "femmes-ivanka", "name": "Ivanka", "section": "Femmes", "sheet": "img/m-femmes-ivanka-sheet.jpg", "face": "img/m-femmes-ivanka-lbface.jpg"}, {"slug": "femmes-joy", "name": "Joy", "section": "Femmes", "sheet": "img/m-femmes-joy-sheet.jpg", "face": "img/m-femmes-joy-face.jpg"}, {"slug": "femmes-kim", "name": "Kim", "section": "Femmes", "sheet": "img/m-femmes-kim-sheet.jpg", "face": "img/m-femmes-kim-face.jpg"}, {"slug": "femmes-laura", "name": "Laura", "section": "Femmes", "sheet": "img/m-femmes-laura-sheet.jpg", "face": "img/m-femmes-laura-lbface.jpg"}, {"slug": "femmes-malika", "name": "Malika", "section": "Femmes", "sheet": "img/m-femmes-malika-sheet.jpg", "face": "img/m-femmes-malika-face.jpg"}, {"slug": "femmes-meg", "name": "Meg", "section": "Femmes", "sheet": "img/m-femmes-meg-sheet.jpg", "face": "img/m-femmes-meg-lbface.jpg"}, {"slug": "femmes-rachel", "name": "Rachel", "section": "Femmes", "sheet": "img/m-femmes-rachel-sheet.jpg", "face": "img/m-femmes-rachel-lbface.jpg"}, {"slug": "femmes-stephy", "name": "Stephy", "section": "Femmes", "sheet": "img/m-femmes-stephy-sheet.jpg", "face": "img/m-femmes-stephy-lbface.jpg"}, {"slug": "femmes-suzanne", "name": "Suzanne", "section": "Femmes", "sheet": "img/m-femmes-suzanne-sheet.jpg", "face": "img/m-femmes-suzanne-face.jpg"}, {"slug": "femmes-tracy", "name": "Tracy", "section": "Femmes", "sheet": "img/m-femmes-tracy-sheet.jpg", "face": "img/m-femmes-tracy-face.jpg"}, {"slug": "hommes-ansel", "name": "Ansel", "section": "Hommes", "sheet": "img/m-hommes-ansel-sheet.jpg", "face": "img/m-hommes-ansel-face.jpg"}, {"slug": "hommes-bernard", "name": "Bernard", "section": "Hommes", "sheet": "img/m-hommes-bernard-sheet.jpg", "face": "img/m-hommes-bernard-face.jpg"}, {"slug": "hommes-bill", "name": "Bill", "section": "Hommes", "sheet": "img/m-hommes-bill-sheet.jpg", "face": "img/m-hommes-bill-face.jpg"}, {"slug": "hommes-chen", "name": "Chen", "section": "Hommes", "sheet": "img/m-hommes-chen-sheet.jpg", "face": "img/m-hommes-chen-face.jpg"}, {"slug": "hommes-daniel", "name": "Daniel", "section": "Hommes", "sheet": "img/m-hommes-daniel-sheet.jpg", "face": "img/m-hommes-daniel-face.jpg"}, {"slug": "hommes-dave", "name": "Dave", "section": "Hommes", "sheet": "img/m-hommes-dave-sheet.jpg", "face": "img/m-hommes-dave-face.jpg"}, {"slug": "hommes-franck", "name": "Franck", "section": "Hommes", "sheet": "img/m-hommes-franck-sheet.jpg", "face": "img/m-hommes-franck-face.jpg"}, {"slug": "hommes-jack", "name": "Jack", "section": "Hommes", "sheet": "img/m-hommes-jack-sheet.jpg", "face": "img/m-hommes-jack-face.jpg"}, {"slug": "hommes-jamie", "name": "Jamie", "section": "Hommes", "sheet": "img/m-hommes-jamie-sheet.jpg", "face": "img/m-hommes-jamie-face.jpg"}, {"slug": "hommes-joe", "name": "Joe", "section": "Hommes", "sheet": "img/m-hommes-joe-sheet.jpg", "face": "img/m-hommes-joe-face.jpg"}, {"slug": "hommes-john", "name": "John", "section": "Hommes", "sheet": "img/m-hommes-john-sheet.jpg", "face": "img/m-hommes-john-face.jpg"}, {"slug": "hommes-marc", "name": "Marc", "section": "Hommes", "sheet": "img/m-hommes-marc-sheet.jpg", "face": "img/m-hommes-marc-face.jpg"}, {"slug": "hommes-mathias", "name": "Mathias", "section": "Hommes", "sheet": "img/m-hommes-mathias-sheet.jpg", "face": "img/m-hommes-mathias-face.jpg"}, {"slug": "hommes-mike", "name": "Mike", "section": "Hommes", "sheet": "img/m-hommes-mike-sheet.jpg", "face": "img/m-hommes-mike-face.jpg"}, {"slug": "hommes-simon", "name": "Simon", "section": "Hommes", "sheet": "img/m-hommes-simon-sheet.jpg", "face": "img/m-hommes-simon-face.jpg"}, {"slug": "hommes-tom", "name": "Tom", "section": "Hommes", "sheet": "img/m-hommes-tom-sheet.jpg", "face": "img/m-hommes-tom-face.jpg"}, {"slug": "ados-maeva", "name": "Maeva", "section": "Ados", "sheet": "img/m-ados-maeva-sheet.jpg", "face": "img/m-ados-maeva-face.jpg"}, {"slug": "ados-mathis", "name": "Mathis", "section": "Ados", "sheet": "img/m-ados-mathis-sheet.jpg", "face": "img/m-ados-mathis-face.jpg"}, {"slug": "ados-paul", "name": "Paul", "section": "Ados", "sheet": "img/m-ados-paul-sheet.jpg", "face": "img/m-ados-paul-lbface.jpg"}, {"slug": "ados-romy", "name": "Romy", "section": "Ados", "sheet": "img/m-ados-romy-sheet.jpg", "face": "img/m-ados-romy-face.jpg"}, {"slug": "ados-roy", "name": "Roy", "section": "Ados", "sheet": "img/m-ados-roy-sheet.jpg", "face": "img/m-ados-roy-face.jpg"}, {"slug": "ados-steeve", "name": "Steeve", "section": "Ados", "sheet": "img/m-ados-steeve-sheet.jpg", "face": "img/m-ados-steeve-face.jpg"}, {"slug": "enfants-billy", "name": "Billy", "section": "Enfants", "sheet": "img/m-enfants-billy-sheet.jpg", "face": "img/m-enfants-billy-face.jpg"}, {"slug": "enfants-jean", "name": "Jean", "section": "Enfants", "sheet": "img/m-enfants-jean-sheet.jpg", "face": "img/m-enfants-jean-face.jpg"}, {"slug": "enfants-kevin", "name": "Kevin", "section": "Enfants", "sheet": "img/m-enfants-kevin-sheet.jpg", "face": "img/m-enfants-kevin-face.jpg"}, {"slug": "enfants-lauren", "name": "Lauren", "section": "Enfants", "sheet": "img/m-enfants-lauren-sheet.jpg", "face": "img/m-enfants-lauren-face.jpg"}, {"slug": "enfants-lea", "name": "Lea", "section": "Enfants", "sheet": "img/m-enfants-lea-sheet.jpg", "face": "img/m-enfants-lea-face.jpg"}, {"slug": "enfants-rosie", "name": "Rosie", "section": "Enfants", "sheet": "img/m-enfants-rosie-sheet.jpg", "face": "img/m-enfants-rosie-face.jpg"}, {"slug": "seniors-anita", "name": "Anita", "section": "Seniors", "sheet": "img/m-seniors-anita-sheet.jpg", "face": "img/m-seniors-anita-face.jpg"}, {"slug": "seniors-claude", "name": "Claude", "section": "Seniors", "sheet": "img/m-seniors-claude-sheet.jpg", "face": "img/m-seniors-claude-face.jpg"}, {"slug": "seniors-clive", "name": "Clive", "section": "Seniors", "sheet": "img/m-seniors-clive-sheet.jpg", "face": "img/m-seniors-clive-face.jpg"}, {"slug": "seniors-juliette", "name": "Juliette", "section": "Seniors", "sheet": "img/m-seniors-juliette-sheet.jpg", "face": "img/m-seniors-juliette-face.jpg"}, {"slug": "seniors-marise", "name": "Marise", "section": "Seniors", "sheet": "img/m-seniors-marise-sheet.jpg", "face": "img/m-seniors-marise-face.jpg"}, {"slug": "seniors-philippe", "name": "Philippe", "section": "Seniors", "sheet": "img/m-seniors-philippe-sheet.jpg", "face": "img/m-seniors-philippe-face.jpg"}];
 (function(){var e=document.getElementById('kcount');if(!e)return;var s={};FLAT.forEach(function(m){s[m.section]=1});e.textContent=FLAT.length+' visages \u00b7 '+Object.keys(s).length+' catégories';})();
 
@@ -339,7 +359,7 @@ function openLB(slug){
   render(); document.getElementById('lb').classList.add('on');
   document.body.style.overflow='hidden';
 }
-function closeLB(){document.getElementById('lb').classList.remove('on');document.body.style.overflow='';}
+function closeLB(){document.querySelectorAll('#lb video').forEach(function(v){v.pause()});document.getElementById('lb').classList.remove('on');document.body.style.overflow='';}
 function stepLB(d){cur=(cur+d+FLAT.length)%FLAT.length;render();}
 function render(){
   const m=FLAT[cur];
@@ -361,12 +381,16 @@ function render(){
       return '<div class="f'+(f[2]?' wide':'')+'"><span class="lab">'+f[0]+
              '</span><span class="val">'+f[1]+'</span></div>';
     }).join('')+'</div>';
+  var fl=FILMS[m.slug];
   var refHTML='<div class="lbref">'+
       '<div><div class="rlab">Visage</div><div class="rbox face">'+
         '<img src="'+SRC(m.face)+'" alt="'+m.name+'"></div></div>'+
-      '<div><div class="rlab">Planche de r\u00e9f\u00e9rence</div><div class="rbox sheet">'+
-        '<img src="'+SRC(m.sheet)+'" alt="'+m.name+'"></div></div></div>';
+      (fl ? '<div><div class="rlab">Film \u00b7 '+fl.titre+'</div><div class="rbox sheet film">'+
+        '<video src="'+SRC(fl.src)+'" poster="'+SRC(fl.poster)+'" muted playsinline loop preload="auto"></video></div>'+
+        '<div class="rlab" style="margin-top:22px">Planche de r\u00e9f\u00e9rence</div><div class="rbox sheet"><img src="'+SRC(m.sheet)+'" alt="'+m.name+'"></div>'+'</div></div>' : '<div><div class="rlab">Planche de r\u00e9f\u00e9rence</div><div class="rbox sheet">'+
+        '<img src="'+SRC(m.sheet)+'" alt="'+m.name+'"></div></div></div>');
   document.getElementById('lb-imgs').innerHTML = scHTML + ftHTML + refHTML;
+  if(fl){ var v=document.querySelector('#lb-imgs .rbox.film video'); v.muted=true; v.play().catch(function(){}); }
   document.getElementById('lb').scrollTop=0;
 }
 addEventListener('keydown',e=>{
