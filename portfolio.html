@@ -275,13 +275,18 @@ footer a:hover{color:var(--pink2)}
 .pwords .lab2{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8d8d95;opacity:0;transition:opacity .8s 1.3s,color .3s}
 .pwords.in .lab2{opacity:1}
 .pwords .lab2.act{color:var(--pink2)}
-/* barre qui reprend le choix quand on descend */
-.pstick{position:fixed;top:calc(var(--navh,72px) + 10px);left:50%;transform:translate(-50%,-160px);z-index:70;display:flex;
- background:rgba(12,12,15,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
-.pstick.on{transform:translate(-50%,0)}
-.pstick button{background:none;border:0;color:#a8a8b2;font:600 14px 'Jost',sans-serif;letter-spacing:.02em;padding:10px 20px;cursor:pointer}
-.pstick button.act{color:#fff}
-.pstick i{position:absolute;bottom:-1px;height:2px;background:var(--pink);transition:left .45s cubic-bezier(.2,.8,.2,1),width .45s}
+/* le choix Films / Reels / Stills : du texte souligne de rose, jamais pose sur un film */
+.credits{position:relative}
+.pswitch{display:flex;gap:26px;justify-content:center;align-items:center}
+.pswitch button{position:relative;background:none;border:0;padding:6px 0;cursor:pointer;font:500 12px 'JetBrains Mono',monospace;
+ letter-spacing:.2em;text-transform:uppercase;color:#8d8d95;transition:color .25s}
+.pswitch button:hover{color:#fff}
+.pswitch button.act{color:#fff}
+.pswitch button:after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--pink);transform:scaleX(0);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.pswitch button.act:after{transform:scaleX(1)}
+.credits .pswitch{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.pview>.pswitch.end{padding:56px 0 20px}
+@media(max-width:1180px){.credits .pswitch{position:static;transform:none;grid-column:1/-1;justify-content:flex-start;margin-top:14px}}
 /* les trois vues */
 .pview[hidden]{display:none!important}
 .pview.swap{animation:pswap .7s cubic-bezier(.2,.8,.2,1)}
@@ -301,7 +306,6 @@ footer a:hover{color:var(--pink2)}
  .pwords .item{margin:-1vw 0}
  .pwords .ink{font-size:24vw}
  .pwords .amp,.pwords .lab2{display:none}
- .pstick button{padding:9px 14px;font-size:13px}
  .vseq{grid-template-columns:repeat(2,1fr);gap:10px!important;padding:0 18px!important}
 }
 @media(prefers-reduced-motion:reduce){.pwords .rise{transform:none;transition:none}.pwords .rise video,.pwords .rise img{opacity:1;transition:none;animation:none}}
@@ -327,7 +331,6 @@ footer a:hover{color:var(--pink2)}
     <div class="item"><button class="word" data-v="stills"><span class="rise"><img src="https://ai.loudenim.com/img/photos/photo-06.jpg" alt=""><span class="ink">Images</span></span></button><span class="lab2" data-v="stills">Photographie</span></div>
   </div>
 </div>
-<div class="pstick" id="pstick"><button data-v="films" class="act">Films</button><button data-v="reels">Reels</button><button data-v="stills">Images</button><i></i></div>
 
 <div class="pview" id="v-films">
 <article class="film">
@@ -1027,29 +1030,32 @@ footer a:hover{color:var(--pink2)}
 <!-- End Cloudflare Web Analytics -->
 <script>
 /* --- motion : Films / Reels / Stills ------------------------------------------
-   Les trois mots sont aussi les boutons : chacun affiche sa partie de la page.
-   Le mot actif est en plein, les deux autres restent lisibles. En descendant,
-   une petite barre reprend le choix en haut. #reels et #images ouvrent
-   directement la bonne partie (lien possible depuis le menu). */
+   Les trois mots du titre sont aussi les boutons : chacun affiche sa partie.
+   Le mot actif est en plein, les deux autres restent lisibles. Pour changer de
+   partie plus bas, le meme choix revient en texte souligne de rose : dans le
+   bandeau noir sous chaque film, et en bas des Reels et des Stills. Jamais pose
+   sur une image. #reels et #images ouvrent directement la bonne partie. */
 (function(){
   var words=document.getElementById('pwords'); if(!words) return;
-  var KEYS=['films','reels','stills'], cur='films', stick=document.getElementById('pstick'), ink=stick.querySelector('i');
-  function moveInk(){var b=stick.querySelector('button.act');if(!b)return;ink.style.left=b.offsetLeft+'px';ink.style.width=b.offsetWidth+'px';}
-  function pick(v,scroll){
+  var KEYS=['films','reels','stills'], NAMES=['Films','Reels','Images'], cur='films';
+  function sw(extra){var d=document.createElement('div');d.className='pswitch'+(extra?' '+extra:'');
+    d.innerHTML=KEYS.map(function(k,i){return '<button data-v="'+k+'"'+(k===cur?' class="act"':'')+'>'+NAMES[i]+'</button>';}).join('');return d;}
+  document.querySelectorAll('#v-films .credits').forEach(function(c){c.appendChild(sw());});
+  ['v-reels','v-stills'].forEach(function(id){document.getElementById(id).appendChild(sw('end'));});
+  function pick(v,fromBelow){
     if(KEYS.indexOf(v)<0||v===cur) return; cur=v;
-    document.querySelectorAll('.pwords [data-v],.pstick [data-v]').forEach(function(el){el.classList.toggle('act',el.dataset.v===v);});
+    document.querySelectorAll('.pwords [data-v],.pswitch [data-v]').forEach(function(el){el.classList.toggle('act',el.dataset.v===v);});
     KEYS.forEach(function(k){var s=document.getElementById('v-'+k);s.hidden=(k!==v);if(k===v){s.classList.remove('swap');void s.offsetWidth;s.classList.add('swap');}});
     history.replaceState(null,'','#'+(v==='stills'?'images':v));
-    moveInk();
-    if(scroll){var t=document.getElementById('v-'+v).getBoundingClientRect().top+scrollY-(stick.offsetHeight+90);if(scrollY>t)scrollTo({top:Math.max(0,t),behavior:'smooth'});}
+    if(fromBelow){var t=document.getElementById('ptitle');scrollTo({top:Math.max(0,t.getBoundingClientRect().top+scrollY+t.offsetHeight-60),behavior:'smooth'});}
   }
-  document.querySelectorAll('.pwords .word,.pstick button').forEach(function(el){el.addEventListener('click',function(){pick(el.dataset.v,el.tagName==='BUTTON'&&el.parentNode===stick);});});
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.pwords .word,.pswitch button'); if(!b) return;
+    pick(b.dataset.v,!!b.closest('.pswitch'));
+  });
   var h=location.hash.replace('#','');
   if(h==='reels') pick('reels'); if(h==='stills'||h==='images') pick('stills');
   words.querySelectorAll('video').forEach(function(v){var p=v.play();if(p)p.catch(function(){});});
-  var hdr=document.getElementById('ptitle');
-  function onScroll(){stick.classList.toggle('on',hdr.getBoundingClientRect().bottom<40);}
-  addEventListener('scroll',onScroll,{passive:true});onScroll();moveInk();addEventListener('resize',moveInk);
   requestAnimationFrame(function(){setTimeout(function(){words.classList.add('in');},150);});
 })();
 </script>
