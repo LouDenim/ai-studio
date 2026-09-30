@@ -612,7 +612,7 @@ footer{}
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var faces=[].slice.call(document.querySelectorAll('.faces .face[data-k]'));
   if(!faces.length) return;
-  var DELAY={femmes:.6,hommes:.6,ados:2.2,enfants:3.8,seniors:3.8};
+  var DELAY={femmes:.6,hommes:.6,ados:2.2,enfants:3.8,seniors:4.6};   /* le grand-pere repond a l enfant, un temps apres */
   var shown=false, ready={};
   function go(f){ var v=f.querySelector('video'); setTimeout(function(){ var p=v.play(); if(p) p.catch(function(){}); },(DELAY[f.dataset.k]||0)*1000); }
   function load(){

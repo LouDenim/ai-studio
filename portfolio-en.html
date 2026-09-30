@@ -253,21 +253,24 @@ footer a:hover{color:var(--pink2)}
 .ptitle .k{display:block;margin-bottom:26px}
 .pwords{display:flex;align-items:flex-start;justify-content:center;gap:1.6vw;user-select:none;-webkit-user-select:none}
 .pwords .item{display:flex;flex-direction:column;align-items:center}
-.pwords .word{position:relative;overflow:hidden;cursor:pointer;line-height:.86;padding:.02em .02em .06em;background:none;border:0;color:inherit;font:inherit}
+.pwords .word{position:relative;overflow:hidden;cursor:pointer;line-height:.86;padding:.12em .06em .1em;margin:-.1em -.04em -.04em;background:none;border:0;color:inherit;font:inherit}
 .pwords .word:focus-visible{outline:2px solid var(--pink2);outline-offset:6px}
-.pwords .rise{display:block;position:relative;isolation:isolate;overflow:hidden;transform:translateY(105%);transition:transform 1.2s cubic-bezier(.16,.8,.14,1)}
+.pwords .rise{display:block;position:relative;transform:translateY(105%);transition:transform 1.2s cubic-bezier(.16,.8,.14,1)}
 .pwords.in .rise{transform:none}
 .pwords.in .item:nth-child(3) .rise{transition-delay:.16s}.pwords.in .item:nth-child(5) .rise{transition-delay:.32s}
 /* le texte des mots : blanc, le mot actif en rose (comme le mot rose de chaque titre du site) */
 .pwords .ink{position:relative;display:block;color:#fff;font-weight:800;font-size:clamp(54px,10.4vw,172px);letter-spacing:-.045em;transition:color .45s}
-.pwords .word.act .ink{color:var(--pink2)}
-.pwords .word:not(.act):hover .ink{color:#ffd7ec}
+.pwords .ink{transition:color .45s,transform .45s cubic-bezier(.2,1.4,.4,1)}
+.pwords .word.act .ink{color:var(--pink)}
+/* survol : pas de couleur, le mot se souleve et grandit un peu */
+.pwords .word:not(.act):hover .ink{transform:translateY(-6px) scale(1.035)}
+.pwords .word:active .ink{transform:translateY(-2px) scale(.99)}
 .pwords .amp{font-weight:200;font-size:clamp(40px,7vw,116px);color:#4a4a52;line-height:1.05;transform:scale(0) rotate(-120deg);transition:transform 1s cubic-bezier(.2,1.5,.4,1) .55s}
 .pwords .amp.b{transition-delay:.72s}
 .pwords.in .amp{transform:none}
 .pwords .lab2{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8d8d95;opacity:0;transition:opacity .8s 1.3s,color .3s}
 .pwords.in .lab2{opacity:1}
-.pwords .lab2.act{color:var(--pink2)}
+.pwords .lab2.act{color:var(--pink)}
 /* le choix Films / Reels / Stills : du texte souligne de rose, jamais pose sur un film */
 .credits{position:relative}
 .pswitch{display:flex;gap:26px;justify-content:center;align-items:center}

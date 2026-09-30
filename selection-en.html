@@ -144,6 +144,19 @@ footer a:hover{color:var(--pink2)}
 .pagehead.pm>p{opacity:0;transform:translateY(8px);transition:opacity .8s ease .85s,transform .9s cubic-bezier(.2,.8,.2,1) .85s}
 .pagehead.pm.in>p{opacity:1;transform:none}
 .pagehead.pm .k .cur{display:inline-block;width:.55em;height:1em;margin-left:2px;vertical-align:-.12em;background:var(--pink2)}
+
+/* le mot rose arrive a part, apres une courte pause */
+.pagehead.pm h1 .tw.tp{overflow:visible}
+.pagehead.pm h1 .tw.tp>i{transform:translateX(.35em);opacity:0;filter:blur(10px);transition:transform .9s cubic-bezier(.2,1.3,.3,1),opacity .5s ease,filter .7s ease}
+.pagehead.pm.in h1 .tw.tp>i{transform:none;opacity:1;filter:none}
+.pagehead.pm h1 .sweep{position:relative}
+.pagehead.pm h1 .sweep:after{content:'';position:absolute;left:0;right:0;bottom:.02em;height:3px;background:var(--pink);transform:scaleX(0);transform-origin:left}
+.pagehead.pm.in h1 .sweep:after{animation:tsweep 1.4s cubic-bezier(.6,0,.2,1) var(--sd,1.2s) forwards}
+@keyframes tsweep{0%{transform:scaleX(0);opacity:1}45%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+/* option B (?title=b) : le mot rose se tape lettre par lettre */
+.pagehead.pm.tb h1 .tw.tp>i{transform:none;opacity:1;filter:none;transition:none}
+.pagehead h1 .tcur{display:inline-block;width:.08em;height:.8em;margin-left:.04em;vertical-align:-.02em;background:var(--pink);animation:tblink .5s steps(1) infinite}
+@keyframes tblink{50%{opacity:0}}
 </style></head><body>
 <header>
   <div class="hbar">
@@ -228,38 +241,61 @@ footer a:hover{color:var(--pink2)}
 <!-- End Cloudflare Web Analytics -->
 <script>
 /* --- motion : le titre de la page --------------------------------------------------
-   La petite ligne au-dessus du titre se tape toute seule (comme le brief de Services),
-   puis le titre monte mot par mot (meme mouvement que Films / Reels / Stills) et la
-   phrase de droite apparait. Une seule fois, a l'ouverture. */
+   La petite ligne au-dessus du titre se tape toute seule, puis le titre arrive en deux temps :
+   les mots blancs montent, courte pause, puis le mot rose arrive a part.
+   Option A (defaut) : il glisse de cote, flou puis net, et un trait rose passe dessous.
+   Option B (?title=b) : il se tape lettre par lettre avec un curseur rose. Une seule fois. */
 (function(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var ph=document.querySelector('.pagehead'); if(!ph) return;
   var h1=ph.querySelector('h1'); if(!h1) return;
-  var n=0;
-  (function split(node,extra){
+  var B=/[?&]title=b\b/.test(location.search);
+  var words=[];
+  (function split(node,pink){
     [].slice.call(node.childNodes).forEach(function(c){
       if(c.nodeType===3){
         var frag=document.createDocumentFragment();
         c.textContent.split(/(\s+)/).forEach(function(t){
           if(!t) return;
           if(/^\s+$/.test(t)){frag.appendChild(document.createTextNode(t));return;}
-          var w=document.createElement('span');w.className='tw';var i=document.createElement('i');i.textContent=t;
-          i.style.transitionDelay=(0.25+n*0.09+extra)+'s';n++;w.appendChild(i);frag.appendChild(w);
+          var w=document.createElement('span');w.className='tw'+(pink?' tp':'');var i=document.createElement('i');i.textContent=t;
+          w.appendChild(i);frag.appendChild(w);words.push({w:w,i:i,pink:pink});
         });
         c.parentNode.replaceChild(frag,c);
-      } else if(c.nodeType===1 && !c.classList.contains('tw')) split(c,extra+(c.tagName==='SPAN'?0.12:0));
+      } else if(c.nodeType===1 && !c.classList.contains('tw')) split(c,pink||c.tagName==='SPAN');
     });
-  })(h1,0);
-  ph.classList.add('pm');
+  })(h1,false);
+  /* minutage : les groupes (blancs / roses) se suivent avec une pause entre eux */
+  var t=0.25, prev=null, pinkStart=null, pinkEls=[];
+  words.forEach(function(o){
+    if(prev!==null && prev!==o.pink) t+=0.35;
+    o.at=t; if(o.pink){ if(pinkStart===null) pinkStart=t; pinkEls.push(o); }
+    o.i.style.transitionDelay=t+'s'; t+=o.pink?0.12:0.09; prev=o.pink;
+  });
+  var sp=h1.querySelector('span:not(.tw)');
+  if(sp && !B){ sp.classList.add('sweep'); sp.style.setProperty('--sd',(pinkStart+0.55)+'s'); }
+  ph.classList.add('pm'); if(B) ph.classList.add('tb');
+  if(B) pinkEls.forEach(function(o){ o.full=o.i.textContent; o.i.textContent=''; });
   var k=ph.querySelector('.k');
-  function type(){
-    if(!k) return; var full=k.textContent.trim(); if(!full||full==='\u2026') return;
+  function typeKicker(){
+    if(!k) return; var full=k.textContent.trim(); if(!full||full==='…') return;
     var cur=document.createElement('span');cur.className='cur';k.textContent='';k.appendChild(cur);
     var j=0;(function step(){ if(j<=full.length){ k.textContent=full.slice(0,j);k.appendChild(cur);j+=2;setTimeout(step,16);} else { k.textContent=full; } })();
   }
+  function typePink(){
+    if(!B||!pinkEls.length) return;
+    var cur=document.createElement('span');cur.className='tcur';
+    var q=pinkEls.slice(), idx=0, ch=0;
+    (function step(){
+      var o=q[idx]; if(!o){ setTimeout(function(){cur.remove();},900); return; }
+      ch++; o.i.textContent=o.full.slice(0,ch); o.i.appendChild(cur);
+      if(ch>=o.full.length){ idx++; ch=0; setTimeout(step,120); } else setTimeout(step,75);
+    })();
+  }
   requestAnimationFrame(function(){requestAnimationFrame(function(){ ph.classList.add('in');
-    if(k && k.textContent.trim()==='\u2026'){ var mo=new MutationObserver(function(){ if(k.textContent.trim()!=='\u2026'&&!k.querySelector('.cur')){mo.disconnect();type();} }); mo.observe(k,{childList:true,characterData:true,subtree:true}); }
-    else type();
+    if(k && k.textContent.trim()==='…'){ var mo=new MutationObserver(function(){ if(k.textContent.trim()!=='…'&&!k.querySelector('.cur')){mo.disconnect();typeKicker();} }); mo.observe(k,{childList:true,characterData:true,subtree:true}); }
+    else typeKicker();
+    if(B) setTimeout(typePink,(pinkStart||0.4)*1000);
   });});
 })();
 </script>
