@@ -371,15 +371,15 @@ const LOOKS = {
 /* un navigateur coupe une video muette quand l'onglet est cache : on la relance au retour */
 document.addEventListener('visibilitychange',function(){
   if(document.hidden) return;
-  var v=document.querySelector('#lb.on .rbox.film video'); if(v && v.paused) v.play().catch(function(){});
+  document.querySelectorAll('#lb.on .rbox.film video').forEach(function(v){ if(v.paused) v.play().catch(function(){}); });
 });
 const FILMS = {
-  "hommes-mike": { titre:"", src:"videos/models/scene-hommes-mike.mp4", poster:"img/models/scene-hommes-mike-poster.jpg" },
+  "hommes-mike": { titre:"", src:"videos/models/scene-hommes-mike.mp4", poster:"img/models/scene-hommes-mike-poster.jpg", more:[{ titre:"Oakley", src:"videos/models/mike-oakley.mp4", poster:"img/models/mike-oakley-poster.jpg" }] },
   "hommes-dave": { titre:"", src:"videos/models/scene-hommes-dave.mp4", poster:"img/models/scene-hommes-dave-poster.jpg" },
   "femmes-cyndie": { titre:"", src:"videos/models/scene-femmes-cyndie.mp4", poster:"img/models/scene-femmes-cyndie-poster.jpg" },
   "enfants-lea": { titre:"", src:"videos/models/scene-enfants-lea.mp4", poster:"img/models/scene-enfants-lea-poster.jpg" },
   "hommes-bill": { titre:"", src:"videos/models/scene-hommes-bill.mp4", poster:"img/models/scene-hommes-bill-poster.jpg" },
-  "hommes-simon": { titre:"", src:"videos/models/scene-hommes-simon.mp4", poster:"img/models/scene-hommes-simon-poster.jpg" },
+  "hommes-simon": { titre:"", src:"videos/models/scene-hommes-simon.mp4", poster:"img/models/scene-hommes-simon-poster.jpg", more:[{ titre:"Saserq", src:"videos/models/simon-saserq.mp4", poster:"img/models/simon-saserq-poster.jpg" }] },
   "ados-maeva": { titre:"", src:"videos/models/scene-ados-maeva.mp4", poster:"img/models/scene-ados-maeva-poster.jpg" },
   "ados-paul": { titre:"", src:"videos/models/scene-ados-paul.mp4", poster:"img/models/scene-ados-paul-poster.jpg" },
   "ados-mathis": { titre:"", src:"videos/models/scene-ados-mathis.mp4", poster:"img/models/scene-ados-mathis-poster.jpg" },
@@ -468,10 +468,11 @@ function render(){
         '<img src="'+SRC(m.face)+'" alt="'+m.name+'"></div></div>'+
       (fl ? '<div><div class="rlab">Film'+(fl.titre?' \u00b7 '+fl.titre:'')+'</div><div class="rbox sheet film">'+
         '<video src="'+SRC(fl.src)+'" poster="'+SRC(fl.poster)+'" muted playsinline loop preload="auto"></video></div>'+
+        (fl.more||[]).map(function(x){ return '<div class="rlab" style="margin-top:22px">Film'+(x.titre?' \u00b7 '+x.titre:'')+'</div><div class="rbox sheet film"><video src="'+SRC(x.src)+'" poster="'+SRC(x.poster)+'" muted playsinline loop preload="auto"></video></div>'; }).join('')+
         '<div class="rlab" style="margin-top:22px">Planche de r\u00e9f\u00e9rence</div><div class="rbox sheet"><img src="'+SRC(m.sheet)+'" alt="'+m.name+'"></div>'+'</div></div>' : '<div><div class="rlab">Planche de r\u00e9f\u00e9rence</div><div class="rbox sheet">'+
         '<img src="'+SRC(m.sheet)+'" alt="'+m.name+'"></div></div></div>');
   document.getElementById('lb-imgs').innerHTML = scHTML + ftHTML + refHTML;
-  if(fl){ var v=document.querySelector('#lb-imgs .rbox.film video'); v.muted=true; v.play().catch(function(){}); }
+  if(fl){ document.querySelectorAll('#lb-imgs .rbox.film video').forEach(function(v){ v.muted=true; v.play().catch(function(){}); }); }
   document.getElementById('lb').scrollTop=0;
 }
 /* clic sur le fond de la fiche (hors visage, film, planche) : on ferme */
