@@ -605,27 +605,33 @@ footer{}
 /* --- motion : les cinq visages vivants -------------------------------------
    Chaque boucle commence et finit sur la photo, regard face a nous : elle tourne sans a-coup.
    Quand la section apparait, les cinq sont d'abord droits comme sur les photos, puis
-   s'animent l'un apres l'autre : la femme et l'homme ensemble (elle lui fait un clin d'oeil),
-   puis l'ado, puis l'enfant et le grand-pere ensemble (ils se tournent l'un vers l'autre et rient).
+   s'animent tous en meme temps (la femme fait un clin d'oeil a l'homme, l'enfant et le
+   grand-pere se tournent l'un vers l'autre et rient).
    Les videos se chargent a l'approche de la section ; les departs partent quand elle est a l'ecran. */
 (function(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var faces=[].slice.call(document.querySelectorAll('.faces .face[data-k]'));
   if(!faces.length) return;
-  var DELAY={femmes:.2,hommes:.2,ados:2.2,enfants:3.8,seniors:4.6};   /* le grand-pere repond a l enfant, un temps apres */
-  var shown=false, ready={};
-  function go(f){ var v=f.querySelector('video'); setTimeout(function(){ var p=v.play(); if(p) p.catch(function(){}); },(DELAY[f.dataset.k]||0)*1000); }
+  /* les cinq partent ensemble : on attend que les cinq videos soient pretes a jouer
+     (au plus 4 s ; une video en retard partira des qu'elle est prete), puis un court temps
+     face a nous et tout le monde bouge en meme temps. */
+  var shown=false, ready={}, started=false, n=0;
+  function playAll(){ if(started) return; started=true;
+    setTimeout(function(){ faces.forEach(function(f){ if(ready[f.dataset.k]) start(f); }); },350); }
+  function start(f){ var v=f.querySelector('video'); v.currentTime=0; var p=v.play(); if(p) p.catch(function(){}); }
+  function check(){ if(shown && n===faces.length) playAll(); }
   function load(){
     faces.forEach(function(f){
       var v=f.querySelector('video'); if(v.src) return;
-      v.addEventListener('loadeddata',function(){ f.classList.add('live'); ready[f.dataset.k]=true; if(shown) go(f); },{once:true});
+      v.addEventListener('canplaythrough',function(){ if(ready[f.dataset.k]) return; f.classList.add('live'); ready[f.dataset.k]=true; n++;
+        if(started) start(f); else check(); });
       v.preload='auto'; v.src=v.dataset.face; v.load();
     });
   }
   var near=new IntersectionObserver(function(es){ if(es.some(function(e){return e.isIntersecting})){ near.disconnect(); load(); } },{rootMargin:'400px 0px'});
   near.observe(document.querySelector('.faces'));
   var seen=new IntersectionObserver(function(es){ if(es.some(function(e){return e.isIntersecting})){ seen.disconnect(); shown=true;
-    faces.forEach(function(f){ if(ready[f.dataset.k]) go(f); }); } },{threshold:.35});
+    check(); setTimeout(playAll,4000); } },{threshold:.35});
   seen.observe(document.querySelector('.faces'));
 })();
 
