@@ -617,14 +617,24 @@ footer{}
      face a nous et tout le monde bouge en meme temps. */
   var shown=false, ready={}, started=false, n=0;
   function playAll(){ if(started) return; started=true;
-    setTimeout(function(){ faces.forEach(function(f){ if(ready[f.dataset.k]) start(f); }); },350); }
+    setTimeout(function(){ faces.forEach(function(f){ if(ready[f.dataset.k] && f.dataset.k!=='seniors') start(f); }); },350); }
   function start(f){ var v=f.querySelector('video'); v.currentTime=0; var p=v.play(); if(p) p.catch(function(){}); }
+  /* l'enfant et le grand-pere se repondent au lieu de rire en meme temps : l'enfant se tourne
+     et revient, puis le grand-pere se tourne et revient, puis l'enfant, etc. (pas de boucle,
+     chacun relance l'autre quand il revient face a nous) */
+  var PAIR={enfants:'seniors',seniors:'enfants'}, HAND=4.6;
+  faces.forEach(function(f){ var k=f.dataset.k; if(!PAIR[k]) return;
+    var v=f.querySelector('video'), passed=false; v.loop=false; v.removeAttribute('loop');
+    v.addEventListener('play',function(){ passed=false; });
+    v.addEventListener('timeupdate',function(){ if(passed||v.currentTime<HAND) return; passed=true;
+      var o=faces.filter(function(g){return g.dataset.k===PAIR[k];})[0]; if(o && ready[PAIR[k]]) start(o); });
+  });
   function check(){ if(shown && n===faces.length) playAll(); }
   function load(){
     faces.forEach(function(f){
       var v=f.querySelector('video'); if(v.src) return;
       v.addEventListener('canplaythrough',function(){ if(ready[f.dataset.k]) return; f.classList.add('live'); ready[f.dataset.k]=true; n++;
-        if(started) start(f); else check(); });
+        if(started && f.dataset.k!=='seniors') start(f); else check(); });
       v.preload='auto'; v.src=v.dataset.face; v.load();
     });
   }

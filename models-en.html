@@ -432,7 +432,7 @@ const STATS = {"femmes-agatha": {"h": 176, "hair": "Blonde", "eyes": "Blue"}, "f
 function tall(cm){
   var i=Math.round(cm/2.54), f=Math.floor(i/12); return f+"'"+(i-f*12)+'"';
 }
-const B = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? "" : "https://ai.loudenim.com/";
+const B = /^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)$/.test(location.hostname) ? "" : "https://ai.loudenim.com/";
   const SRC = function(p){ return /^(https?:|data:)/.test(p) ? p : B + p; };
 let cur = 0;
 function openLB(slug){
