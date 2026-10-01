@@ -322,6 +322,14 @@ footer a:hover{color:var(--pink2)}
  .pwords .ink{font-size:7vw}
  .pwords .word.act .ink{font-size:14.5vw}
 }
+
+/* motion : l'aimant sur telephone. Le script de recalage est coupe sur telephone (il se
+   battrait avec le doigt) ; ici c'est le navigateur qui cale le film le plus proche au
+   centre quand on s'arrete pres de lui, sans gener le defilement. */
+@media(max-width:900px){
+ html{scroll-snap-type:y proximity}
+ .film{scroll-snap-align:center}
+}
 </style></head><body>
 <header>
   <div class="hbar">
