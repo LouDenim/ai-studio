@@ -295,6 +295,12 @@ footer{}
 .run .drop{animation:drop 1.8s cubic-bezier(.5,0,.3,1) infinite}
 @keyframes drop{0%{transform:translateY(-8px);opacity:0}25%{opacity:1}70%{transform:translateY(2px);opacity:1}100%{transform:translateY(2px);opacity:0}}
 @media(prefers-reduced-motion:reduce){.run *{animation:none!important}.steps li{transition:none}}
+
+/* motion : sur telephone, l'enfant et le grand-pere cote a cote (ils se repondent), l'ado seul au centre en dessous */
+@media(max-width:900px){
+ .faces .face[data-k=enfants]{order:3}.faces .face[data-k=seniors]{order:4}
+ .faces .face[data-k=ados]{order:5;grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}
+}
 </style></head><body>
 <header id="hd">
   <div class="hbar">

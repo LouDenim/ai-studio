@@ -305,6 +305,23 @@ footer a:hover{color:var(--pink2)}
  .vseq{grid-template-columns:repeat(2,1fr);gap:10px!important;padding:0 18px!important}
 }
 @media(prefers-reduced-motion:reduce){.pwords .rise{transform:none;transition:none}}
+
+/* motion : le mot actif en grand, les deux autres plus petits (on gagne de la place pour voir
+   le premier film avec son titre) ; au clic, les tailles s'echangent. Marge a droite pour que
+   le "s" final ne soit plus coupe (l'interlettrage negatif le faisait deborder de sa boite). */
+.pwords{align-items:baseline;gap:2.2vw}
+.pwords .word{padding:.12em .16em .1em .06em;margin:-.1em -.12em -.04em -.04em}
+.pwords .ink{font-size:clamp(30px,3.6vw,60px);transition:color .45s,font-size .55s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,1.4,.4,1)}
+.pwords .word.act .ink{font-size:clamp(56px,7.8vw,132px)}
+.pwords .amp{font-size:clamp(26px,3vw,50px);line-height:1}
+.pwords .lab2:not(.act){opacity:0!important}
+.pwords.in .lab2{transition:opacity .4s .25s,color .3s}
+@media(max-width:900px){
+ .pwords{flex-direction:row;align-items:baseline;justify-content:center;gap:3.5vw}
+ .pwords .item{margin:0}
+ .pwords .ink{font-size:7vw}
+ .pwords .word.act .ink{font-size:14.5vw}
+}
 </style></head><body>
 <header>
   <div class="hbar">
