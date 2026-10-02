@@ -200,11 +200,15 @@ footer{}
 .mo.v{grid-row:span 2}
 .mo video{width:100%;height:100%;object-fit:cover;display:block}
 .reelsec .ctas{margin-top:18px}
-/* telephone : une seule bande, et seulement trois tuiles */
+/* telephone : les deux bandes, chacune reduite a ses trois premieres colonnes,
+   soit huit tuiles (quatre verticales, quatre paysages) au lieu de trois.
+   Memes proportions qu'en grand : aucun format n'est rogne. */
 @media(max-width:760px){
- .band.a{grid-template-columns:.5625fr .889fr;aspect-ratio:1.4515}
- .band.b{display:none}
- .band.a .mo:nth-child(n+4){display:none}
+ .mosaic{gap:6px;padding:6px}
+ .band{gap:6px}
+ .band.a{grid-template-columns:.5625fr .889fr .5625fr;aspect-ratio:2.06}
+ .band.b{grid-template-columns:.889fr .5625fr .5625fr;aspect-ratio:2.06}
+ .band .mo:nth-child(n+5){display:none}
 }
 
 /* ---------- menu mobile : bouton burger + panneau deroulant ---------- */
