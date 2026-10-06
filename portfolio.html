@@ -744,15 +744,36 @@ footer a:hover{color:var(--pink2)}
     });
   });
 
-  // lecture à l'approche, en respectant une pause volontaire
+  // chargement a l'approche (en avance, sans lecture).
+  // Un seul film joue a la fois : celui qui occupe le mieux l'ecran. Il demarre
+  // toujours depuis le debut ; des qu'il perd la place, il est arrete et remis a zero.
   if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){
-      var v=e.target;
-      if(e.isIntersecting){ load(v); v.muted=!soundOn;
-        if(!v.dataset.userPaused) v.play().catch(function(){ v.muted=true; v.play().catch(function(){}); }); }
-      else { v.pause(); v.muted=true; v.currentTime=0; v.dataset.userPaused=''; paintBar(v); }
-    })},{rootMargin:'300px 0px',threshold:.12});
-    all.forEach(function(v){io.observe(v)});
+    var pre=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting) load(e.target);
+    })},{rootMargin:'600px 0px',threshold:0});
+    var active=null;
+    function stop(v){ v.pause(); v.muted=true; try{ v.currentTime=0; }catch(_){} v.dataset.userPaused=''; paintBar(v); }
+    function start(v){ load(v); try{ v.currentTime=0; }catch(_){} paintBar(v); v.muted=!soundOn;
+      v.play().catch(function(){ v.muted=true; v.play().catch(function(){}); }); }
+    function pick(){
+      var best=null, bs=0, vh=innerHeight, mid=vh/2;
+      all.forEach(function(v){ var r=v.getBoundingClientRect(); if(!r.height) return;
+        var vis=Math.max(0,Math.min(r.bottom,vh)-Math.max(r.top,0));
+        var frac=vis/Math.min(r.height,vh);               /* part du film visible */
+        var c=1-Math.abs((r.top+r.bottom)/2-mid)/vh;        /* proximite du centre */
+        var sc=frac>=.5 ? frac*2+c : 0;
+        if(sc>bs){ bs=sc; best=v; } });
+      if(best===active) return;
+      if(active) stop(active);
+      active=best; if(active) start(active);
+    }
+    var pickRaf=null;
+    function schedule(){ if(pickRaf) return; pickRaf=requestAnimationFrame(function(){ pickRaf=null; pick(); }); }
+    addEventListener('scroll',schedule,{passive:true}); addEventListener('resize',schedule);
+    /* changement d'onglet Films / Reels / Images : on re-evalue sans attendre un defilement */
+    document.addEventListener('click',function(){ setTimeout(schedule,80); setTimeout(schedule,600); });
+    all.forEach(function(v){pre.observe(v)});
+    schedule();
   } else { all.forEach(function(v){load(v);v.play().catch(function(){})}); }
   /* le premier film part des l'ouverture : pas d'attente sur l'observateur */
   if(all[0]){ all[0].preload='auto'; load(all[0]); }
