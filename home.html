@@ -309,6 +309,31 @@ footer{}
  .faces .face[data-k=ados]{order:5;grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}
 }
 </style></head><body>
+<style>
+/* iPhone en mode economie d'energie : Safari bloque la lecture auto et affiche un rond "lecture".
+   On cache ce rond : la page montre l'image fixe, et le premier toucher relance tout. */
+video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+video::-webkit-media-controls{display:none!important}
+</style>
+<script>
+/* Filet lecture : on note chaque video que la page a voulu lancer. Si le navigateur a refuse
+   (mode economie d'energie, economiseur de donnees...), le premier toucher, clic ou touche
+   relance celles qui devraient tourner et sont a l'ecran. */
+(function(){
+  var P=HTMLMediaElement.prototype, play=P.play, pause=P.pause;
+  P.play=function(){ this._want=true; return play.apply(this,arguments); };
+  P.pause=function(){ this._want=false; return pause.apply(this,arguments); };
+  function kick(){
+    [].forEach.call(document.querySelectorAll('video'),function(v){
+      if(!v._want || !v.paused) return;
+      var r=v.getBoundingClientRect(); if(!r.height || r.bottom<0 || r.top>innerHeight) return;
+      var p=play.call(v); if(p&&p.catch) p.catch(function(){});
+    });
+  }
+  ['touchend','click','keydown'].forEach(function(t){ addEventListener(t,kick,{passive:true,capture:true}); });
+  addEventListener('scroll',function(){ clearTimeout(kick.t); kick.t=setTimeout(kick,200); },{passive:true});
+})();
+</script>
 <header id="hd">
   <div class="hbar">
     <input type="checkbox" id="navtoggle" class="navtoggle" hidden>
