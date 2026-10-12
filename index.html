@@ -19,33 +19,66 @@
 <meta property="og:image:alt" content="Lou Denim">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ai.loudenim.com/og-image.jpg">
+<style>html,body{margin:0;height:100%;background:#0a0a0c}</style>
 <!-- Language gateway: English by default (Lou's main site loudenim.com is English),
-     French only if the visitor's browser prefers French. Runs before paint, uses
-     location.replace() so it doesn't sit in the back-button history. Black background
-     matches the site so there is no white flash. -->
+     French only if the visitor's browser prefers French. Uses location.replace() so it
+     doesn't sit in the back-button history. Black background (style above, before any
+     script) so there is no white flash.
+     Analytics (12 Oct 2026): the Cloudflare beacon is loaded HERE and the redirect waits
+     until its page-view request has finished (it is an XHR, which a navigation would
+     cancel). Without this the arrival was never counted and home pages all showed
+     "ai.loudenim.com" as referrer. Safety cap: redirect after 1.5 s whatever happens.
+     ?nostats=1 / ?stats=1 work exactly as on the other pages. -->
 <script>
 (function () {
+  var target = 'home-en.html';
   try {
     var langs = navigator.languages && navigator.languages.length
       ? navigator.languages : [navigator.language || navigator.userLanguage || 'en'];
-    var prefersFrench = false;
     for (var i = 0; i < langs.length; i++) {
       var l = (langs[i] || '').toLowerCase();
-      if (l.indexOf('fr') === 0) { prefersFrench = true; break; }  // fr, fr-FR, fr-CA…
-      if (l.indexOf('en') === 0) { prefersFrench = false; break; } // English wins if it comes first
+      if (l.indexOf('fr') === 0) { target = 'home.html'; break; }  // fr, fr-FR, fr-CA…
+      if (l.indexOf('en') === 0) { break; }                        // English wins if it comes first
     }
-    location.replace(prefersFrench ? 'home.html' : 'home-en.html');
-  } catch (e) {
-    location.replace('home-en.html');
-  }
+  } catch (e) {}
+
+  var gone = false;
+  function go() { if (gone) return; gone = true; location.replace(target); }
+
+  var stats = true;
+  try {
+    var p = new URLSearchParams(location.search);
+    if (p.has('nostats')) localStorage.setItem('ld-nostats', '1');
+    if (p.has('stats'))   localStorage.removeItem('ld-nostats');
+    if (localStorage.getItem('ld-nostats') === '1') stats = false;
+  } catch (e) {}
+  if (!stats) { go(); return; }
+
+  try {
+    // Redirect as soon as the beacon's page-view request completes.
+    var X = XMLHttpRequest.prototype, open = X.open, send = X.send;
+    X.open = function (m, u) { this._ldRum = String(u).indexOf('cdn-cgi/rum') !== -1; return open.apply(this, arguments); };
+    X.send = function () { if (this._ldRum) this.addEventListener('loadend', go); return send.apply(this, arguments); };
+    // If a future beacon version uses sendBeacon instead, it survives navigation: go right after.
+    if (navigator.sendBeacon) {
+      var sb = navigator.sendBeacon;
+      navigator.sendBeacon = function (u) { var r = sb.apply(navigator, arguments); if (String(u).indexOf('cdn-cgi/rum') !== -1) setTimeout(go, 0); return r; };
+    }
+    var s = document.createElement('script');
+    s.defer = true;
+    s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    s.setAttribute('data-cf-beacon', '{"token": "593e60bc674f4be5b7ba0b3554b716af"}');
+    s.onerror = go;
+    document.head.appendChild(s);
+  } catch (e) { go(); return; }
+  setTimeout(go, 1500);
 })();
 </script>
-<!-- No-JS fallback: default to English -->
-<meta http-equiv="refresh" content="0; url=home-en.html">
+<!-- No-JS fallback: default to English (inside noscript so it never cuts the beacon short) -->
+<noscript><meta http-equiv="refresh" content="0; url=home-en.html"></noscript>
 <link rel="alternate" hreflang="en" href="https://ai.loudenim.com/home-en.html">
 <link rel="alternate" hreflang="fr" href="https://ai.loudenim.com/home.html">
 <link rel="alternate" hreflang="x-default" href="https://ai.loudenim.com/home-en.html">
-<style>html,body{margin:0;height:100%;background:#0a0a0c}</style>
 </head>
 <body>
 <noscript>
@@ -55,22 +88,5 @@
     <a href="home.html" style="color:#ff7fc0;text-decoration:none">Entrer — Français</a>
   </p>
 </noscript>
-<!-- Cloudflare Web Analytics -->
-<script>
-(function(){
-  try{
-    var p = new URLSearchParams(location.search);
-    if (p.has('nostats')) localStorage.setItem('ld-nostats','1');
-    if (p.has('stats'))   localStorage.removeItem('ld-nostats');
-    if (localStorage.getItem('ld-nostats') === '1') return;
-  }catch(e){}
-  var s = document.createElement('script');
-  s.type = 'module';
-  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-  s.setAttribute('data-cf-beacon', '{"token": "593e60bc674f4be5b7ba0b3554b716af"}');
-  document.body.appendChild(s);
-})();
-</script>
-<!-- End Cloudflare Web Analytics -->
 </body>
 </html>
