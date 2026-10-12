@@ -119,3 +119,5 @@ ladder · portfolio pruning when 12+ films · simulator footer "Grille tarifaire
 Intensity Driven 4K replacement (master on external drive) · nicer Intensity Driven poster ·
 FREE FALL.mp4 (new film, not yet on site) · rotate the GitHub PAT "claude-ai-studio"
 (exp 7 Sep 2026 — was pasted in chat) · Lou may delete site-update-last-orders backup folder.
+
+- 2026-10-11: SWOON stills series added as 01 on portfolio (FR/EN). Video tile (img/swoon/swoon-01.mp4) + 3 photos. Old series renumbered 02–08. Merged from swoon-stills.
