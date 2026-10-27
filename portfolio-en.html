@@ -118,11 +118,13 @@ body{padding-top:0}
 .film .fr{position:relative;background:#111}
 .film video{width:100%;aspect-ratio:16/9;height:auto;object-fit:cover;display:block;cursor:pointer}
 
-/* films : chaque film (image + titre + son) tient dans la hauteur de l'ecran,
-   pour que le titre et le bouton de son soient toujours visibles. */
+/* films : un film = image + titre + son, et le tout tient SOUS le menu, dans la hauteur
+   de l'ecran. Rien du film voisin ne depasse, et le menu ne recouvre plus l'image. */
 @media(min-width:901px){
- .film{width:min(100%,max(640px,calc((100vh - 150px)*16/9)));width:min(100%,max(640px,calc((100svh - 150px)*16/9)));margin-left:auto;margin-right:auto}
- .film .credits{padding-left:0;padding-right:0}
+ :root{--hh:76px;--ch:88px}
+ header:before{height:100%}
+ .film{margin-top:var(--hh);width:min(100%,max(640px,calc((100vh - var(--hh) - var(--ch))*16/9)));width:min(100%,max(640px,calc((100svh - var(--hh) - var(--ch))*16/9)));margin-left:auto;margin-right:auto}
+ .film .credits{padding-left:0;padding-right:0;min-height:var(--ch);box-sizing:border-box}
 }
 
 /* barre de lecture : n'apparaît qu'au survol de la vidéo */
@@ -994,6 +996,11 @@ video::-webkit-media-controls{display:none!important}
   var films=[].slice.call(document.querySelectorAll('.film'));
   if(!films.length) return;
 
+  /* hauteur du menu : le film se cale juste en dessous */
+  function HH(){ var h=document.querySelector('header'); return h?h.offsetHeight:0; }
+  function setHH(){ if(matchMedia('(min-width:901px)').matches) document.documentElement.style.setProperty('--hh',HH()+'px'); }
+  setHH(); addEventListener('resize',setHH); addEventListener('load',setHH);
+
   var raf=null, idle=null, arrival=null, touched=false;
   function ease(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
   /* l'aimant demarre sec et se pose en douceur : ca se sent tout de suite */
@@ -1032,7 +1039,7 @@ video::-webkit-media-controls{display:none!important}
 
   arrival=setTimeout(function(){
     if(touched || scrollY>4 || document.getElementById('v-films').hidden) return;
-    glide(centre(films[0]) - innerHeight/2, 650);
+    glide(centre(films[0]) - (innerHeight+HH())/2, 650);
   }, 3500);   /* motion : le temps de voir le titre Films / Reels / Stills */
 
   addEventListener('scroll', function(){
@@ -1043,7 +1050,7 @@ video::-webkit-media-controls{display:none!important}
       /* il faut qu'un film occupe au moins un tiers de l'ecran, sinon on est
          ailleurs (reels, images, pied de page) et on ne touche a rien */
       if(!n.el || n.vis < innerHeight*0.28) return;
-      glide(centre(n.el) - innerHeight/2, 520, snapEase);
+      glide(centre(n.el) - (innerHeight+HH())/2, 520, snapEase);
     }, 90);
   }, {passive:true});
 
